@@ -33,6 +33,42 @@
       ]
     }
   ],
+  "projectCategories": [
+    {
+      "id": "product",
+      "label": "Product Design"
+    },
+    {
+      "id": "web",
+      "label": "Web Design"
+    },
+    {
+      "id": "brand",
+      "label": "Brand Identity"
+    }
+  ],
+  "projectViewModes": [
+    {
+      "id": "bento",
+      "label": "Bento view",
+      "icon": "bento"
+    },
+    {
+      "id": "two",
+      "label": "Two column view",
+      "icon": "two"
+    },
+    {
+      "id": "four",
+      "label": "Four column view",
+      "icon": "four"
+    },
+    {
+      "id": "single",
+      "label": "Single column view",
+      "icon": "single"
+    }
+  ],
   "projects": [
     {
       "title": "Hant AI",
