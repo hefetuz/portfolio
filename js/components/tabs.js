@@ -36,7 +36,7 @@ export function updateTabIndicator(tabs = document.querySelector(".filter-tabs")
   const activeBox = active.getBoundingClientRect();
   indicator.style.width = `${activeBox.width}px`;
   indicator.style.height = `${activeBox.height}px`;
-  indicator.style.transform = `translate3d(${activeBox.left - tabsBox.left}px, ${activeBox.top - tabsBox.top}px, 0)`;
+  indicator.style.transform = `translate3d(${activeBox.left - tabsBox.left - 3}px, ${activeBox.top - tabsBox.top - 3}px, 0)`;
 }
 
 export function updateAllTabIndicators() {
