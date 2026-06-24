@@ -1,4 +1,5 @@
 import { cardLayoutFlush, escapeAttr, escapeHtml } from "../utils/dom.js";
+import { getProjectCover, mediaElementTemplate } from "../utils/media.js";
 import { observeReveal } from "./reveal.js";
 
 const resizeAnimations = new WeakMap();
@@ -6,10 +7,11 @@ const resizeAnimations = new WeakMap();
 function projectCardTemplate(project, visibleIndex, sourceIndex) {
   const scope = project.scope || project.summary || project.description;
   const date = project.date || project.meta;
+  const cover = getProjectCover(project);
 
   return `
     <article class="project-card t-resize bento-${(visibleIndex % 8) + 1}" tabindex="0" role="button" data-project-index="${sourceIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
-      <img src="${escapeAttr(project.image)}" alt="${escapeAttr(project.title)}">
+      ${mediaElementTemplate(cover)}
       <div class="project-info">
         <div class="project-line">
           <h2 class="project-name text-card-title">${escapeHtml(project.title)}</h2>

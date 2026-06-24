@@ -1,4 +1,4 @@
-import { escapeAttr } from "../utils/dom.js";
+import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
 export function wireLinks(content) {
   document.getElementById("emailLink").href = `mailto:${content.site.email}`;
@@ -20,10 +20,11 @@ function renderSocialLinks(content) {
   socialLinks.innerHTML = `
     <span class="social-label text-ui" aria-hidden="true">Social</span>
     ${links.map(([label, icon, url]) => `
-    <a class="social-tab" href="${escapeAttr(url)}" target="_blank" rel="noreferrer" aria-label="${escapeAttr(label)}" title="${escapeAttr(label)}">
+    <a class="social-tab t-tt-wrap" href="${escapeAttr(url)}" target="_blank" rel="noreferrer" aria-label="${escapeAttr(label)}" aria-describedby="tt-social-${escapeAttr(icon)}">
       <span class="social-icon social-icon-${escapeAttr(icon)}" aria-hidden="true">
         ${socialIcon(icon)}
       </span>
+      <span class="t-tt text-ui" id="tt-social-${escapeAttr(icon)}" role="tooltip">${escapeHtml(label)}</span>
     </a>
   `).join("")}
   `;

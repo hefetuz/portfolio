@@ -12,7 +12,7 @@ import { animateProjectViewChange, bindProjectGrid, renderProjects } from "./com
 import { startAppearAnimations } from "./components/reveal.js";
 import { renderServices } from "./components/services.js";
 import { bindLanguageMenu, updateClock, wireLinks } from "./components/site-shell.js";
-import { bindTabs, renderCategoryTabs, renderViewTabs, updateAllTabIndicators } from "./components/tabs.js";
+import { bindAdaptiveTooltips, bindTabs, renderCategoryTabs, renderViewTabs, updateAllTabIndicators } from "./components/tabs.js";
 import { setTextBindings, splitIntroWords, syncButtonLabels } from "./components/text-bindings.js";
 import { escapeHtml } from "./utils/dom.js";
 
@@ -111,6 +111,8 @@ function handleRoute() {
 }
 
 function bindInteractions() {
+  bindAdaptiveTooltips();
+
   bindTabs(".filter-tabs", (button) => {
     state.filter = button.dataset.filter;
     renderCurrentProjects();

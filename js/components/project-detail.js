@@ -1,4 +1,5 @@
 import { cardLayoutFlush, escapeAttr, escapeHtml } from "../utils/dom.js";
+import { getMediaType, getProjectMedia, mediaElementTemplate, normalizeMediaItem } from "../utils/media.js";
 import { observeReveal } from "./reveal.js";
 
 const DETAIL_HASH_PREFIX = "#work/";
@@ -22,37 +23,6 @@ function getProjectCategories(project) {
   return project.categories || [project.category].filter(Boolean);
 }
 
-function uniqueImages(images) {
-  const seen = new Set();
-  return images.filter((image) => {
-    const src = typeof image === "string" ? image : image?.src;
-    if (!src || seen.has(src)) return false;
-    seen.add(src);
-    return true;
-  });
-}
-
-function getProjectImages(project, projects = []) {
-  const explicitImages = uniqueImages(project.images || []);
-  if (explicitImages.length) return explicitImages;
-
-  const categories = new Set(getProjectCategories(project));
-  const relatedImages = projects
-    .filter((item) => item !== project && getProjectCategories(item).some((category) => categories.has(category)))
-    .map((item) => ({
-      src: item.image,
-      caption: item.summary || item.title
-    }));
-
-  return uniqueImages([
-    {
-      src: project.image,
-      caption: project.summary || project.title
-    },
-    ...relatedImages
-  ]).slice(0, 5);
-}
-
 function projectSectionTemplate(title, body) {
   if (!body) return "";
   return `
@@ -73,14 +43,15 @@ function projectMetaTemplate(label, value) {
   `;
 }
 
-function visualTemplate(image, index, project) {
-  const source = typeof image === "string" ? image : image.src;
-  const alt = typeof image === "string" ? project.title : image.alt || project.title;
+function visualTemplate(media, index, project) {
+  const item = normalizeMediaItem(media, project.title);
+  const source = item.src;
+  const alt = item.alt || project.title;
 
   return `
     <figure class="project-visual project-visual-${index + 1}" style="--appear-delay:${120 + index * 90}ms">
-      <button class="project-visual-zoom" type="button" data-visual-zoom="${escapeAttr(source)}" data-visual-alt="${escapeAttr(alt)}" aria-label="Expand ${escapeAttr(alt)}">
-        <img src="${escapeAttr(source)}" alt="${escapeAttr(alt)}">
+      <button class="project-visual-zoom" type="button" data-visual-zoom="${escapeAttr(source)}" data-visual-type="${escapeAttr(item.type)}" data-visual-alt="${escapeAttr(alt)}"${item.poster ? ` data-visual-poster="${escapeAttr(item.poster)}"` : ""} aria-label="Expand ${escapeAttr(alt)}">
+        ${mediaElementTemplate(item)}
       </button>
     </figure>
   `;
@@ -89,18 +60,40 @@ function visualTemplate(image, index, project) {
 function bindVisualZoomButtons(showcase) {
   showcase.querySelectorAll("[data-visual-zoom]").forEach((button) => {
     button.addEventListener("click", () => {
-      openVisualLightbox(button.dataset.visualZoom, button.dataset.visualAlt);
+      openVisualLightbox({
+        source: button.dataset.visualZoom,
+        type: button.dataset.visualType,
+        alt: button.dataset.visualAlt,
+        poster: button.dataset.visualPoster
+      });
     });
   });
 }
 
-function openVisualLightbox(source, alt) {
+function openVisualLightbox({ source, type = "image", alt = "", poster = "" }) {
   const lightbox = document.getElementById("visualLightbox");
   const image = document.getElementById("visualLightboxImage");
-  if (!lightbox || !image || !source) return;
+  const video = document.getElementById("visualLightboxVideo");
+  if (!lightbox || !image || !video || !source) return;
 
-  image.src = source;
-  image.alt = alt || "";
+  const mediaType = type || getMediaType(source);
+  image.hidden = mediaType === "video";
+  video.hidden = mediaType !== "video";
+
+  if (mediaType === "video") {
+    video.src = source;
+    video.poster = poster || "";
+    video.setAttribute("aria-label", alt || "");
+    image.removeAttribute("src");
+    image.alt = "";
+  } else {
+    image.src = source;
+    image.alt = alt || "";
+    video.pause();
+    video.removeAttribute("src");
+    video.removeAttribute("poster");
+  }
+
   lightbox.hidden = false;
   lightbox.classList.add("is-open");
 }
@@ -108,6 +101,7 @@ function openVisualLightbox(source, alt) {
 function closeVisualLightbox() {
   const lightbox = document.getElementById("visualLightbox");
   const image = document.getElementById("visualLightboxImage");
+  const video = document.getElementById("visualLightboxVideo");
   if (!lightbox || lightbox.hidden) return;
 
   lightbox.classList.remove("is-open");
@@ -115,6 +109,12 @@ function closeVisualLightbox() {
   if (image) {
     image.removeAttribute("src");
     image.alt = "";
+  }
+  if (video) {
+    video.pause();
+    video.removeAttribute("src");
+    video.removeAttribute("poster");
+    video.hidden = true;
   }
 }
 
@@ -144,7 +144,7 @@ export function renderProjectDetail({
   panel = document.getElementById("projectDetailPanel"),
   showcase = document.getElementById("projectShowcase")
 }) {
-  const images = getProjectImages(project, projects);
+  const media = getProjectMedia(project, projects);
   const categories = getProjectCategories(project).join(", ");
   const role = project.role || project.meta;
   const year = project.date || project.meta;
@@ -172,7 +172,7 @@ export function renderProjectDetail({
   `;
 
   showcase.innerHTML = `
-    ${images.map((image, imageIndex) => visualTemplate(image, imageIndex, project)).join("")}
+    ${media.map((item, mediaIndex) => visualTemplate(item, mediaIndex, project)).join("")}
   `;
 
   observeReveal(showcase.querySelectorAll(".project-visual"));

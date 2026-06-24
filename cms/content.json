@@ -46,6 +46,13 @@
         "Logo, identity and scalable visual systems",
         "Digital communication and campaign art direction"
       ]
+    },
+    {
+      "title": "Artwork",
+      "items": [
+        "Editorial, political and music-led digital artworks",
+        "Product visuals, composition and visual storytelling"
+      ]
     }
   ],
   "projectCategories": [
@@ -67,7 +74,11 @@
     },
     {
       "id": "brand",
-      "label": "Brand"
+      "label": "Branding"
+    },
+    {
+      "id": "artwork",
+      "label": "Artwork"
     }
   ],
   "projectViewModes": [
@@ -94,100 +105,347 @@
   ],
   "projects": [
     {
-      "title": "Hant AI",
+      "title": "Hant",
+      "slug": "hant",
       "category": "product",
-      "categories": ["product"],
-      "meta": "Co-Founder & CPO / Nov 2024 - Present",
+      "categories": [
+        "product",
+        "web",
+        "brand",
+        "motion"
+      ],
+      "meta": "Product, Web, Brand & Motion",
       "date": "2024 - Present",
-      "summary": "AI Product Platform",
-      "service": "Product Strategy & UX System",
-      "goal": "Goal: Product strategy and UX system.",
-      "description": "Led product vision, positioning, user research, design system, information architecture, prototypes, analytics loops and product narrative for an AI product.",
-      "image": "assets/project-1-hant-ai.webp"
+      "summary": "AI Travel App",
+      "scope": "AI Travel App",
+      "service": "Product Design, Web Design, Brand Identity, Motion",
+      "goal": "Goal: Make AI-assisted travel planning feel simple, personal and memorable.",
+      "description": "AI travel app experience covering product strategy, UX flows, web presence, brand identity and motion language for a smarter trip-planning journey.",
+      "image": "assets/project-1-hant-ai.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-1-hant-ai.webp",
+          "alt": "Hant",
+          "caption": "AI Travel App"
+        }
+      ]
     },
     {
-      "title": "En Kiymetlim",
+      "title": "En Kıymetlim",
+      "slug": "en-kiymetlim",
       "category": "product",
-      "categories": ["product", "web", "brand"],
-      "meta": "Lead Designer / Nov 2023 - Sep 2024",
+      "categories": [
+        "product",
+        "web",
+        "brand"
+      ],
+      "meta": "Product, Web & Brand",
       "date": "2023 - 2024",
-      "summary": "Product & Web Design",
-      "service": "Brand Identity & Interface Design",
-      "goal": "Goal: Scalable brand and UX system.",
-      "description": "Managed product design, web interfaces and UX processes; created brand identity, logo and a scalable visual system for digital consistency.",
-      "image": "assets/project-2-en-kiymetlim.webp"
+      "summary": "Ebeveynlik App",
+      "scope": "Parent Health & Child Care App",
+      "service": "Product Design, Web Design, Brand Identity",
+      "goal": "Goal: Create a calm parenthood experience for health tracking and child care support.",
+      "description": "Parent health and child care app designed as a simple ebeveynlik product, with product UX, web interface and brand system working as one experience.",
+      "image": "assets/project-2-en-kiymetlim.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-2-en-kiymetlim.webp",
+          "alt": "En Kıymetlim",
+          "caption": "Ebeveynlik App"
+        }
+      ]
     },
     {
-      "title": "Weltschmerz Company",
-      "category": "brand",
-      "categories": ["brand", "motion"],
-      "meta": "Lead Designer / Nov 2021 - May 2023",
-      "date": "2021 - 2023",
-      "summary": "Fashion Brand Identity",
-      "service": "Art Direction & Motion",
-      "goal": "Goal: Visual identity and campaign direction.",
-      "description": "Directed visual identity, digital communication and fashion aesthetics; designed collections and managed photo, video and post-production processes.",
-      "image": "assets/project-3-weltschmerz-company.webp"
-    },
-    {
-      "title": "Star Akim",
-      "category": "web",
-      "categories": ["web", "motion"],
-      "meta": "Designer / Feb 2020 - Oct 2021",
-      "date": "2020 - 2021",
-      "summary": "Digital Visual Design",
-      "service": "Web UI & Marketing Visuals",
-      "goal": "Goal: Marketing visuals and web UI.",
-      "description": "Created marketing visuals, digital banners and UI/UX-focused design work.",
-      "image": "assets/project-4-star-akim.webp"
-    },
-    {
-      "title": "Design Systems",
+      "title": "Sağlık Gelsin",
+      "slug": "saglik-gelsin",
       "category": "product",
-      "categories": ["product"],
-      "meta": "Figma / Components / UI Consistency",
-      "date": "Product Systems",
-      "summary": "Figma Component Library",
-      "service": "Design Systems",
-      "goal": "Goal: Consistent scalable interfaces.",
-      "description": "Built component libraries, typography and color rules to keep product interfaces scalable and consistent.",
-      "image": "assets/project-5-design-systems.webp"
+      "categories": [
+        "product",
+        "web",
+        "brand"
+      ],
+      "meta": "Product, Web & Brand",
+      "date": "2024",
+      "summary": "Home Healthcare App",
+      "scope": "Nurse & Physiotherapist Booking App",
+      "service": "Product Design, Web Design, Brand Identity",
+      "goal": "Goal: Help people call trusted healthcare professionals home with confidence.",
+      "description": "Home healthcare booking app for requesting nurses, physiotherapists and similar care providers, shaped through service UX, web flows and brand trust signals.",
+      "image": "assets/project-7-ui-ux-prototyping.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-7-ui-ux-prototyping.webp",
+          "alt": "Sağlık Gelsin",
+          "caption": "Home Healthcare App"
+        }
+      ]
     },
     {
-      "title": "Brand Identity",
+      "title": "Saunakit",
+      "slug": "saunakit",
       "category": "brand",
-      "categories": ["brand"],
-      "meta": "Logo Design / Visual Systems",
-      "date": "Brand Systems",
-      "summary": "Brand Identity System",
-      "service": "Logo & Visual Identity",
-      "goal": "Goal: Memorable brand language.",
-      "description": "Created brand identities, logo systems, marketing visuals and digital communication assets.",
-      "image": "assets/project-6-brand-identity.webp"
+      "categories": [
+        "brand"
+      ],
+      "meta": "Physical Product Brand",
+      "date": "2024",
+      "summary": "Portable Sauna",
+      "scope": "Portable Sauna Product",
+      "service": "Logo & Visual Identity, Packaging Direction",
+      "goal": "Goal: Position a portable sauna as a clean, premium and easy-to-understand wellness product.",
+      "description": "Brand identity system for a physical portable sauna product, focused on clear product positioning, naming support, packaging direction and visual consistency.",
+      "image": "assets/project-5-design-systems.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-5-design-systems.webp",
+          "alt": "Saunakit",
+          "caption": "Portable Sauna"
+        }
+      ]
     },
     {
-      "title": "UI/UX Prototyping",
-      "category": "product",
-      "categories": ["product", "motion"],
-      "meta": "User Flows / Wireframes / Hi-Fi",
-      "date": "UX Design",
-      "summary": "Interface Prototyping",
-      "service": "User Flows & Hi-Fi Prototypes",
-      "goal": "Goal: Clear flows and validation.",
-      "description": "Designed information architecture, user flows, wireframes and high-fidelity prototypes for product teams.",
-      "image": "assets/project-7-ui-ux-prototyping.webp"
+      "title": "Raad Kahve",
+      "slug": "raad-kahve",
+      "category": "brand",
+      "categories": [
+        "brand"
+      ],
+      "meta": "Physical Product Brand",
+      "date": "2024",
+      "summary": "Coffee Brand",
+      "scope": "Coffee Product",
+      "service": "Logo & Visual Identity, Packaging Direction",
+      "goal": "Goal: Build a grounded coffee brand with a distinct shelf presence.",
+      "description": "Brand identity and packaging direction for a coffee product, balancing a warm product story with a clear visual system.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Raad Kahve",
+          "caption": "Coffee Brand"
+        }
+      ]
     },
     {
-      "title": "Front-End Design",
-      "category": "web",
-      "categories": ["web"],
-      "meta": "HTML / CSS / JavaScript",
-      "date": "Front-End",
-      "summary": "Interactive Web UI",
-      "service": "HTML, CSS & JavaScript",
-      "goal": "Goal: Bridge design and implementation.",
-      "description": "Bridged design and implementation with front-end design skills across modern web interfaces.",
-      "image": "assets/project-4-star-akim.webp"
+      "title": "Mambocino",
+      "slug": "mambocino",
+      "category": "brand",
+      "categories": [
+        "brand"
+      ],
+      "meta": "Physical Product Brand",
+      "date": "2024",
+      "summary": "Coffee Brand",
+      "scope": "Coffee Product",
+      "service": "Logo & Visual Identity, Packaging Direction",
+      "goal": "Goal: Create a playful but polished coffee identity for a physical product.",
+      "description": "Coffee brand identity for a physical product, built around naming, visual language and product-ready brand elements.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand"
+        }
+      ]
+    },
+    {
+      "title": "Sales Training Game",
+      "slug": "sales-training-game",
+      "category": "motion",
+      "categories": [
+        "motion"
+      ],
+      "meta": "Motion & Game UX",
+      "date": "2024",
+      "summary": "Sales Training Game",
+      "scope": "Interactive Training Experience",
+      "service": "Motion Design, Interaction Design",
+      "goal": "Goal: Make sales training more interactive, clear and memorable.",
+      "description": "Interactive sales training game concept with motion direction, UX rhythm and lightweight gameplay patterns for learning scenarios.",
+      "image": "assets/project-4-star-akim.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-4-star-akim.webp",
+          "alt": "Sales Training Game",
+          "caption": "Sales Training Game"
+        }
+      ]
+    },
+    {
+      "title": "Weltschmerz",
+      "slug": "weltschmerz",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork Series",
+      "date": "Artwork",
+      "summary": "Editorial Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Create an expressive visual atmosphere with strong editorial character.",
+      "description": "Artwork series focused on mood, cultural references and visual storytelling.",
+      "image": "assets/project-3-weltschmerz-company.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-3-weltschmerz-company.webp",
+          "alt": "Weltschmerz",
+          "caption": "Editorial Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Putin",
+      "slug": "putin",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Political Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Build a sharp political visual with clear character focus.",
+      "description": "Political artwork exploring portrait, tension and symbolic visual treatment.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Putin",
+          "caption": "Political Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Tayyip",
+      "slug": "tayyip",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Political Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Create a direct political artwork with a strong poster-like read.",
+      "description": "Political artwork built around composition, contrast and a clear editorial point of view.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Tayyip",
+          "caption": "Political Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Putin & Trump",
+      "slug": "putin-trump",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Political Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Frame two political figures inside one memorable visual narrative.",
+      "description": "Dual-character political artwork with emphasis on visual tension, hierarchy and symbolic composition.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Putin & Trump",
+          "caption": "Political Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Trump",
+      "slug": "trump",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Political Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Create a bold political portrait artwork with strong recognizability.",
+      "description": "Political portrait artwork designed with a poster-like composition and clear visual emphasis.",
+      "image": "assets/project-6-brand-identity.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-6-brand-identity.webp",
+          "alt": "Trump",
+          "caption": "Political Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Odoris Şişe Parfüm",
+      "slug": "odoris-sise-parfum",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Perfume Bottle Artwork",
+      "scope": "Product Visual Artwork",
+      "service": "Digital Artwork, Product Visual",
+      "goal": "Goal: Create a refined perfume bottle visual with premium product cues.",
+      "description": "Product-focused artwork for a perfume bottle, combining object presentation, lighting and visual mood.",
+      "image": "assets/project-5-design-systems.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-5-design-systems.webp",
+          "alt": "Odoris Şişe Parfüm",
+          "caption": "Perfume Bottle Artwork"
+        }
+      ]
+    },
+    {
+      "title": "Travis Scott",
+      "slug": "travis-scott",
+      "category": "artwork",
+      "categories": [
+        "artwork"
+      ],
+      "meta": "Artwork",
+      "date": "Artwork",
+      "summary": "Music Artwork",
+      "scope": "Visual Artwork",
+      "service": "Digital Artwork, Art Direction",
+      "goal": "Goal: Create a music-led artwork with a bold atmospheric identity.",
+      "description": "Music artwork inspired by performance, mood and contemporary visual culture.",
+      "image": "assets/project-3-weltschmerz-company.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-3-weltschmerz-company.webp",
+          "alt": "Travis Scott",
+          "caption": "Music Artwork"
+        }
+      ]
     }
   ],
   "playground": [
