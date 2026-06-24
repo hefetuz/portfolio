@@ -39,8 +39,14 @@
         <h2 class="text-heading" id="services-title">Services</h2>
         <div id="servicesList"></div>
         <div class="actions">
-          <a class="btn primary" id="emailLink" href="mailto:hefetuzlu@gmail.com">Send Email</a>
-          <a class="btn secondary" id="socialLink" href="https://www.behance.net/efetuzlu">Behance</a>
+          <a class="btn primary btn-icon" id="emailLink" href="mailto:hefetuzlu@gmail.com">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4 6.5h16v11H4z"></path>
+              <path d="m4.5 7 7.5 6 7.5-6"></path>
+            </svg>
+            <span>Send Email</span>
+          </a>
+          <div class="social-tabs fill-glass" id="socialLinks" aria-label="Social links"></div>
         </div>
       </section>
 
@@ -49,11 +55,17 @@
           <time id="clock" datetime="">--</time>
           <div class="language-menu" data-language-menu>
             <button class="language-trigger text-ui text-mono" type="button" aria-haspopup="menu" aria-expanded="false">
-              TR
+              <span data-language-current>TR</span>
             </button>
             <div class="language-dropdown t-dropdown" data-origin="bottom-right" role="menu">
-              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR">TR</button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN">EN</button>
+              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR" aria-label="Turkish">
+                <span>TR</span>
+                <img class="language-flag" src="assets/flag-tr.webp" alt="" aria-hidden="true">
+              </button>
+              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN" aria-label="English">
+                <span>EN</span>
+                <img class="language-flag" src="assets/flag-gb.webp" alt="" aria-hidden="true">
+              </button>
             </div>
           </div>
         </div>
@@ -63,6 +75,7 @@
           <a href="admin.html">CMS</a>
         </nav>
       </footer>
+      <section class="project-detail-panel" id="projectDetailPanel" aria-label="Project details" hidden></section>
     </aside>
 
     <main id="top" class="work-area">
@@ -76,18 +89,19 @@
         </div>
       </div>
       <section class="project-grid view-bento" id="work" aria-label="Selected work"></section>
+      <div class="detail-visual-toolbar" id="projectVisualToolbar" hidden>
+        <div class="segmented-control segmented-control-icon view-tabs detail-view-tabs fill-glass label-secondary" role="tablist" aria-label="Project visual view mode">
+          <span class="tab-indicator" aria-hidden="true"></span>
+        </div>
+      </div>
+      <section class="project-showcase" id="projectShowcase" aria-label="Project visuals" hidden></section>
     </main>
   </div>
 
-  <dialog id="projectDialog" class="dialog">
-    <button class="dialog-close" type="button" aria-label="Close">×</button>
-    <img id="dialogImage" src="assets/efe-avatar.svg" alt="">
-    <div>
-      <p class="text-body text-muted" id="dialogMeta"></p>
-      <h2 class="text-heading" id="dialogTitle"></h2>
-      <p class="text-body text-muted" id="dialogDescription"></p>
-    </div>
-  </dialog>
+  <div id="visualLightbox" class="visual-lightbox" role="dialog" aria-modal="true" aria-label="Expanded project visual" hidden>
+    <button class="visual-lightbox-close text-ui" type="button" data-visual-lightbox-close aria-label="Close expanded visual">Close</button>
+    <img id="visualLightboxImage" src="" alt="">
+  </div>
 
   <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
     <filter id="tab-glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">

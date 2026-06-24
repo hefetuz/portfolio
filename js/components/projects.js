@@ -4,16 +4,20 @@ import { observeReveal } from "./reveal.js";
 const resizeAnimations = new WeakMap();
 
 function projectCardTemplate(project, visibleIndex, sourceIndex) {
+  const scope = project.scope || project.summary || project.description;
+  const date = project.date || project.meta;
+
   return `
     <article class="project-card t-resize bento-${(visibleIndex % 8) + 1}" tabindex="0" role="button" data-project-index="${sourceIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
       <img src="${escapeAttr(project.image)}" alt="${escapeAttr(project.title)}">
       <div class="project-info">
-        <div class="project-head">
-          <h2 class="text-card-title">${escapeHtml(project.title)}</h2>
-          <small class="text-card-title">${escapeHtml(project.date || project.meta)}</small>
+        <div class="project-line">
+          <h2 class="project-name text-card-title">${escapeHtml(project.title)}</h2>
+          <small class="project-date text-ui text-muted">${escapeHtml(date)}</small>
         </div>
-        <p class="text-body text-muted">${escapeHtml(project.summary || project.description)}</p>
-        <p class="text-body text-muted">${escapeHtml(project.goal || "")}</p>
+        <div class="project-line">
+          <p class="project-scope text-body text-muted">${escapeHtml(scope)}</p>
+        </div>
       </div>
     </article>
   `;
@@ -104,7 +108,8 @@ export function bindProjectGrid({ target = document.getElementById("work"), getP
   target.addEventListener("click", (event) => {
     const card = event.target.closest(".project-card");
     if (!card) return;
-    onOpen(getProject(Number(card.dataset.projectIndex)));
+    const projectIndex = Number(card.dataset.projectIndex);
+    onOpen(getProject(projectIndex), projectIndex);
   });
 
   target.addEventListener("keydown", (event) => {
@@ -112,6 +117,7 @@ export function bindProjectGrid({ target = document.getElementById("work"), getP
     const card = event.target.closest(".project-card");
     if (!card) return;
     event.preventDefault();
-    onOpen(getProject(Number(card.dataset.projectIndex)));
+    const projectIndex = Number(card.dataset.projectIndex);
+    onOpen(getProject(projectIndex), projectIndex);
   });
 }

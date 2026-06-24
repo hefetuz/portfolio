@@ -1,6 +1,13 @@
 import { loadContent } from "./cms/content.js";
 import { bindAvatar } from "./components/avatar.js";
-import { bindProjectDialog, openProjectDialog } from "./components/project-dialog.js";
+import {
+  animateProjectVisualViewChange,
+  bindProjectDetail,
+  clearProjectDetail,
+  getProjectIndexFromHash,
+  renderProjectDetail,
+  setProjectRoute
+} from "./components/project-detail.js";
 import { animateProjectViewChange, bindProjectGrid, renderProjects } from "./components/projects.js";
 import { startAppearAnimations } from "./components/reveal.js";
 import { renderServices } from "./components/services.js";
@@ -12,8 +19,14 @@ import { escapeHtml } from "./utils/dom.js";
 const state = {
   content: null,
   filter: "product",
-  view: "bento"
+  view: "bento",
+  detailView: "single",
+  activeProjectIndex: -1
 };
+
+if ("scrollRestoration" in window.history) {
+  window.history.scrollRestoration = "manual";
+}
 
 function renderCurrentProjects() {
   renderProjects({
@@ -29,6 +42,74 @@ function setViewMode(view) {
   animateProjectViewChange({ view: state.view });
 }
 
+function renderActiveProjectDetail() {
+  const project = state.content?.projects?.[state.activeProjectIndex];
+  if (!project) return;
+
+  renderProjectDetail({
+    project,
+    projects: state.content.projects,
+    index: state.activeProjectIndex,
+    view: state.detailView
+  });
+}
+
+function setDetailViewMode(view) {
+  if (state.detailView === view) return;
+  state.detailView = view;
+  animateProjectVisualViewChange({ view: state.detailView });
+}
+
+function setProjectDetail(index) {
+  const project = state.content?.projects?.[index];
+  if (!project) return;
+
+  state.activeProjectIndex = index;
+  document.querySelector(".app-shell")?.classList.add("is-project-detail");
+  document.getElementById("projectVisualToolbar").hidden = false;
+  renderActiveProjectDetail();
+  document.title = `${project.title} | ${state.content.site.brandName}`;
+  requestAnimationFrame(updateAllTabIndicators);
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function clearProjectRoute() {
+  if (window.location.hash === "#top") {
+    handleRoute();
+    return;
+  }
+  window.location.hash = "top";
+}
+
+function clearProjectView() {
+  state.activeProjectIndex = -1;
+  document.querySelector(".app-shell")?.classList.remove("is-project-detail");
+  const visualToolbar = document.getElementById("projectVisualToolbar");
+  if (visualToolbar) {
+    visualToolbar.hidden = true;
+  }
+  clearProjectDetail();
+
+  if (state.content) {
+    document.title = state.content.site.title;
+  }
+
+  window.scrollTo({ top: 0, behavior: "auto" });
+  requestAnimationFrame(updateAllTabIndicators);
+}
+
+function handleRoute() {
+  if (!state.content) return;
+
+  const projectIndex = getProjectIndexFromHash(state.content.projects);
+  if (projectIndex >= 0) {
+    setProjectDetail(projectIndex);
+    return;
+  }
+
+  clearProjectView();
+}
+
 function bindInteractions() {
   bindTabs(".filter-tabs", (button) => {
     state.filter = button.dataset.filter;
@@ -39,13 +120,25 @@ function bindInteractions() {
     setViewMode(button.dataset.view);
   });
 
-  bindProjectGrid({
-    getProject: (index) => state.content.projects[index],
-    onOpen: openProjectDialog
+  bindTabs(".detail-view-tabs", (button) => {
+    setDetailViewMode(button.dataset.view);
   });
 
-  bindProjectDialog();
+  bindProjectGrid({
+    getProject: (index) => state.content.projects[index],
+    onOpen: (project, index) => {
+      if (!project) return;
+      if (!setProjectRoute(project, index)) {
+        handleRoute();
+      }
+    }
+  });
+
+  bindProjectDetail({
+    onBack: clearProjectRoute
+  });
   bindLanguageMenu();
+  window.addEventListener("hashchange", handleRoute);
   window.addEventListener("resize", updateAllTabIndicators);
   window.addEventListener("load", updateAllTabIndicators);
 }
@@ -64,6 +157,7 @@ function hydrateSite(content) {
   state.content = content;
   state.filter = content.projectCategories?.[0]?.id ?? state.filter;
   state.view = content.projectViewModes?.[0]?.id ?? state.view;
+  state.detailView = state.view;
   document.title = content.site.title;
   document.querySelector("meta[name='description']").content = content.site.description;
 
@@ -71,6 +165,7 @@ function hydrateSite(content) {
   splitIntroWords(content);
   renderCategoryTabs(content.projectCategories, state.filter);
   renderViewTabs(content.projectViewModes, state.view);
+  renderViewTabs(content.projectViewModes, state.detailView, document.querySelector(".detail-view-tabs"));
   renderServices(content.services);
   renderCurrentProjects();
   wireLinks(content);
@@ -80,6 +175,7 @@ function hydrateSite(content) {
   updateAllTabIndicators();
   (document.fonts?.ready ?? Promise.resolve()).then(revealWorkToolbar);
   startAppearAnimations();
+  handleRoute();
   updateClock();
   window.setInterval(updateClock, 1000);
 }

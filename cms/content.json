@@ -7,8 +7,10 @@
     "email": "hefetuzlu@gmail.com",
     "phone": "+90 533 913 21 32",
     "location": "Pendik, Istanbul",
-    "xUrl": "https://www.behance.net/efetuzlu",
-    "dribbbleUrl": "https://www.behance.net/efetuzlu",
+    "xUrl": "https://x.com/efetuzlu",
+    "dribbbleUrl": "https://dribbble.com/efetuzlu",
+    "behanceUrl": "https://www.behance.net/efetuzlu",
+    "instagramUrl": "https://www.instagram.com/efetuzlu",
     "avatar": "assets/avatar.webm"
   },
   "hero": {
@@ -16,20 +18,33 @@
   },
   "services": [
     {
-      "title": "Product Strategy & Design",
+      "title": "Product",
       "items": [
-        "Product vision, positioning and value proposition",
-        "User research, personas and journey mapping",
-        "Roadmap, prioritization and MVP to launch iteration"
+        "Vision, positioning and MVP systems",
+        "Research, IA, user flows and product UX",
+        "Design systems, analytics loops and iteration"
       ]
     },
     {
-      "title": "UI/UX, Brand & Framer",
+      "title": "Web",
       "items": [
-        "Figma design systems and component libraries",
-        "High-fidelity prototypes and user flows",
-        "Brand identity, web design, Webflow and Framer",
-        "HTML, CSS and JavaScript front-end design"
+        "Responsive web interfaces and landing pages",
+        "Front-end design with HTML, CSS and JavaScript",
+        "Framer and Webflow-style interaction systems"
+      ]
+    },
+    {
+      "title": "Motion",
+      "items": [
+        "Interactive prototypes and micro-interactions",
+        "Campaign video, post-production and motion direction"
+      ]
+    },
+    {
+      "title": "Brand",
+      "items": [
+        "Logo, identity and scalable visual systems",
+        "Digital communication and campaign art direction"
       ]
     }
   ],
@@ -85,6 +100,7 @@
       "meta": "Co-Founder & CPO / Nov 2024 - Present",
       "date": "2024 - Present",
       "summary": "AI Product Platform",
+      "service": "Product Strategy & UX System",
       "goal": "Goal: Product strategy and UX system.",
       "description": "Led product vision, positioning, user research, design system, information architecture, prototypes, analytics loops and product narrative for an AI product.",
       "image": "assets/project-1-hant-ai.webp"
@@ -96,6 +112,7 @@
       "meta": "Lead Designer / Nov 2023 - Sep 2024",
       "date": "2023 - 2024",
       "summary": "Product & Web Design",
+      "service": "Brand Identity & Interface Design",
       "goal": "Goal: Scalable brand and UX system.",
       "description": "Managed product design, web interfaces and UX processes; created brand identity, logo and a scalable visual system for digital consistency.",
       "image": "assets/project-2-en-kiymetlim.webp"
@@ -107,6 +124,7 @@
       "meta": "Lead Designer / Nov 2021 - May 2023",
       "date": "2021 - 2023",
       "summary": "Fashion Brand Identity",
+      "service": "Art Direction & Motion",
       "goal": "Goal: Visual identity and campaign direction.",
       "description": "Directed visual identity, digital communication and fashion aesthetics; designed collections and managed photo, video and post-production processes.",
       "image": "assets/project-3-weltschmerz-company.webp"
@@ -118,6 +136,7 @@
       "meta": "Designer / Feb 2020 - Oct 2021",
       "date": "2020 - 2021",
       "summary": "Digital Visual Design",
+      "service": "Web UI & Marketing Visuals",
       "goal": "Goal: Marketing visuals and web UI.",
       "description": "Created marketing visuals, digital banners and UI/UX-focused design work.",
       "image": "assets/project-4-star-akim.webp"
@@ -129,6 +148,7 @@
       "meta": "Figma / Components / UI Consistency",
       "date": "Product Systems",
       "summary": "Figma Component Library",
+      "service": "Design Systems",
       "goal": "Goal: Consistent scalable interfaces.",
       "description": "Built component libraries, typography and color rules to keep product interfaces scalable and consistent.",
       "image": "assets/project-5-design-systems.webp"
@@ -139,7 +159,8 @@
       "categories": ["brand"],
       "meta": "Logo Design / Visual Systems",
       "date": "Brand Systems",
-      "summary": "Logo & Visual Identity",
+      "summary": "Brand Identity System",
+      "service": "Logo & Visual Identity",
       "goal": "Goal: Memorable brand language.",
       "description": "Created brand identities, logo systems, marketing visuals and digital communication assets.",
       "image": "assets/project-6-brand-identity.webp"
@@ -151,6 +172,7 @@
       "meta": "User Flows / Wireframes / Hi-Fi",
       "date": "UX Design",
       "summary": "Interface Prototyping",
+      "service": "User Flows & Hi-Fi Prototypes",
       "goal": "Goal: Clear flows and validation.",
       "description": "Designed information architecture, user flows, wireframes and high-fidelity prototypes for product teams.",
       "image": "assets/project-7-ui-ux-prototyping.webp"
@@ -162,6 +184,7 @@
       "meta": "HTML / CSS / JavaScript",
       "date": "Front-End",
       "summary": "Interactive Web UI",
+      "service": "HTML, CSS & JavaScript",
       "goal": "Goal: Bridge design and implementation.",
       "description": "Bridged design and implementation with front-end design skills across modern web interfaces.",
       "image": "assets/project-4-star-akim.webp"
