@@ -32,7 +32,7 @@
       </a>
 
       <section class="intro">
-        <h1 class="text-body" data-text="hero.headline">Hi, I'm Efe, a product designer and CPO based in Istanbul, building AI products, design systems and memorable digital experiences.</h1>
+        <h1 class="text-body" data-intro-text="hero.headline" aria-label="Hi, I'm Efe, a product designer and CPO based in Istanbul, building AI products, design systems and memorable digital experiences."></h1>
       </section>
 
       <section class="services" id="services" aria-labelledby="services-title">
@@ -45,8 +45,18 @@
       </section>
 
       <footer class="footer">
-        <p class="text-ui text-muted"><strong class="text-mono" id="clock">--:--:--</strong> PM CET</p>
-        <p class="text-ui text-muted" data-text="footer.copyright">©2026 Halim Efe Tuzlu</p>
+        <div class="footer-meta text-ui text-mono text-muted">
+          <time id="clock" datetime="">--</time>
+          <div class="language-menu" data-language-menu>
+            <button class="language-trigger text-ui text-mono" type="button" aria-haspopup="menu" aria-expanded="false">
+              TR
+            </button>
+            <div class="language-dropdown t-dropdown" data-origin="bottom-right" role="menu">
+              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR">TR</button>
+              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN">EN</button>
+            </div>
+          </div>
+        </div>
         <nav aria-label="Footer links">
           <a href="#top">Terms</a>
           <a href="#work">Imprint</a>

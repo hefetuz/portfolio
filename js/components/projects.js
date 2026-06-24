@@ -1,6 +1,8 @@
 import { cardLayoutFlush, escapeAttr, escapeHtml } from "../utils/dom.js";
 import { observeReveal } from "./reveal.js";
 
+const resizeAnimations = new WeakMap();
+
 function projectCardTemplate(project, visibleIndex, sourceIndex) {
   return `
     <article class="project-card t-resize bento-${(visibleIndex % 8) + 1}" tabindex="0" role="button" data-project-index="${sourceIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
@@ -18,9 +20,16 @@ function projectCardTemplate(project, visibleIndex, sourceIndex) {
 }
 
 export function getProjectsByCategory(projects, category) {
+  if (category === "all") {
+    return projects.map((project, index) => ({ project, index }));
+  }
+
   return projects
     .map((project, index) => ({ project, index }))
-    .filter(({ project }) => project.category === category);
+    .filter(({ project }) => {
+      const categories = project.categories || [project.category];
+      return categories.includes(category);
+    });
 }
 
 export function renderProjects({ projects, filter, view, target = document.getElementById("work") }) {
@@ -41,42 +50,54 @@ export function animateProjectViewChange({ view, target = document.getElementByI
   }
 
   const previousRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));
+  cards.forEach((card) => resizeAnimations.get(card)?.cancel());
+
+  target.className = `project-grid view-${view} is-flipping`;
+  cardLayoutFlush(target);
+
+  const nextRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));
+
   cards.forEach((card) => {
-    const rect = previousRects.get(card);
-    card.style.width = `${rect.width}px`;
-    card.style.height = `${rect.height}px`;
+    const previous = previousRects.get(card);
+    const next = nextRects.get(card);
+    if (!previous || !next) return;
+
+    const deltaX = previous.left - next.left;
+    const deltaY = previous.top - next.top;
+    const scaleX = previous.width / Math.max(next.width, 1);
+    const scaleY = previous.height / Math.max(next.height, 1);
+
+    if (Math.abs(deltaX) < 0.5 && Math.abs(deltaY) < 0.5 && Math.abs(scaleX - 1) < 0.005 && Math.abs(scaleY - 1) < 0.005) {
+      return;
+    }
+
+    const animation = card.animate([
+      {
+        transform: `translate3d(${deltaX}px, ${deltaY}px, 0) scale(${scaleX}, ${scaleY})`,
+        filter: "blur(.2px)"
+      },
+      {
+        transform: "translate3d(0, 0, 0) scale(1)",
+        filter: "blur(0)"
+      }
+    ], {
+      duration: 420,
+      easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+      fill: "both"
+    });
+
+    resizeAnimations.set(card, animation);
+    animation.addEventListener("finish", () => {
+      if (resizeAnimations.get(card) === animation) {
+        animation.cancel();
+        resizeAnimations.delete(card);
+      }
+    });
   });
 
-  target.className = `project-grid view-${view}`;
-
-  requestAnimationFrame(() => {
-    cards.forEach((card) => {
-      card.style.width = "";
-      card.style.height = "";
-    });
-    const nextRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));
-
-    cards.forEach((card) => {
-      const previous = previousRects.get(card);
-      card.style.width = `${previous.width}px`;
-      card.style.height = `${previous.height}px`;
-    });
-
-    cardLayoutFlush(target);
-
-    cards.forEach((card) => {
-      const next = nextRects.get(card);
-      card.style.width = `${next.width}px`;
-      card.style.height = `${next.height}px`;
-    });
-
-    window.setTimeout(() => {
-      cards.forEach((card) => {
-        card.style.width = "";
-        card.style.height = "";
-      });
-    }, 340);
-  });
+  window.setTimeout(() => {
+    target.classList.remove("is-flipping");
+  }, 440);
 }
 
 export function bindProjectGrid({ target = document.getElementById("work"), getProject, onOpen }) {

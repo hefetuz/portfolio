@@ -35,16 +35,24 @@
   ],
   "projectCategories": [
     {
+      "id": "all",
+      "label": "All"
+    },
+    {
       "id": "product",
-      "label": "Product Design"
+      "label": "Product"
     },
     {
       "id": "web",
-      "label": "Web Design"
+      "label": "Web"
+    },
+    {
+      "id": "motion",
+      "label": "Motion"
     },
     {
       "id": "brand",
-      "label": "Brand Identity"
+      "label": "Brand"
     }
   ],
   "projectViewModes": [
@@ -73,6 +81,7 @@
     {
       "title": "Hant AI",
       "category": "product",
+      "categories": ["product"],
       "meta": "Co-Founder & CPO / Nov 2024 - Present",
       "date": "2024 - Present",
       "summary": "AI Product Platform",
@@ -83,6 +92,7 @@
     {
       "title": "En Kiymetlim",
       "category": "product",
+      "categories": ["product", "web", "brand"],
       "meta": "Lead Designer / Nov 2023 - Sep 2024",
       "date": "2023 - 2024",
       "summary": "Product & Web Design",
@@ -93,6 +103,7 @@
     {
       "title": "Weltschmerz Company",
       "category": "brand",
+      "categories": ["brand", "motion"],
       "meta": "Lead Designer / Nov 2021 - May 2023",
       "date": "2021 - 2023",
       "summary": "Fashion Brand Identity",
@@ -103,6 +114,7 @@
     {
       "title": "Star Akim",
       "category": "web",
+      "categories": ["web", "motion"],
       "meta": "Designer / Feb 2020 - Oct 2021",
       "date": "2020 - 2021",
       "summary": "Digital Visual Design",
@@ -113,6 +125,7 @@
     {
       "title": "Design Systems",
       "category": "product",
+      "categories": ["product"],
       "meta": "Figma / Components / UI Consistency",
       "date": "Product Systems",
       "summary": "Figma Component Library",
@@ -123,6 +136,7 @@
     {
       "title": "Brand Identity",
       "category": "brand",
+      "categories": ["brand"],
       "meta": "Logo Design / Visual Systems",
       "date": "Brand Systems",
       "summary": "Logo & Visual Identity",
@@ -133,6 +147,7 @@
     {
       "title": "UI/UX Prototyping",
       "category": "product",
+      "categories": ["product", "motion"],
       "meta": "User Flows / Wireframes / Hi-Fi",
       "date": "UX Design",
       "summary": "Interface Prototyping",
@@ -143,6 +158,7 @@
     {
       "title": "Front-End Design",
       "category": "web",
+      "categories": ["web"],
       "meta": "HTML / CSS / JavaScript",
       "date": "Front-End",
       "summary": "Interactive Web UI",

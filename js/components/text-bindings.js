@@ -6,11 +6,14 @@ export function setTextBindings(content) {
   });
 }
 
-export function splitIntroWords() {
+export function splitIntroWords(content) {
   const headline = document.querySelector(".intro h1");
   if (!headline) return;
 
-  const words = headline.textContent.trim().split(/\s+/);
+  const source = headline.dataset.introText ? getPath(content, headline.dataset.introText) : headline.textContent;
+  const text = String(source || "").trim();
+  const words = text.split(/\s+/).filter(Boolean);
+  headline.setAttribute("aria-label", text);
   headline.innerHTML = words.map((word, index) => (
     `<span class="intro-word" style="--word-delay:${index * 45}ms">${escapeHtml(word)}</span>`
   )).join(" ");

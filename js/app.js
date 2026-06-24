@@ -4,7 +4,7 @@ import { bindProjectDialog, openProjectDialog } from "./components/project-dialo
 import { animateProjectViewChange, bindProjectGrid, renderProjects } from "./components/projects.js";
 import { startAppearAnimations } from "./components/reveal.js";
 import { renderServices } from "./components/services.js";
-import { updateClock, wireLinks } from "./components/site-shell.js";
+import { bindLanguageMenu, updateClock, wireLinks } from "./components/site-shell.js";
 import { bindTabs, renderCategoryTabs, renderViewTabs, updateAllTabIndicators } from "./components/tabs.js";
 import { setTextBindings, splitIntroWords, syncButtonLabels } from "./components/text-bindings.js";
 import { escapeHtml } from "./utils/dom.js";
@@ -45,8 +45,19 @@ function bindInteractions() {
   });
 
   bindProjectDialog();
+  bindLanguageMenu();
   window.addEventListener("resize", updateAllTabIndicators);
   window.addEventListener("load", updateAllTabIndicators);
+}
+
+function revealWorkToolbar() {
+  const toolbar = document.querySelector(".work-toolbar");
+  if (!toolbar) return;
+
+  updateAllTabIndicators();
+  requestAnimationFrame(() => {
+    toolbar.classList.add("is-ready");
+  });
 }
 
 function hydrateSite(content) {
@@ -57,7 +68,7 @@ function hydrateSite(content) {
   document.querySelector("meta[name='description']").content = content.site.description;
 
   setTextBindings(content);
-  splitIntroWords();
+  splitIntroWords(content);
   renderCategoryTabs(content.projectCategories, state.filter);
   renderViewTabs(content.projectViewModes, state.view);
   renderServices(content.services);
@@ -67,7 +78,7 @@ function hydrateSite(content) {
   syncButtonLabels();
 
   updateAllTabIndicators();
-  document.fonts?.ready.then(updateAllTabIndicators);
+  (document.fonts?.ready ?? Promise.resolve()).then(revealWorkToolbar);
   startAppearAnimations();
   updateClock();
   window.setInterval(updateClock, 1000);
