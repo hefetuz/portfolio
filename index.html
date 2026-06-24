@@ -12,10 +12,22 @@
   <div class="app-shell">
     <aside class="rail" aria-label="Profile and services">
       <a class="profile" href="#top" aria-label="Home">
-        <img id="avatar" src="assets/efe-avatar.svg" alt="">
-        <span>
-          <strong data-text="site.brandName">Halim Efe Tuzlu</strong>
-          <small data-text="site.role">Product Designer & CPO</small>
+        <span class="avatar-media" aria-hidden="true">
+          <video id="avatarVideo" class="avatar-video" muted playsinline preload="auto"></video>
+          <canvas id="avatarCanvas" class="avatar-canvas" width="88" height="88"></canvas>
+        </span>
+        <span class="profile-copy">
+          <span class="profile-default">
+            <strong data-text="site.brandName">Halim Efe Tuzlu</strong>
+            <small data-text="site.role">Product Designer & CPO</small>
+          </span>
+          <span class="profile-quote">
+            <span>“Craft is knowing how to start, art is knowing when to stop”</span>
+            <em>
+              -Ben Affleck
+              <img class="affleck-gif" src="assets/ben-affleck-regret.gif" alt="Ben Affleck smoking">
+            </em>
+          </span>
         </span>
       </a>
 

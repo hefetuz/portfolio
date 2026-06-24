@@ -1,5 +1,4 @@
 export function wireLinks(content) {
-  document.getElementById("avatar").src = content.site.avatar;
   document.getElementById("emailLink").href = `mailto:${content.site.email}`;
   document.getElementById("socialLink").href = content.site.dribbbleUrl || content.site.xUrl;
 }

@@ -1,4 +1,5 @@
 import { loadContent } from "./cms/content.js";
+import { bindAvatar } from "./components/avatar.js";
 import { bindProjectDialog, openProjectDialog } from "./components/project-dialog.js";
 import { animateProjectViewChange, bindProjectGrid, renderProjects } from "./components/projects.js";
 import { startAppearAnimations } from "./components/reveal.js";
@@ -62,6 +63,7 @@ function hydrateSite(content) {
   renderServices(content.services);
   renderCurrentProjects();
   wireLinks(content);
+  bindAvatar(content.site.avatar);
   syncButtonLabels();
 
   updateAllTabIndicators();

@@ -91,6 +91,7 @@ img {
 .rail {
   position: sticky;
   top: 42px;
+  z-index: 40;
   height: calc(100vh - 42px);
   min-height: 680px;
   padding-bottom: 28px;
@@ -98,28 +99,171 @@ img {
   grid-template-rows: auto auto 1fr auto;
   align-content: start;
   gap: 34px;
+  overflow: visible;
 }
 
 .profile {
+  position: relative;
+  z-index: 20;
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   width: fit-content;
   opacity: 0.001;
   transform: translateY(16px);
+  cursor: default;
+  transition: gap 280ms var(--spring);
 }
 
-.profile img {
-  width: 44px;
-  height: 44px;
+.profile:hover,
+.profile:focus-visible {
+  z-index: 1000;
+  gap: 24px;
+}
+
+.avatar-media {
+  width: 48px;
+  height: 48px;
   border-radius: 999px;
-  object-fit: cover;
   background: var(--panel-2);
 }
 
-.profile span {
+.avatar-media {
+  position: relative;
+  flex: 0 0 48px;
+  overflow: hidden;
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 1500ms var(--spring);
+  will-change: transform;
+}
+
+.profile:hover .avatar-media,
+.profile:focus-visible .avatar-media {
+  transform: scale(1.32);
+}
+
+.avatar-video,
+.avatar-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.avatar-video.is-hidden,
+.avatar-canvas.is-hidden {
+  opacity: 0;
+}
+
+.profile-copy,
+.profile-default {
   display: grid;
+}
+
+.profile-copy {
   gap: 4px;
+}
+
+.profile-default {
+  gap: 0;
+}
+
+.profile-copy {
+  position: relative;
+  z-index: 2;
+  min-width: 256px;
+  overflow: visible;
+}
+
+.profile-default,
+.profile-quote {
+  grid-area: 1 / 1;
+  transition:
+    opacity 240ms var(--quick),
+    filter 300ms var(--spring),
+    transform 300ms var(--spring);
+}
+
+.profile-quote {
+  width: min(276px, 38vw);
+  color: rgba(255, 255, 255, .92);
+  font-family: "Segoe Print", "Bradley Hand ITC", "Marker Felt", "Comic Sans MS", cursive;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-wrap: balance;
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(5px);
+  pointer-events: none;
+}
+
+.profile-quote span {
+  display: block;
+}
+
+.profile-quote em {
+  display: block;
+  position: relative;
+  width: fit-content;
+  margin-left: auto;
+  margin-top: 2px;
+  color: rgba(255, 255, 255, .72);
+  font: inherit;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: right;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.profile-quote .affleck-gif {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 1001;
+  width: 165px;
+  height: 465px;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, .34),
+    0 0 0 1px rgba(255, 255, 255, .12);
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(-6px) scale(.96);
+  transform-origin: top right;
+  pointer-events: none;
+  transition:
+    opacity 180ms var(--quick),
+    filter 240ms var(--spring),
+    transform 240ms var(--spring);
+}
+
+.profile-quote em:hover .affleck-gif,
+.profile-quote em:focus-visible .affleck-gif {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+.profile:hover .profile-default,
+.profile:focus-visible .profile-default {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(-5px);
+}
+
+.profile:hover .profile-quote,
+.profile:focus-visible .profile-quote {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
 }
 
 .profile strong,
@@ -171,6 +315,8 @@ img {
 }
 
 .services {
+  position: relative;
+  z-index: 1;
   align-self: center;
   opacity: 0.001;
   transform: translateY(16px);
