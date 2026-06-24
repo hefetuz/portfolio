@@ -2,15 +2,15 @@ import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
 function categoryTabTemplate(category, isActive) {
   return `
-    <button class="tab${isActive ? " active" : ""}" type="button" data-filter="${escapeAttr(category.id)}">
-      ${escapeHtml(category.label)}
+    <button class="tab text-ui${isActive ? " active" : ""}" type="button" data-filter="${escapeAttr(category.id)}">
+      <span class="tab-text">${escapeHtml(category.label)}</span>
     </button>
   `;
 }
 
 function viewTabTemplate(viewMode, isActive) {
   return `
-    <button class="tab icon-tab${isActive ? " active" : ""}" type="button" data-view="${escapeAttr(viewMode.id)}" aria-label="${escapeAttr(viewMode.label)}" title="${escapeAttr(viewMode.label)}">
+    <button class="tab text-ui icon-tab${isActive ? " active" : ""}" type="button" data-view="${escapeAttr(viewMode.id)}" aria-label="${escapeAttr(viewMode.label)}" title="${escapeAttr(viewMode.label)}">
       <span class="view-icon view-icon-${escapeAttr(viewMode.icon || viewMode.id)}" aria-hidden="true"></span>
     </button>
   `;
@@ -36,7 +36,7 @@ export function updateTabIndicator(tabs = document.querySelector(".filter-tabs")
   const activeBox = active.getBoundingClientRect();
   indicator.style.width = `${activeBox.width}px`;
   indicator.style.height = `${activeBox.height}px`;
-  indicator.style.transform = `translate3d(${activeBox.left - tabsBox.left - 3}px, ${activeBox.top - tabsBox.top - 3}px, 0)`;
+  indicator.style.transform = `translate3d(${activeBox.left - tabsBox.left}px, ${activeBox.top - tabsBox.top}px, 0)`;
 }
 
 export function updateAllTabIndicators() {

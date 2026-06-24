@@ -22,8 +22,7 @@ export function startAppearAnimations() {
   const blocks = [
     [document.querySelector(".profile"), 0],
     [document.querySelector(".services"), 600],
-    [document.querySelector(".footer"), 800],
-    [document.querySelector(".work-toolbar"), 100]
+    [document.querySelector(".footer"), 800]
   ];
 
   blocks.forEach(([node, delay]) => {

@@ -3,8 +3,8 @@ import { escapeHtml } from "../utils/dom.js";
 function serviceTemplate(service) {
   return `
     <article class="service">
-      <h3>${escapeHtml(service.title)}</h3>
-      <ul>${service.items.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      <h3 class="text-ui">${escapeHtml(service.title)}</h3>
+      <ul>${service.items.map((item) => `<li class="text-body text-muted">${escapeHtml(item)}</li>`).join("")}</ul>
     </article>
   `;
 }

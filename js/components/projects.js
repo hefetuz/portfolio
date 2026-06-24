@@ -7,11 +7,11 @@ function projectCardTemplate(project, visibleIndex, sourceIndex) {
       <img src="${escapeAttr(project.image)}" alt="${escapeAttr(project.title)}">
       <div class="project-info">
         <div class="project-head">
-          <h2>${escapeHtml(project.title)}</h2>
-          <small>${escapeHtml(project.date || project.meta)}</small>
+          <h2 class="text-card-title">${escapeHtml(project.title)}</h2>
+          <small class="text-card-title">${escapeHtml(project.date || project.meta)}</small>
         </div>
-        <p>${escapeHtml(project.summary || project.description)}</p>
-        <p>${escapeHtml(project.goal || "")}</p>
+        <p class="text-body text-muted">${escapeHtml(project.summary || project.description)}</p>
+        <p class="text-body text-muted">${escapeHtml(project.goal || "")}</p>
       </div>
     </article>
   `;
