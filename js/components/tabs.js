@@ -1,6 +1,75 @@
 import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
 const VIEW_TAB_SLOT = 28;
+const VIEW_SHRINK_DELAY_MS = 1200;
+const viewShrinkTimers = new WeakMap();
+
+function getViewActiveIndex(tabs) {
+  return Math.max(0, [...tabs.querySelectorAll(".tab")].findIndex((tab) => tab.classList.contains("active")));
+}
+
+function setViewTabsPosition(tabs, activeIndex = getViewActiveIndex(tabs)) {
+  const buttons = tabs.querySelectorAll(".tab");
+  const collapsedOffset = Math.max(0, buttons.length - 1 - activeIndex) * VIEW_TAB_SLOT;
+  const activeX = activeIndex * VIEW_TAB_SLOT;
+  tabs.style.setProperty("--view-active-index", activeIndex);
+  tabs.style.setProperty("--view-active-x", `${activeX}px`);
+  tabs.style.setProperty("--view-active-offset", `${collapsedOffset}px`);
+  tabs.style.setProperty("--view-orb-x", tabs.dataset.open === "true" ? `${activeX}px` : "0px");
+}
+
+function setViewTabsOpen(tabs, isOpen) {
+  tabs.dataset.open = isOpen ? "true" : "false";
+  setViewTabsPosition(tabs);
+  updateTabIndicator(tabs);
+}
+
+function clearViewShrinkTimer(tabs) {
+  const timer = viewShrinkTimers.get(tabs);
+  if (!timer) return;
+  window.clearTimeout(timer);
+  viewShrinkTimers.delete(tabs);
+}
+
+function isViewTabsHovered(tabs) {
+  return tabs.dataset.pointerInside === "true" || tabs.matches(":hover");
+}
+
+function closeViewTabs(tabs, { blurFocus = false } = {}) {
+  clearViewShrinkTimer(tabs);
+  tabs.dataset.pendingShrink = "false";
+  if (blurFocus && tabs.contains(document.activeElement)) {
+    document.activeElement.blur();
+  }
+  setViewTabsOpen(tabs, false);
+}
+
+function scheduleViewTabsClose(tabs) {
+  clearViewShrinkTimer(tabs);
+  const timer = window.setTimeout(() => {
+    viewShrinkTimers.delete(tabs);
+    if (!isViewTabsHovered(tabs)) {
+      closeViewTabs(tabs, { blurFocus: true });
+    }
+  }, VIEW_SHRINK_DELAY_MS);
+  viewShrinkTimers.set(tabs, timer);
+}
+
+function handleViewTabsEnter(tabs) {
+  tabs.dataset.pointerInside = "true";
+  tabs.dataset.pendingShrink = "false";
+  clearViewShrinkTimer(tabs);
+  setViewTabsOpen(tabs, true);
+}
+
+function handleViewTabsLeave(tabs) {
+  tabs.dataset.pointerInside = "false";
+  if (tabs.dataset.pendingShrink === "true") {
+    scheduleViewTabsClose(tabs);
+    return;
+  }
+  closeViewTabs(tabs, { blurFocus: true });
+}
 
 function categoryTabTemplate(category, isActive) {
   return `
@@ -32,14 +101,18 @@ export function renderCategoryTabs(categories, activeId, target = document.query
 
 export function renderViewTabs(viewModes, activeId, target = document.querySelector(".view-tabs")) {
   const indicator = target.querySelector(".tab-indicator")?.outerHTML ?? '<span class="tab-indicator" aria-hidden="true"></span>';
+  const activeOrb = target.querySelector(".view-active-orb")?.outerHTML ?? '<span class="view-active-orb" aria-hidden="true"></span>';
   const activeIndex = Math.max(0, viewModes.findIndex((viewMode) => viewMode.id === activeId));
   const collapsedOffset = Math.max(0, viewModes.length - 1 - activeIndex) * VIEW_TAB_SLOT;
   target.classList.remove("is-ready");
   target.dataset.open = "false";
   target.style.setProperty("--view-tab-count", viewModes.length);
+  target.style.setProperty("--view-active-index", activeIndex);
+  target.style.setProperty("--view-active-x", `${activeIndex * VIEW_TAB_SLOT}px`);
   target.style.setProperty("--view-active-offset", `${collapsedOffset}px`);
+  target.style.setProperty("--view-orb-x", "0px");
   target.classList.add("is-hydrating");
-  target.innerHTML = `${indicator}${viewModes.map((viewMode) => viewTabTemplate(viewMode, viewMode.id === activeId)).join("")}`;
+  target.innerHTML = `${indicator}${activeOrb}${viewModes.map((viewMode) => viewTabTemplate(viewMode, viewMode.id === activeId)).join("")}`;
   requestAnimationFrame(() => {
     updateTabIndicator(target, { instant: true });
     target.classList.add("is-ready");
@@ -95,22 +168,14 @@ export function bindTabs(selector, callback) {
   if (!tabs) return;
 
   if (tabs.classList.contains("view-tabs")) {
-    tabs.addEventListener("pointerenter", () => {
-      tabs.dataset.open = "true";
-      updateTabIndicator(tabs);
-    });
-    tabs.addEventListener("pointerleave", () => {
-      tabs.dataset.open = "false";
-      updateTabIndicator(tabs);
-    });
-    tabs.addEventListener("focusin", () => {
-      tabs.dataset.open = "true";
-      updateTabIndicator(tabs);
-    });
+    tabs.addEventListener("pointerenter", () => handleViewTabsEnter(tabs));
+    tabs.addEventListener("pointerleave", () => handleViewTabsLeave(tabs));
+    tabs.addEventListener("mouseenter", () => handleViewTabsEnter(tabs));
+    tabs.addEventListener("mouseleave", () => handleViewTabsLeave(tabs));
+    tabs.addEventListener("focusin", () => setViewTabsOpen(tabs, true));
     tabs.addEventListener("focusout", () => {
       if (!tabs.matches(":focus-within")) {
-        tabs.dataset.open = "false";
-        updateTabIndicator(tabs);
+        closeViewTabs(tabs);
       }
     });
   }
@@ -126,8 +191,10 @@ export function bindTabs(selector, callback) {
     if (tabs.classList.contains("view-tabs")) {
       const buttons = [...tabs.querySelectorAll(".tab")];
       const index = buttons.indexOf(button);
-      const collapsedOffset = Math.max(0, buttons.length - 1 - index) * VIEW_TAB_SLOT;
-      tabs.style.setProperty("--view-active-offset", `${collapsedOffset}px`);
+      const activeIndex = Math.max(0, index);
+      tabs.dataset.pendingShrink = "true";
+      setViewTabsPosition(tabs, activeIndex);
+      scheduleViewTabsClose(tabs);
     }
 
     callback(button);
