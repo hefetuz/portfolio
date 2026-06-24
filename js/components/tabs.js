@@ -1,5 +1,7 @@
 import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
+const VIEW_TAB_SLOT = 28;
+
 function categoryTabTemplate(category, isActive) {
   return `
     <button class="tab text-ui${isActive ? " active" : ""}" type="button" data-filter="${escapeAttr(category.id)}">
@@ -31,9 +33,11 @@ export function renderCategoryTabs(categories, activeId, target = document.query
 export function renderViewTabs(viewModes, activeId, target = document.querySelector(".view-tabs")) {
   const indicator = target.querySelector(".tab-indicator")?.outerHTML ?? '<span class="tab-indicator" aria-hidden="true"></span>';
   const activeIndex = Math.max(0, viewModes.findIndex((viewMode) => viewMode.id === activeId));
+  const collapsedOffset = Math.max(0, viewModes.length - 1 - activeIndex) * VIEW_TAB_SLOT;
   target.classList.remove("is-ready");
   target.dataset.open = "false";
-  target.style.setProperty("--view-active-offset", `${activeIndex * 28}px`);
+  target.style.setProperty("--view-tab-count", viewModes.length);
+  target.style.setProperty("--view-active-offset", `${collapsedOffset}px`);
   target.classList.add("is-hydrating");
   target.innerHTML = `${indicator}${viewModes.map((viewMode) => viewTabTemplate(viewMode, viewMode.id === activeId)).join("")}`;
   requestAnimationFrame(() => {
@@ -49,21 +53,41 @@ export function updateTabIndicator(tabs = document.querySelector(".filter-tabs")
   const indicator = tabs.querySelector(".tab-indicator");
   if (!active || !indicator) return;
 
-  const tabsBox = tabs.getBoundingClientRect();
+  const segmentPadding = Number.parseFloat(getComputedStyle(tabs).getPropertyValue("--segment-padding")) || 2;
+  const isViewTabs = tabs.classList.contains("view-tabs");
+  const isCollapsedView = isViewTabs && tabs.dataset.open !== "true";
   const activeBox = active.getBoundingClientRect();
+  let indicatorWidth = activeBox.width;
+  let indicatorHeight = activeBox.height;
+  let offsetX;
+  let offsetY;
+
+  if (isViewTabs) {
+    const activeIndex = [...tabs.querySelectorAll(".tab")].indexOf(active);
+    const slot = Number.parseFloat(getComputedStyle(tabs).getPropertyValue("--view-tab-slot")) || VIEW_TAB_SLOT;
+    indicatorWidth = slot;
+    indicatorHeight = Number.parseFloat(getComputedStyle(tabs).getPropertyValue("--segment-tab-height")) || activeBox.height;
+    offsetX = isCollapsedView ? segmentPadding : segmentPadding + Math.max(0, activeIndex) * slot;
+    offsetY = segmentPadding;
+  } else {
+    const tabsBox = tabs.getBoundingClientRect();
+    offsetX = activeBox.left - tabsBox.left;
+    offsetY = activeBox.top - tabsBox.top;
+  }
+
   if (options.instant) {
     tabs.classList.add("is-hydrating");
   }
-  indicator.style.width = `${activeBox.width}px`;
-  indicator.style.height = `${activeBox.height}px`;
-  indicator.style.transform = `translate3d(${activeBox.left - tabsBox.left}px, ${activeBox.top - tabsBox.top}px, 0)`;
+  indicator.style.width = `${indicatorWidth}px`;
+  indicator.style.height = `${indicatorHeight}px`;
+  indicator.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0)`;
   if (options.instant) {
     requestAnimationFrame(() => tabs.classList.remove("is-hydrating"));
   }
 }
 
 export function updateAllTabIndicators() {
-  document.querySelectorAll(".tabs").forEach((tabs) => updateTabIndicator(tabs));
+  document.querySelectorAll(".segmented-control").forEach((tabs) => updateTabIndicator(tabs));
 }
 
 export function bindTabs(selector, callback) {
@@ -73,16 +97,20 @@ export function bindTabs(selector, callback) {
   if (tabs.classList.contains("view-tabs")) {
     tabs.addEventListener("pointerenter", () => {
       tabs.dataset.open = "true";
+      updateTabIndicator(tabs);
     });
     tabs.addEventListener("pointerleave", () => {
       tabs.dataset.open = "false";
+      updateTabIndicator(tabs);
     });
     tabs.addEventListener("focusin", () => {
       tabs.dataset.open = "true";
+      updateTabIndicator(tabs);
     });
     tabs.addEventListener("focusout", () => {
       if (!tabs.matches(":focus-within")) {
         tabs.dataset.open = "false";
+        updateTabIndicator(tabs);
       }
     });
   }
@@ -96,8 +124,10 @@ export function bindTabs(selector, callback) {
     });
 
     if (tabs.classList.contains("view-tabs")) {
-      const index = [...tabs.querySelectorAll(".tab")].indexOf(button);
-      tabs.style.setProperty("--view-active-offset", `${Math.max(0, index) * 28}px`);
+      const buttons = [...tabs.querySelectorAll(".tab")];
+      const index = buttons.indexOf(button);
+      const collapsedOffset = Math.max(0, buttons.length - 1 - index) * VIEW_TAB_SLOT;
+      tabs.style.setProperty("--view-active-offset", `${collapsedOffset}px`);
     }
 
     callback(button);
