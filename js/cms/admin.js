@@ -170,7 +170,7 @@ function renderCoverField(project) {
           <p class="text-ui text-muted">Card Cover</p>
           <h3 class="text-body">Homepage card media</h3>
         </div>
-        <label class="btn secondary cms-file-button">
+        <label class="btn btn-regular secondary cms-file-button">
           <span>Upload Cover</span>
           <input class="cms-file-input" type="file" accept="${MEDIA_ACCEPT}" data-upload-target="cover">
         </label>
@@ -198,7 +198,8 @@ function renderMediaManager(project) {
           <p class="text-ui text-muted">Project Media</p>
           <h3 class="text-body">Detail page visuals</h3>
         </div>
-        <button class="btn secondary" type="button" data-add-media>Add Media</button>
+        <button class="btn btn-regular secondary" type="button" data-add-media>Add Media</button>
+        <input class="cms-file-input" type="file" accept="${MEDIA_ACCEPT}" multiple data-add-media-picker>
       </div>
       <div class="cms-media-list">
         ${media.length ? media.map((item, index) => mediaItemTemplate(item, index)).join("") : `
@@ -243,14 +244,14 @@ function mediaItemTemplate(media, index) {
         </label>
       </div>
       <div class="cms-media-actions">
-        <label class="btn secondary cms-file-button">
+        <label class="btn btn-small secondary cms-file-button">
           <span>Upload</span>
           <input class="cms-file-input" type="file" accept="${MEDIA_ACCEPT}" data-upload-target="media" data-media-index="${index}">
         </label>
-        <button class="btn secondary" type="button" data-set-cover="${index}">Set Cover</button>
-        <button class="btn secondary" type="button" data-move-media="${index}" data-direction="-1">Up</button>
-        <button class="btn secondary" type="button" data-move-media="${index}" data-direction="1">Down</button>
-        <button class="btn secondary" type="button" data-delete-media="${index}">Delete</button>
+        <button class="btn btn-small secondary" type="button" data-set-cover="${index}">Set Cover</button>
+        <button class="btn btn-small secondary" type="button" data-move-media="${index}" data-direction="-1">Up</button>
+        <button class="btn btn-small secondary" type="button" data-move-media="${index}" data-direction="1">Down</button>
+        <button class="btn btn-small secondary" type="button" data-delete-media="${index}">Delete</button>
       </div>
     </article>
   `;
@@ -304,7 +305,7 @@ function renderEditor() {
         <p class="text-ui text-muted">Editing</p>
         <h2 class="text-heading">${escapeHtml(project.title)}</h2>
       </div>
-      <button class="btn secondary" type="button" data-delete-project>Delete</button>
+      <button class="btn btn-regular secondary" type="button" data-delete-project>Delete</button>
     </div>
     ${editableFields.map((field) => fieldTemplate(project, field)).join("")}
     ${renderPrimaryCategory(project)}
@@ -396,6 +397,12 @@ function deleteProject() {
     return;
   }
 
+  const project = state.content.projects[state.activeIndex];
+  const label = project?.title ? `Delete project \"${project.title}\"?` : "Delete this project?";
+  if (!window.confirm(`${label}\nThis cannot be undone.`)) {
+    return;
+  }
+
   state.content.projects.splice(state.activeIndex, 1);
   state.activeIndex = Math.max(0, state.activeIndex - 1);
   markDirty();
@@ -417,9 +424,49 @@ function addMedia() {
   renderEditor();
 }
 
+async function addMediaFiles(files) {
+  const project = state.content.projects[state.activeIndex];
+  if (!project || !files?.length) return;
+
+  const fileList = [...files].filter(Boolean);
+  if (!fileList.length) return;
+
+  try {
+    setStatus(`Uploading ${fileList.length} media file${fileList.length === 1 ? "" : "s"}...`, "warning");
+
+    for (const file of fileList) {
+      const payload = await uploadMediaFile(file);
+      project.media.push({
+        type: payload.type,
+        src: payload.src,
+        poster: "",
+        alt: project.title,
+        caption: project.summary || ""
+      });
+    }
+
+    if (!project.image && project.media[0]) {
+      project.image = project.media[0].poster || project.media[0].src;
+    }
+
+    markDirty();
+    setStatus("Media uploaded. Save content to persist JSON.", "success");
+    renderProjectList();
+    renderEditor();
+  } catch (error) {
+    setStatus(error.message, "error");
+  }
+}
+
 function deleteMedia(index) {
   const project = state.content.projects[state.activeIndex];
   if (!project) return;
+
+  const item = project.media[index];
+  const label = item?.alt || item?.caption || `Media ${index + 1}`;
+  if (!window.confirm(`Delete ${label}?\nThis cannot be undone.`)) {
+    return;
+  }
 
   project.media.splice(index, 1);
   markDirty();
@@ -557,6 +604,12 @@ elements.form.addEventListener("input", (event) => {
 });
 
 elements.form.addEventListener("change", (event) => {
+  if (event.target.matches('input[type="file"][data-add-media-picker]')) {
+    addMediaFiles(event.target.files);
+    event.target.value = "";
+    return;
+  }
+
   if (event.target.matches('input[type="file"][data-upload-target]')) {
     handleUpload(event.target);
     return;
@@ -573,7 +626,7 @@ elements.form.addEventListener("click", (event) => {
   }
 
   if (event.target.closest("[data-add-media]")) {
-    addMedia();
+    elements.form.querySelector("[data-add-media-picker]")?.click();
     return;
   }
 

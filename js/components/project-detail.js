@@ -156,11 +156,17 @@ export function renderProjectDetail({
   showcase.className = `project-showcase view-${view}`;
 
   panel.innerHTML = `
-    <a class="project-back text-ui" href="#top" data-project-back aria-label="Back to work">Back</a>
-    <div class="project-detail-copy">
-      <p class="text-ui text-muted">${escapeHtml(year)}</p>
-      <h1>${escapeHtml(project.title)}</h1>
-      <p class="text-heading">${escapeHtml(summary || project.description)}</p>
+    <div class="project-detail-header">
+      <a class="btn btn-small secondary project-back" href="#top" data-project-back aria-label="Back to work">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6"></path>
+        </svg>
+      </a>
+      <div class="project-detail-copy">
+        <h1>${escapeHtml(project.title)}</h1>
+        <p class="text-heading">${escapeHtml(summary || project.description)}</p>
+        <p class="project-detail-date text-ui text-muted">${escapeHtml(year)}</p>
+      </div>
     </div>
     <dl class="project-detail-meta">
       ${projectMetaTemplate("Role", role)}

@@ -5,6 +5,7 @@
     "brandName": "Halim Efe Tuzlu",
     "role": "Product Designer & CPO",
     "email": "hefetuzlu@gmail.com",
+    "web3FormsAccessKey": "de7c453d-ae40-4b26-ae6a-2fd09b99e962",
     "phone": "+90 533 913 21 32",
     "location": "Pendik, Istanbul",
     "xUrl": "https://x.com/efetuzlu",
@@ -18,40 +19,43 @@
   },
   "services": [
     {
-      "title": "Product",
+      "title": "Product Design",
       "items": [
-        "Vision, positioning and MVP systems",
-        "Research, IA, user flows and product UX",
-        "Design systems, analytics loops and iteration"
+        "Strategy",
+        "UX Flows",
+        "Design Systems"
       ]
     },
     {
-      "title": "Web",
+      "title": "Web Design",
       "items": [
-        "Responsive web interfaces and landing pages",
-        "Front-end design with HTML, CSS and JavaScript",
-        "Framer and Webflow-style interaction systems"
+        "Responsive UI",
+        "Front-End",
+        "Landing Pages"
       ]
     },
     {
-      "title": "Motion",
+      "title": "Brand Identity",
       "items": [
-        "Interactive prototypes and micro-interactions",
-        "Campaign video, post-production and motion direction"
+        "Logo Systems",
+        "Packaging",
+        "Visual Language"
       ]
     },
     {
-      "title": "Brand",
+      "title": "Motion Design",
       "items": [
-        "Logo, identity and scalable visual systems",
-        "Digital communication and campaign art direction"
+        "Prototype Motion",
+        "Launch Videos",
+        "Micro-Interactions"
       ]
     },
     {
       "title": "Artwork",
       "items": [
-        "Editorial, political and music-led digital artworks",
-        "Product visuals, composition and visual storytelling"
+        "Editorial",
+        "Product Visuals",
+        "Music & Culture"
       ]
     }
   ],
@@ -105,83 +109,281 @@
   ],
   "projects": [
     {
-      "title": "Hant",
-      "slug": "hant",
+      "title": "Hant Product Design",
+      "slug": "hant-product-design",
       "category": "product",
       "categories": [
-        "product",
-        "web",
-        "brand",
-        "motion"
+        "product"
       ],
-      "meta": "Product, Web, Brand & Motion",
+      "meta": "Product Design",
       "date": "2024 - Present",
       "summary": "AI Travel App",
       "scope": "AI Travel App",
-      "service": "Product Design, Web Design, Brand Identity, Motion",
-      "goal": "Goal: Make AI-assisted travel planning feel simple, personal and memorable.",
-      "description": "AI travel app experience covering product strategy, UX flows, web presence, brand identity and motion language for a smarter trip-planning journey.",
+      "service": "Product Design",
+      "goal": "Goal: Make AI-assisted travel planning feel simple, personal and product-ready.",
+      "description": "Product design for an AI travel app, focused on strategy, UX flows, information architecture and a clear planning experience.",
       "image": "assets/project-1-hant-ai.webp",
       "media": [
         {
           "type": "image",
           "src": "assets/project-1-hant-ai.webp",
-          "alt": "Hant",
+          "poster": "",
+          "alt": "Hant Product Design",
           "caption": "AI Travel App"
         }
       ]
     },
     {
-      "title": "En Kıymetlim",
-      "slug": "en-kiymetlim",
-      "category": "product",
+      "title": "Hant Web Design",
+      "slug": "hant-web-design",
+      "category": "web",
       "categories": [
-        "product",
-        "web",
+        "web"
+      ],
+      "meta": "Web Design",
+      "date": "2024 - Present",
+      "summary": "AI Travel App",
+      "scope": "AI Travel App",
+      "service": "Web Design",
+      "goal": "Goal: Turn the AI travel product into a clear, conversion-friendly web presence.",
+      "description": "Web design direction for Hant, translating the AI travel app into responsive pages, landing flows and interface storytelling.",
+      "image": "assets/project-1-hant-ai.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-1-hant-ai.webp",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "AI Travel App"
+        }
+      ]
+    },
+    {
+      "title": "Hant Brand Identity",
+      "slug": "hant-brand-identity",
+      "category": "brand",
+      "categories": [
         "brand"
       ],
-      "meta": "Product, Web & Brand",
+      "meta": "Brand Identity",
+      "date": "2024 - Present",
+      "summary": "AI Travel App",
+      "scope": "AI Travel App",
+      "service": "Logo & Visual Identity",
+      "goal": "Goal: Give the AI travel app a recognizable and flexible brand language.",
+      "description": "Brand identity work for Hant, covering visual language, product cues and a consistent identity system for an AI travel experience.",
+      "image": "assets/project-1-hant-ai.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-1-hant-ai.webp",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "AI Travel App"
+        }
+      ]
+    },
+    {
+      "title": "Hant Motion Design",
+      "slug": "hant-motion-design",
+      "category": "motion",
+      "categories": [
+        "motion"
+      ],
+      "meta": "Motion Design",
+      "date": "2024 - Present",
+      "summary": "AI Travel App",
+      "scope": "AI Travel App",
+      "service": "Motion Design",
+      "goal": "Goal: Make AI travel interactions feel fluid, responsive and memorable.",
+      "description": "Motion design for Hant, shaping interaction rhythm, prototype motion and product moments across the AI travel app.",
+      "image": "assets/project-1-hant-ai.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-1-hant-ai.webp",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "AI Travel App"
+        }
+      ]
+    },
+    {
+      "title": "En Kıymetlim Product Design",
+      "slug": "en-kiymetlim-product-design",
+      "category": "product",
+      "categories": [
+        "product"
+      ],
+      "meta": "Product Design",
       "date": "2023 - 2024",
       "summary": "Ebeveynlik App",
       "scope": "Parent Health & Child Care App",
-      "service": "Product Design, Web Design, Brand Identity",
-      "goal": "Goal: Create a calm parenthood experience for health tracking and child care support.",
-      "description": "Parent health and child care app designed as a simple ebeveynlik product, with product UX, web interface and brand system working as one experience.",
+      "service": "Product Design",
+      "goal": "Goal: Create a calm parenthood product for health tracking and child care support.",
+      "description": "Product design for an ebeveynlik app, focused on parent health, child care flows, UX structure and day-to-day usability.",
       "image": "assets/project-2-en-kiymetlim.webp",
       "media": [
         {
           "type": "image",
           "src": "assets/project-2-en-kiymetlim.webp",
-          "alt": "En Kıymetlim",
+          "poster": "",
+          "alt": "En Kıymetlim Product Design",
           "caption": "Ebeveynlik App"
         }
       ]
     },
     {
-      "title": "Sağlık Gelsin",
-      "slug": "saglik-gelsin",
-      "category": "product",
+      "title": "En Kıymetlim Web Design",
+      "slug": "en-kiymetlim-web-design",
+      "category": "web",
       "categories": [
-        "product",
-        "web",
+        "web"
+      ],
+      "meta": "Web Design",
+      "date": "2023 - 2024",
+      "summary": "Ebeveynlik App",
+      "scope": "Parent Health & Child Care App",
+      "service": "Web Design",
+      "goal": "Goal: Present the parenthood product with a clear and reassuring web experience.",
+      "description": "Web design for En Kıymetlim, translating the parent health and child care app into a responsive, trust-focused interface.",
+      "image": "assets/project-2-en-kiymetlim.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-2-en-kiymetlim.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Web Design",
+          "caption": "Ebeveynlik App"
+        }
+      ]
+    },
+    {
+      "title": "En Kıymetlim Brand Identity",
+      "slug": "en-kiymetlim-brand-identity",
+      "category": "brand",
+      "categories": [
         "brand"
       ],
-      "meta": "Product, Web & Brand",
+      "meta": "Brand Identity",
+      "date": "2023 - 2024",
+      "summary": "Ebeveynlik App",
+      "scope": "Parent Health & Child Care App",
+      "service": "Logo & Visual Identity",
+      "goal": "Goal: Build a gentle and trustworthy identity for a parenthood app.",
+      "description": "Brand identity for En Kıymetlim, creating a calm visual system for parent health, child care and everyday family support.",
+      "image": "assets/cms/showcase-1782410290853.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/cms/showcase-1782410290853.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/1-1782410276715.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/2-1782410276734.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/3-1782410276751.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/4-1782410276768.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/5-1782410276792.webp",
+          "poster": "",
+          "alt": "En Kıymetlim Brand Identity",
+          "caption": "Ebeveynlik App"
+        }
+      ]
+    },
+    {
+      "title": "Sağlık Gelsin Product Design",
+      "slug": "saglik-gelsin-product-design",
+      "category": "product",
+      "categories": [
+        "product"
+      ],
+      "meta": "Product Design",
       "date": "2024",
       "summary": "Home Healthcare App",
       "scope": "Nurse & Physiotherapist Booking App",
-      "service": "Product Design, Web Design, Brand Identity",
-      "goal": "Goal: Help people call trusted healthcare professionals home with confidence.",
-      "description": "Home healthcare booking app for requesting nurses, physiotherapists and similar care providers, shaped through service UX, web flows and brand trust signals.",
+      "service": "Product Design",
+      "goal": "Goal: Help people request trusted healthcare professionals at home with confidence.",
+      "description": "Product design for a home healthcare app, covering service UX, booking flows and trusted care interactions for nurses and physiotherapists.",
       "image": "assets/project-7-ui-ux-prototyping.webp",
       "media": [
         {
           "type": "image",
           "src": "assets/project-7-ui-ux-prototyping.webp",
-          "alt": "Sağlık Gelsin",
+          "poster": "",
+          "alt": "Sağlık Gelsin Product Design",
           "caption": "Home Healthcare App"
         }
       ]
+    },
+    {
+      "title": "Sağlık Gelsin Web Design",
+      "slug": "saglik-gelsin-web-design",
+      "category": "web",
+      "categories": [
+        "web"
+      ],
+      "meta": "Web Design",
+      "date": "2024",
+      "summary": "Home Healthcare App",
+      "scope": "Nurse & Physiotherapist Booking App",
+      "service": "Web Design",
+      "goal": "Goal: Make home healthcare services easy to understand and request online.",
+      "description": "Web design for Sağlık Gelsin, shaping responsive service pages and clear request flows for home nurse and physiotherapy support.",
+      "image": "assets/project-7-ui-ux-prototyping.webp",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-7-ui-ux-prototyping.webp",
+          "poster": "",
+          "alt": "Sağlık Gelsin Web Design",
+          "caption": "Home Healthcare App"
+        }
+      ]
+    },
+    {
+      "title": "Sağlık Gelsin Sales Deck",
+      "slug": "saglik-gelsin-brand-identity",
+      "category": "brand",
+      "categories": [
+        "brand"
+      ],
+      "meta": "Brand Identity",
+      "date": "2024",
+      "summary": "Home Healthcare App",
+      "scope": "Nurse & Physiotherapist Booking App",
+      "service": "Logo & Visual Identity",
+      "goal": "Goal: Build a reliable healthcare identity that feels accessible and human.",
+      "description": "Brand identity for Sağlık Gelsin, defining trust signals, visual language and communication cues for a home healthcare service.",
+      "image": "assets/project-7-ui-ux-prototyping.webp",
+      "media": []
     },
     {
       "title": "Saunakit",
@@ -202,6 +404,7 @@
         {
           "type": "image",
           "src": "assets/project-5-design-systems.webp",
+          "poster": "",
           "alt": "Saunakit",
           "caption": "Portable Sauna"
         }
@@ -221,11 +424,26 @@
       "service": "Logo & Visual Identity, Packaging Direction",
       "goal": "Goal: Build a grounded coffee brand with a distinct shelf presence.",
       "description": "Brand identity and packaging direction for a coffee product, balancing a warm product story with a clear visual system.",
-      "image": "assets/project-6-brand-identity.webp",
+      "image": "assets/cms/samurai-mockup-1782411461339.png",
       "media": [
         {
           "type": "image",
-          "src": "assets/project-6-brand-identity.webp",
+          "src": "assets/cms/old-school-a-ia-e-1-1782411461261.png",
+          "poster": "",
+          "alt": "Raad Kahve",
+          "caption": "Coffee Brand"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-mockup-1782411461339.png",
+          "poster": "",
+          "alt": "Raad Kahve",
+          "caption": "Coffee Brand"
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/ambalaj-1782411664507.png",
+          "poster": "",
           "alt": "Raad Kahve",
           "caption": "Coffee Brand"
         }
@@ -243,13 +461,14 @@
       "summary": "Coffee Brand",
       "scope": "Coffee Product",
       "service": "Logo & Visual Identity, Packaging Direction",
-      "goal": "Goal: Create a playful but polished coffee identity for a physical product.",
+      "goal": "Create a playful but polished coffee identity for a physical product.",
       "description": "Coffee brand identity for a physical product, built around naming, visual language and product-ready brand elements.",
-      "image": "assets/project-6-brand-identity.webp",
+      "image": "assets/cms/4-1782411717314.png",
       "media": [
         {
           "type": "image",
-          "src": "assets/project-6-brand-identity.webp",
+          "src": "assets/cms/4-1782411717314.png",
+          "poster": "",
           "alt": "Mambocino",
           "caption": "Coffee Brand"
         }
@@ -274,6 +493,7 @@
         {
           "type": "image",
           "src": "assets/project-4-star-akim.webp",
+          "poster": "",
           "alt": "Sales Training Game",
           "caption": "Sales Training Game"
         }
@@ -298,6 +518,7 @@
         {
           "type": "image",
           "src": "assets/project-3-weltschmerz-company.webp",
+          "poster": "",
           "alt": "Weltschmerz",
           "caption": "Editorial Artwork"
         }
@@ -322,6 +543,7 @@
         {
           "type": "image",
           "src": "assets/project-6-brand-identity.webp",
+          "poster": "",
           "alt": "Putin",
           "caption": "Political Artwork"
         }
@@ -346,6 +568,7 @@
         {
           "type": "image",
           "src": "assets/project-6-brand-identity.webp",
+          "poster": "",
           "alt": "Tayyip",
           "caption": "Political Artwork"
         }
@@ -370,6 +593,7 @@
         {
           "type": "image",
           "src": "assets/project-6-brand-identity.webp",
+          "poster": "",
           "alt": "Putin & Trump",
           "caption": "Political Artwork"
         }
@@ -394,6 +618,7 @@
         {
           "type": "image",
           "src": "assets/project-6-brand-identity.webp",
+          "poster": "",
           "alt": "Trump",
           "caption": "Political Artwork"
         }
@@ -418,6 +643,7 @@
         {
           "type": "image",
           "src": "assets/project-5-design-systems.webp",
+          "poster": "",
           "alt": "Odoris Şişe Parfüm",
           "caption": "Perfume Bottle Artwork"
         }
@@ -442,6 +668,7 @@
         {
           "type": "image",
           "src": "assets/project-3-weltschmerz-company.webp",
+          "poster": "",
           "alt": "Travis Scott",
           "caption": "Music Artwork"
         }

@@ -168,7 +168,10 @@ function hydrateSite(content) {
   renderCategoryTabs(content.projectCategories, state.filter);
   renderViewTabs(content.projectViewModes, state.view);
   renderViewTabs(content.projectViewModes, state.detailView, document.querySelector(".detail-view-tabs"));
-  renderServices(content.services);
+  renderServices(content.services, undefined, {
+    email: content.site.email,
+    web3FormsAccessKey: content.site.web3FormsAccessKey
+  });
   renderCurrentProjects();
   wireLinks(content);
   bindAvatar(content.site.avatar);

@@ -38,19 +38,15 @@
       <section class="services" id="services" aria-labelledby="services-title">
         <h2 class="text-heading" id="services-title">Services</h2>
         <div id="servicesList"></div>
-        <div class="actions">
-          <a class="btn primary btn-icon" id="emailLink" href="mailto:hefetuzlu@gmail.com">
-            <svg aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M4 6.5h16v11H4z"></path>
-              <path d="m4.5 7 7.5 6 7.5-6"></path>
-            </svg>
-            <span>Send Email</span>
-          </a>
-          <div class="social-tabs fill-glass" id="socialLinks" aria-label="Social links"></div>
-        </div>
       </section>
 
       <footer class="footer">
+        <div class="actions footer-actions">
+          <a class="btn btn-small primary" id="emailLink" href="mailto:hefetuzlu@gmail.com">
+            <span>Email</span>
+          </a>
+          <div class="social-tabs fill-glass" id="socialLinks" aria-label="Social links"></div>
+        </div>
         <div class="footer-meta text-ui text-mono text-muted">
           <time id="clock" datetime="">--</time>
           <div class="language-menu" data-language-menu>
@@ -94,7 +90,7 @@
   </div>
 
   <div id="visualLightbox" class="visual-lightbox" role="dialog" aria-modal="true" aria-label="Expanded project visual" hidden>
-    <button class="visual-lightbox-close text-ui" type="button" data-visual-lightbox-close aria-label="Close expanded visual">Close</button>
+    <button class="btn btn-small secondary visual-lightbox-close" type="button" data-visual-lightbox-close aria-label="Close expanded visual">Close</button>
     <img id="visualLightboxImage" src="" alt="">
     <video id="visualLightboxVideo" controls playsinline hidden></video>
   </div>
