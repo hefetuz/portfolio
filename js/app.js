@@ -4,6 +4,7 @@ import {
   animateProjectVisualViewChange,
   bindProjectDetail,
   clearProjectDetail,
+  getHomePath,
   getProjectIndexFromHash,
   renderProjectDetail,
   setProjectRoute
@@ -74,11 +75,13 @@ function setProjectDetail(index) {
 }
 
 function clearProjectRoute() {
-  if (window.location.hash === "#top") {
+  const homePath = getHomePath();
+  if (window.location.pathname === homePath && (!window.location.hash || window.location.hash === "#top")) {
     handleRoute();
     return;
   }
-  window.location.hash = "top";
+  window.history.pushState({}, "", homePath);
+  handleRoute();
 }
 
 function clearProjectView() {
@@ -130,9 +133,8 @@ function bindInteractions() {
     getProject: (index) => state.content.projects[index],
     onOpen: (project, index) => {
       if (!project) return;
-      if (!setProjectRoute(project, index)) {
-        handleRoute();
-      }
+      setProjectRoute(project, index);
+      handleRoute();
     }
   });
 
@@ -141,6 +143,7 @@ function bindInteractions() {
   });
   bindLanguageMenu();
   window.addEventListener("hashchange", handleRoute);
+  window.addEventListener("popstate", handleRoute);
   window.addEventListener("resize", updateAllTabIndicators);
   window.addEventListener("load", updateAllTabIndicators);
 }

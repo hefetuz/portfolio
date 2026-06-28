@@ -33,7 +33,10 @@ export function normalizeMediaItem(item, fallbackAlt = "") {
     src: source,
     poster,
     alt: item?.alt || fallbackAlt,
-    caption: item?.caption || item?.title || ""
+    caption: item?.caption || item?.title || "",
+    width: item?.width || item?.w || "",
+    height: item?.height || item?.h || "",
+    aspectRatio: item?.aspectRatio || item?.ratio || ""
   };
 }
 
@@ -70,15 +73,19 @@ export function getProjectCover(project = {}) {
   }, project.title);
 }
 
-export function mediaElementTemplate(media, className = "") {
+export function mediaElementTemplate(media, className = "", options = {}) {
   const item = normalizeMediaItem(media);
   const classes = className ? ` class="${escapeAttr(className)}"` : "";
+  const loading = options.loading ? ` loading="${escapeAttr(options.loading)}"` : "";
+  const decoding = options.decoding ? ` decoding="${escapeAttr(options.decoding)}"` : "";
+  const fetchPriority = options.fetchPriority ? ` fetchpriority="${escapeAttr(options.fetchPriority)}"` : "";
+  const preload = options.preload ? ` preload="${escapeAttr(options.preload)}"` : ` preload="metadata"`;
 
   if (item.type === "video") {
     return `
-      <video${classes} src="${escapeAttr(item.src)}"${item.poster ? ` poster="${escapeAttr(item.poster)}"` : ""} muted playsinline preload="metadata"></video>
+      <video${classes} src="${escapeAttr(item.src)}"${item.poster ? ` poster="${escapeAttr(item.poster)}"` : ""} muted playsinline${preload}></video>
     `;
   }
 
-  return `<img${classes} src="${escapeAttr(item.src)}" alt="${escapeAttr(item.alt)}">`;
+  return `<img${classes} src="${escapeAttr(item.src)}" alt="${escapeAttr(item.alt)}"${loading}${decoding}${fetchPriority}>`;
 }

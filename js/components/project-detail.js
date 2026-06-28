@@ -1,9 +1,26 @@
 import { cardLayoutFlush, escapeAttr, escapeHtml } from "../utils/dom.js";
 import { getMediaType, getProjectMedia, mediaElementTemplate, normalizeMediaItem } from "../utils/media.js";
-import { observeReveal } from "./reveal.js";
 
 const DETAIL_HASH_PREFIX = "#work/";
+const DETAIL_PATH_SEGMENT = "work";
 const visualAnimations = new WeakMap();
+const visualResizeObservers = new WeakMap();
+const LIGHTBOX_EXIT_MS = 320;
+let lightboxCloseTimer = 0;
+const BENTO_VISUAL_SLOTS = [
+  { columns: 7, rows: 34 },
+  { columns: 5, rows: 16 },
+  { columns: 5, rows: 18 },
+  { columns: 4, rows: 22 },
+  { columns: 8, rows: 22 },
+  { columns: 5, rows: 20 },
+  { columns: 7, rows: 20 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 32 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 16 }
+];
 
 function slugify(value = "") {
   return String(value)
@@ -13,24 +30,6 @@ function slugify(value = "") {
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
-}
-
-function cleanGoal(goal = "") {
-  return String(goal).replace(/^goal:\s*/i, "");
-}
-
-function getProjectCategories(project) {
-  return project.categories || [project.category].filter(Boolean);
-}
-
-function projectSectionTemplate(title, body) {
-  if (!body) return "";
-  return `
-    <section class="project-detail-section">
-      <h2 class="text-ui">${escapeHtml(title)}</h2>
-      <p class="text-body text-muted">${escapeHtml(body)}</p>
-    </section>
-  `;
 }
 
 function projectMetaTemplate(label, value) {
@@ -43,18 +42,195 @@ function projectMetaTemplate(label, value) {
   `;
 }
 
+function normalizeList(value) {
+  if (Array.isArray(value)) return value.filter(Boolean);
+  if (!value) return [];
+  return String(value)
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function projectInfoColumnTemplate(label, values) {
+  const items = normalizeList(values);
+  if (!items.length) return "";
+
+  return `
+    <div class="project-info-column">
+      <h2 class="text-heading text-muted">${escapeHtml(label)}</h2>
+      <ul>
+        ${items.map((item) => `<li class="text-body">${escapeHtml(item)}</li>`).join("")}
+      </ul>
+    </div>
+  `;
+}
+
 function visualTemplate(media, index, project) {
   const item = normalizeMediaItem(media, project.title);
   const source = item.src;
   const alt = item.alt || project.title;
+  const ratio = getInitialAspectRatio(item);
+  const style = [`--appear-delay:${120 + index * 90}ms`];
+  if (ratio) style.push(`--media-ratio:${ratio}`);
 
   return `
-    <figure class="project-visual project-visual-${index + 1}" style="--appear-delay:${120 + index * 90}ms">
+    <figure class="project-visual" data-bento-index="${index}" style="${style.join(";")}">
       <button class="project-visual-zoom" type="button" data-visual-zoom="${escapeAttr(source)}" data-visual-type="${escapeAttr(item.type)}" data-visual-alt="${escapeAttr(alt)}"${item.poster ? ` data-visual-poster="${escapeAttr(item.poster)}"` : ""} aria-label="Expand ${escapeAttr(alt)}">
-        ${mediaElementTemplate(item)}
+        ${mediaElementTemplate(item, "", {
+          loading: "eager",
+          decoding: "async",
+          fetchPriority: index < 4 ? "high" : "auto",
+          preload: index < 3 ? "auto" : "metadata"
+        })}
       </button>
     </figure>
   `;
+}
+
+function getInitialAspectRatio(item) {
+  const ratio = Number(item?.aspectRatio);
+  if (Number.isFinite(ratio) && ratio > 0) return ratio.toFixed(4);
+
+  const width = Number(item?.width);
+  const height = Number(item?.height);
+  if (Number.isFinite(width) && Number.isFinite(height) && width > 0 && height > 0) {
+    return (width / height).toFixed(4);
+  }
+
+  return "";
+}
+
+function applyVisualAspectRatio(visual, width, height) {
+  if (!visual || !width || !height) return;
+
+  const ratio = width / height;
+  if (!Number.isFinite(ratio) || ratio <= 0) return;
+
+  visual.style.setProperty("--media-ratio", ratio.toFixed(4));
+  visual.classList.toggle("is-portrait", ratio < 0.82);
+  visual.classList.toggle("is-square", ratio >= 0.82 && ratio <= 1.18);
+  visual.classList.toggle("is-landscape", ratio > 1.18);
+  layoutBentoVisuals(visual.closest(".project-showcase"));
+}
+
+function getBentoVisualShape(index) {
+  return BENTO_VISUAL_SLOTS[index % BENTO_VISUAL_SLOTS.length];
+}
+
+function getGridColumnCount(showcase) {
+  const columns = getComputedStyle(showcase).gridTemplateColumns;
+  if (!columns || columns === "none") return 1;
+  return columns.split(" ").filter(Boolean).length || 1;
+}
+
+function layoutBentoVisuals(showcase) {
+  if (!showcase || !showcase.classList.contains("view-bento")) return;
+
+  const columns = getGridColumnCount(showcase);
+
+  showcase.querySelectorAll(".project-visual").forEach((visual) => {
+    const index = Number.parseInt(visual.dataset.bentoIndex, 10) || 0;
+    const shape = getBentoVisualShape(index);
+    visual.style.setProperty("--bento-col-span", String(columns <= 2 ? 1 : Math.min(shape.columns, columns)));
+    visual.style.setProperty("--bento-row-span", String(shape.rows));
+  });
+}
+
+function bindVisualAspectRatios(showcase) {
+  visualResizeObservers.get(showcase)?.disconnect();
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => layoutBentoVisuals(showcase));
+    observer.observe(showcase);
+    visualResizeObservers.set(showcase, observer);
+  }
+
+  showcase.querySelectorAll(".project-visual").forEach((visual) => {
+    const media = visual.querySelector("img, video");
+    if (!media) return;
+
+    if (media.tagName === "IMG") {
+      const updateImageRatio = () => applyVisualAspectRatio(visual, media.naturalWidth, media.naturalHeight);
+      if (media.complete && media.naturalWidth) {
+        updateImageRatio();
+      } else {
+        media.addEventListener("load", updateImageRatio, { once: true });
+      }
+      return;
+    }
+
+    const updateVideoRatio = () => applyVisualAspectRatio(visual, media.videoWidth, media.videoHeight);
+    if (media.readyState >= 1 && media.videoWidth) {
+      updateVideoRatio();
+    } else {
+      media.addEventListener("loadedmetadata", updateVideoRatio, { once: true });
+    }
+  });
+
+  requestAnimationFrame(() => layoutBentoVisuals(showcase));
+}
+
+function bindVisualLoadState(showcase) {
+  showcase.querySelectorAll(".project-visual").forEach((visual) => {
+    const media = visual.querySelector("img, video");
+    if (!media) return;
+    const loadStart = performance.now();
+
+    const markLoaded = () => {
+      const elapsed = performance.now() - loadStart;
+      const remaining = Math.max(0, 180 - elapsed);
+      window.setTimeout(() => {
+        visual.classList.add("is-loaded");
+      }, remaining);
+    };
+
+    if (media.tagName === "IMG") {
+      if (media.complete && media.naturalWidth) {
+        markLoaded();
+      } else {
+        media.addEventListener("load", markLoaded, { once: true });
+      }
+      return;
+    }
+
+    if (media.readyState >= 2) {
+      markLoaded();
+    } else {
+      media.addEventListener("loadeddata", markLoaded, { once: true });
+    }
+  });
+}
+
+function warmProjectMedia(media = []) {
+  media.forEach((item, index) => {
+    const normalized = normalizeMediaItem(item);
+    if (!normalized.src) return;
+
+    const preloadSelector = `[data-project-preload="${CSS.escape(normalized.src)}"]`;
+    if (document.head.querySelector(preloadSelector)) return;
+
+    if (normalized.type === "image") {
+      const preloadLink = document.createElement("link");
+      preloadLink.rel = "preload";
+      preloadLink.as = "image";
+      preloadLink.href = normalized.src;
+      preloadLink.fetchPriority = index < 6 ? "high" : "auto";
+      preloadLink.dataset.projectPreload = normalized.src;
+      document.head.append(preloadLink);
+
+      const image = new Image();
+      image.decoding = "async";
+      image.fetchPriority = index < 6 ? "high" : "auto";
+      image.src = normalized.src;
+      return;
+    }
+
+    const preloadLink = document.createElement("link");
+    preloadLink.rel = "preload";
+    preloadLink.as = "video";
+    preloadLink.href = normalized.src;
+    preloadLink.dataset.projectPreload = normalized.src;
+    document.head.append(preloadLink);
+  });
 }
 
 function bindVisualZoomButtons(showcase) {
@@ -76,6 +252,7 @@ function openVisualLightbox({ source, type = "image", alt = "", poster = "" }) {
   const video = document.getElementById("visualLightboxVideo");
   if (!lightbox || !image || !video || !source) return;
 
+  window.clearTimeout(lightboxCloseTimer);
   const mediaType = type || getMediaType(source);
   image.hidden = mediaType === "video";
   video.hidden = mediaType !== "video";
@@ -95,20 +272,20 @@ function openVisualLightbox({ source, type = "image", alt = "", poster = "" }) {
   }
 
   lightbox.hidden = false;
-  lightbox.classList.add("is-open");
+  lightbox.classList.remove("is-closing");
+  requestAnimationFrame(() => {
+    lightbox.classList.add("is-open");
+  });
 }
 
-function closeVisualLightbox() {
-  const lightbox = document.getElementById("visualLightbox");
+function clearLightboxMedia() {
   const image = document.getElementById("visualLightboxImage");
   const video = document.getElementById("visualLightboxVideo");
-  if (!lightbox || lightbox.hidden) return;
 
-  lightbox.classList.remove("is-open");
-  lightbox.hidden = true;
   if (image) {
     image.removeAttribute("src");
     image.alt = "";
+    image.hidden = false;
   }
   if (video) {
     video.pause();
@@ -118,21 +295,62 @@ function closeVisualLightbox() {
   }
 }
 
+function closeVisualLightbox() {
+  const lightbox = document.getElementById("visualLightbox");
+  if (!lightbox || lightbox.hidden) return;
+
+  lightbox.classList.remove("is-open");
+  lightbox.classList.add("is-closing");
+  window.clearTimeout(lightboxCloseTimer);
+  lightboxCloseTimer = window.setTimeout(() => {
+    lightbox.hidden = true;
+    lightbox.classList.remove("is-closing");
+    clearLightboxMedia();
+  }, LIGHTBOX_EXIT_MS);
+}
+
 export function getProjectSlug(project, index = 0) {
   return project.slug || slugify(project.title) || `project-${index + 1}`;
 }
 
+export function getRouteBasePath() {
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const workIndex = segments.indexOf(DETAIL_PATH_SEGMENT);
+  const baseSegments = workIndex >= 0
+    ? segments.slice(0, workIndex)
+    : segments.at(-1)?.includes(".")
+      ? segments.slice(0, -1)
+      : segments;
+
+  return baseSegments.length ? `/${baseSegments.join("/")}/` : "/";
+}
+
+export function getHomePath() {
+  return getRouteBasePath();
+}
+
+function getProjectSlugFromPath() {
+  const segments = window.location.pathname.split("/").filter(Boolean);
+  const workIndex = segments.indexOf(DETAIL_PATH_SEGMENT);
+  if (workIndex < 0) return "";
+  return decodeURIComponent(segments[workIndex + 1] || "");
+}
+
 export function getProjectIndexFromHash(projects = []) {
   const hash = decodeURIComponent(window.location.hash || "");
-  if (!hash.startsWith(DETAIL_HASH_PREFIX)) return -1;
-  const activeSlug = hash.slice(DETAIL_HASH_PREFIX.length);
+  const activeSlug = hash.startsWith(DETAIL_HASH_PREFIX)
+    ? hash.slice(DETAIL_HASH_PREFIX.length)
+    : getProjectSlugFromPath();
+
+  if (!activeSlug) return -1;
   return projects.findIndex((project, index) => getProjectSlug(project, index) === activeSlug);
 }
 
 export function setProjectRoute(project, index) {
-  const nextHash = `${DETAIL_HASH_PREFIX}${encodeURIComponent(getProjectSlug(project, index))}`;
-  if (window.location.hash === nextHash) return false;
-  window.location.hash = nextHash;
+  const slug = encodeURIComponent(getProjectSlug(project, index));
+  const nextPath = `${getRouteBasePath()}${DETAIL_PATH_SEGMENT}/${slug}/`;
+  if (window.location.pathname === nextPath && !window.location.hash) return false;
+  window.history.pushState({ projectSlug: slug }, "", nextPath);
   return true;
 }
 
@@ -145,44 +363,49 @@ export function renderProjectDetail({
   showcase = document.getElementById("projectShowcase")
 }) {
   const media = getProjectMedia(project, projects);
-  const categories = getProjectCategories(project).join(", ");
   const role = project.role || project.meta;
   const year = project.date || project.meta;
-  const summary = project.summary || "";
-  const goal = cleanGoal(project.goal);
+  const services = project.services || project.service || role;
+  const techStack = project.techStack || project.stack;
+  const industry = project.industry || project.scope || project.summary || "";
 
   panel.hidden = false;
   showcase.hidden = false;
   showcase.className = `project-showcase view-${view}`;
+  warmProjectMedia(media);
 
   panel.innerHTML = `
     <div class="project-detail-header">
-      <a class="btn btn-small secondary project-back" href="#top" data-project-back aria-label="Back to work">
+      <a class="btn btn-small secondary project-back" href="${escapeAttr(getHomePath())}" data-project-back aria-label="Back to work">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M15 6l-6 6 6 6"></path>
         </svg>
       </a>
       <div class="project-detail-copy">
         <h1>${escapeHtml(project.title)}</h1>
-        <p class="text-heading">${escapeHtml(summary || project.description)}</p>
-        <p class="project-detail-date text-ui text-muted">${escapeHtml(year)}</p>
       </div>
     </div>
-    <dl class="project-detail-meta">
-      ${projectMetaTemplate("Role", role)}
-      ${projectMetaTemplate("Category", categories)}
-      ${projectMetaTemplate("Scope", summary)}
-    </dl>
-    ${projectSectionTemplate("Overview", project.description)}
-    ${projectSectionTemplate("Goal", goal)}
+    <p class="project-detail-description text-body text-muted">${escapeHtml(project.description)}</p>
+    <div class="project-detail-divider" aria-hidden="true"></div>
+    <div class="project-detail-info">
+      ${projectInfoColumnTemplate("Services", services)}
+      ${projectInfoColumnTemplate("Tech Stack", techStack)}
+      ${projectInfoColumnTemplate("Industry", industry)}
+      ${projectInfoColumnTemplate("Year", year)}
+    </div>
   `;
 
   showcase.innerHTML = `
     ${media.map((item, mediaIndex) => visualTemplate(item, mediaIndex, project)).join("")}
   `;
 
-  observeReveal(showcase.querySelectorAll(".project-visual"));
+  showcase.querySelectorAll(".project-visual").forEach((visual, visualIndex) => {
+    visual.classList.add("framer-reveal");
+    visual.style.setProperty("--appear-delay", `${Math.min(visualIndex * 40, 220)}ms`);
+  });
+  bindVisualLoadState(showcase);
   bindVisualZoomButtons(showcase);
+  bindVisualAspectRatios(showcase);
 }
 
 export function animateProjectVisualViewChange({ view, target = document.getElementById("projectShowcase") }) {
@@ -191,6 +414,7 @@ export function animateProjectVisualViewChange({ view, target = document.getElem
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !visuals.length) {
     target.className = `project-showcase view-${view}`;
+    layoutBentoVisuals(target);
     return;
   }
 
@@ -198,6 +422,7 @@ export function animateProjectVisualViewChange({ view, target = document.getElem
   visuals.forEach((visual) => visualAnimations.get(visual)?.cancel());
 
   target.className = `project-showcase view-${view} is-flipping`;
+  layoutBentoVisuals(target);
   cardLayoutFlush(target);
 
   const nextRects = new Map(visuals.map((visual) => [visual, visual.getBoundingClientRect()]));
@@ -255,6 +480,8 @@ export function clearProjectDetail({
   }
 
   if (showcase) {
+    visualResizeObservers.get(showcase)?.disconnect();
+    visualResizeObservers.delete(showcase);
     showcase.hidden = true;
     showcase.innerHTML = "";
   }

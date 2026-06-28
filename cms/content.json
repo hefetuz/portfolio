@@ -2,6 +2,7 @@
   "site": {
     "title": "Halim Efe Tuzlu | Product Designer & CPO",
     "description": "Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.",
+    "siteUrl": "https://hefetuz.github.io/portfolio",
     "brandName": "Halim Efe Tuzlu",
     "role": "Product Designer & CPO",
     "email": "hefetuzlu@gmail.com",
@@ -120,17 +121,215 @@
       "summary": "AI Travel App",
       "scope": "AI Travel App",
       "service": "Product Design",
-      "goal": "Goal: Make AI-assisted travel planning feel simple, personal and product-ready.",
-      "description": "Product design for an AI travel app, focused on strategy, UX flows, information architecture and a clear planning experience.",
-      "image": "assets/project-1-hant-ai.webp",
+      "goal": "The objective was to make AI-assisted travel planning feel clear, personal and ready for a real product launch.",
+      "description": "I shaped the product experience for Hant, an AI travel planning app, from core strategy and information architecture to itinerary-building flows and decision support.",
+      "image": "assets/cms/hant-product-01.png",
       "media": [
         {
           "type": "image",
-          "src": "assets/project-1-hant-ai.webp",
+          "src": "assets/cms/hant-product-01.png",
           "poster": "",
           "alt": "Hant Product Design",
-          "caption": "AI Travel App"
+          "caption": "AI Travel Product Design",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-02.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-03.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-04.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-05.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-06.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-07.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-08.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-09.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-10.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-11.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-12.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-13.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-14.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-15.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-16.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-17.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-18.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-19.png",
+          "poster": "",
+          "alt": "Hant Product Design",
+          "caption": "Product Exploration",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Product Design",
+        "UX Strategy",
+        "Design Systems"
+      ],
+      "techStack": [
+        "Figma",
+        "FigJam",
+        "Prototype Motion"
+      ],
+      "industry": [
+        "AI Travel",
+        "Consumer App",
+        "Travel Planning"
       ]
     },
     {
@@ -145,17 +344,135 @@
       "summary": "AI Travel App",
       "scope": "AI Travel App",
       "service": "Web Design",
-      "goal": "Goal: Turn the AI travel product into a clear, conversion-friendly web presence.",
-      "description": "Web design direction for Hant, translating the AI travel app into responsive pages, landing flows and interface storytelling.",
-      "image": "assets/project-1-hant-ai.webp",
+      "goal": "The objective was to turn a complex AI product into a focused web presence that explains the value quickly and builds trust.",
+      "description": "I translated Hant's AI travel concept into a responsive web experience with clear landing flows, product storytelling and interface-led communication.",
+      "image": "assets/cms/hant-deck-01.webm",
       "media": [
         {
-          "type": "image",
-          "src": "assets/project-1-hant-ai.webp",
+          "type": "video",
+          "src": "assets/cms/hant-deck-01.webm",
           "poster": "",
           "alt": "Hant Web Design",
-          "caption": "AI Travel App"
+          "caption": "Product Storytelling Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-02.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-03.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-04.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-05.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-06.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "video",
+          "src": "assets/cms/hant-deck-07.webm",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-08.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-09.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "video",
+          "src": "assets/cms/hant-deck-10.webm",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-11.png",
+          "poster": "",
+          "alt": "Hant Web Design",
+          "caption": "Website / Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Website Design",
+        "Responsive UI",
+        "Front-End Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "HTML/CSS",
+        "JavaScript"
+      ],
+      "industry": [
+        "AI Travel",
+        "SaaS",
+        "Product Website"
       ]
     },
     {
@@ -170,22 +487,100 @@
       "summary": "AI Travel App",
       "scope": "AI Travel App",
       "service": "Logo & Visual Identity",
-      "goal": "Goal: Give the AI travel app a recognizable and flexible brand language.",
-      "description": "Brand identity work for Hant, covering visual language, product cues and a consistent identity system for an AI travel experience.",
-      "image": "assets/project-1-hant-ai.webp",
+      "goal": "The objective was to create a recognizable identity system that could work across product UI, web surfaces and launch communication.",
+      "description": "I developed the brand direction for Hant around a flexible visual language, product cues and a sharper identity for an AI-powered travel experience.",
+      "image": "assets/cms/hant-product-02.png",
       "media": [
         {
           "type": "image",
-          "src": "assets/project-1-hant-ai.webp",
+          "src": "assets/cms/hant-product-01.png",
           "poster": "",
           "alt": "Hant Brand Identity",
-          "caption": "AI Travel App"
+          "caption": "Brand System",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-02.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-03.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-04.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-05.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-06.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-product-07.png",
+          "poster": "",
+          "alt": "Hant Brand Identity",
+          "caption": "Visual Identity",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Product Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "AI Travel",
+        "Product Brand",
+        "Visual Identity"
       ]
     },
     {
-      "title": "Hant Motion Design",
-      "slug": "hant-motion-design",
+      "title": "Hant Sales Deck",
+      "slug": "hant-sales-deck",
       "category": "motion",
       "categories": [
         "motion"
@@ -195,17 +590,135 @@
       "summary": "AI Travel App",
       "scope": "AI Travel App",
       "service": "Motion Design",
-      "goal": "Goal: Make AI travel interactions feel fluid, responsive and memorable.",
-      "description": "Motion design for Hant, shaping interaction rhythm, prototype motion and product moments across the AI travel app.",
-      "image": "assets/project-1-hant-ai.webp",
+      "goal": "The objective was to make the AI experience feel responsive, understandable and more memorable through motion.",
+      "description": "I defined motion behavior for Hant across key product moments, including prototype transitions, interaction rhythm and lightweight storytelling details.",
+      "image": "assets/cms/hant-deck-01.webm",
       "media": [
         {
-          "type": "image",
-          "src": "assets/project-1-hant-ai.webp",
+          "type": "video",
+          "src": "assets/cms/hant-deck-01.webm",
           "poster": "",
           "alt": "Hant Motion Design",
-          "caption": "AI Travel App"
+          "caption": "Motion / Deck Animation",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "video",
+          "src": "assets/cms/hant-deck-07.webm",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "video",
+          "src": "assets/cms/hant-deck-10.webm",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-02.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Motion / Deck Animation",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-03.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Motion / Deck Animation",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-04.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-05.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-06.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-08.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-09.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/hant-deck-11.png",
+          "poster": "",
+          "alt": "Hant Motion Design",
+          "caption": "Sales Deck",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Motion Design",
+        "Interaction Design",
+        "Prototype Motion"
+      ],
+      "techStack": [
+        "Figma",
+        "After Effects",
+        "Motion"
+      ],
+      "industry": [
+        "AI Travel",
+        "Product Motion",
+        "Mobile UX"
       ]
     },
     {
@@ -220,8 +733,8 @@
       "summary": "Ebeveynlik App",
       "scope": "Parent Health & Child Care App",
       "service": "Product Design",
-      "goal": "Goal: Create a calm parenthood product for health tracking and child care support.",
-      "description": "Product design for an ebeveynlik app, focused on parent health, child care flows, UX structure and day-to-day usability.",
+      "goal": "The objective was to make sensitive parenting and care tasks feel calm, accessible and easy to manage day to day.",
+      "description": "I designed the product experience for En Kiymetlim, a parenting app focused on parent health, child care support and practical daily care flows.",
       "image": "assets/project-2-en-kiymetlim.webp",
       "media": [
         {
@@ -229,8 +742,26 @@
           "src": "assets/project-2-en-kiymetlim.webp",
           "poster": "",
           "alt": "En Kıymetlim Product Design",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Product Design",
+        "UX Strategy",
+        "Design Systems"
+      ],
+      "techStack": [
+        "Figma",
+        "FigJam",
+        "Prototype Motion"
+      ],
+      "industry": [
+        "Parenting",
+        "Health Tech",
+        "Child Care"
       ]
     },
     {
@@ -245,8 +776,8 @@
       "summary": "Ebeveynlik App",
       "scope": "Parent Health & Child Care App",
       "service": "Web Design",
-      "goal": "Goal: Present the parenthood product with a clear and reassuring web experience.",
-      "description": "Web design for En Kıymetlim, translating the parent health and child care app into a responsive, trust-focused interface.",
+      "goal": "The objective was to communicate the product with a reassuring web experience that feels clear, human and trustworthy.",
+      "description": "I translated En Kiymetlim's parent health and child care product into a responsive website structure with calm messaging and trust-focused interface patterns.",
       "image": "assets/project-2-en-kiymetlim.webp",
       "media": [
         {
@@ -254,8 +785,26 @@
           "src": "assets/project-2-en-kiymetlim.webp",
           "poster": "",
           "alt": "En Kıymetlim Web Design",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Website Design",
+        "Responsive UI",
+        "Front-End Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "HTML/CSS",
+        "JavaScript"
+      ],
+      "industry": [
+        "Parenting",
+        "Health Tech",
+        "Web Experience"
       ]
     },
     {
@@ -270,8 +819,8 @@
       "summary": "Ebeveynlik App",
       "scope": "Parent Health & Child Care App",
       "service": "Logo & Visual Identity",
-      "goal": "Goal: Build a gentle and trustworthy identity for a parenthood app.",
-      "description": "Brand identity for En Kıymetlim, creating a calm visual system for parent health, child care and everyday family support.",
+      "goal": "The objective was to create a soft, trustworthy identity that could support both emotional reassurance and practical healthcare communication.",
+      "description": "I shaped the brand identity for En Kiymetlim around a calm visual system for parent health, child care and everyday family support.",
       "image": "assets/cms/showcase-1782410290853.webp",
       "media": [
         {
@@ -279,43 +828,76 @@
           "src": "assets/cms/showcase-1782410290853.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/1-1782410276715.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/2-1782410276734.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/3-1782410276751.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/4-1782410276768.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/5-1782410276792.webp",
           "poster": "",
           "alt": "En Kıymetlim Brand Identity",
-          "caption": "Ebeveynlik App"
+          "caption": "Ebeveynlik App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Packaging Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Parenting",
+        "Health Tech",
+        "Family Care"
       ]
     },
     {
@@ -330,8 +912,8 @@
       "summary": "Home Healthcare App",
       "scope": "Nurse & Physiotherapist Booking App",
       "service": "Product Design",
-      "goal": "Goal: Help people request trusted healthcare professionals at home with confidence.",
-      "description": "Product design for a home healthcare app, covering service UX, booking flows and trusted care interactions for nurses and physiotherapists.",
+      "goal": "The objective was to make requesting healthcare at home feel straightforward, reliable and confidence-building.",
+      "description": "I designed the product experience for Saglik Gelsin, a home healthcare app covering service discovery, booking flows and trusted care interactions for nurses and physiotherapists.",
       "image": "assets/project-7-ui-ux-prototyping.webp",
       "media": [
         {
@@ -339,8 +921,26 @@
           "src": "assets/project-7-ui-ux-prototyping.webp",
           "poster": "",
           "alt": "Sağlık Gelsin Product Design",
-          "caption": "Home Healthcare App"
+          "caption": "Home Healthcare App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Product Design",
+        "UX Strategy",
+        "Design Systems"
+      ],
+      "techStack": [
+        "Figma",
+        "FigJam",
+        "Prototype Motion"
+      ],
+      "industry": [
+        "Home Healthcare",
+        "Booking App",
+        "Health Tech"
       ]
     },
     {
@@ -355,8 +955,8 @@
       "summary": "Home Healthcare App",
       "scope": "Nurse & Physiotherapist Booking App",
       "service": "Web Design",
-      "goal": "Goal: Make home healthcare services easy to understand and request online.",
-      "description": "Web design for Sağlık Gelsin, shaping responsive service pages and clear request flows for home nurse and physiotherapy support.",
+      "goal": "The objective was to reduce uncertainty around home healthcare by making services easier to understand and request online.",
+      "description": "I designed responsive web pages and request flows for Saglik Gelsin, helping users quickly understand home nurse, physiotherapy and care services.",
       "image": "assets/project-7-ui-ux-prototyping.webp",
       "media": [
         {
@@ -364,8 +964,26 @@
           "src": "assets/project-7-ui-ux-prototyping.webp",
           "poster": "",
           "alt": "Sağlık Gelsin Web Design",
-          "caption": "Home Healthcare App"
+          "caption": "Home Healthcare App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Website Design",
+        "Responsive UI",
+        "Front-End Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "HTML/CSS",
+        "JavaScript"
+      ],
+      "industry": [
+        "Home Healthcare",
+        "Service Website",
+        "Health Tech"
       ]
     },
     {
@@ -380,10 +998,36 @@
       "summary": "Home Healthcare App",
       "scope": "Nurse & Physiotherapist Booking App",
       "service": "Logo & Visual Identity",
-      "goal": "Goal: Build a reliable healthcare identity that feels accessible and human.",
-      "description": "Brand identity for Sağlık Gelsin, defining trust signals, visual language and communication cues for a home healthcare service.",
+      "goal": "The objective was to build a healthcare communication system that feels reliable, accessible and human.",
+      "description": "I developed the visual direction for Saglik Gelsin around trust signals, service clarity and approachable communication for a home healthcare brand.",
       "image": "assets/project-7-ui-ux-prototyping.webp",
-      "media": []
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/project-7-ui-ux-prototyping.webp",
+          "poster": "",
+          "alt": "Sağlık Gelsin Sales Deck",
+          "caption": "Home Healthcare App",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Packaging Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Home Healthcare",
+        "Healthcare Communication",
+        "Brand System"
+      ]
     },
     {
       "title": "Saunakit",
@@ -397,8 +1041,8 @@
       "summary": "Portable Sauna",
       "scope": "Portable Sauna Product",
       "service": "Logo & Visual Identity, Packaging Direction",
-      "goal": "Goal: Position a portable sauna as a clean, premium and easy-to-understand wellness product.",
-      "description": "Brand identity system for a physical portable sauna product, focused on clear product positioning, naming support, packaging direction and visual consistency.",
+      "goal": "The objective was to position a portable sauna as a premium but easy-to-understand wellness product.",
+      "description": "I created brand and packaging direction for Saunakit, focusing on clear product positioning, a clean visual system and consistent physical product communication.",
       "image": "assets/project-5-design-systems.webp",
       "media": [
         {
@@ -406,8 +1050,26 @@
           "src": "assets/project-5-design-systems.webp",
           "poster": "",
           "alt": "Saunakit",
-          "caption": "Portable Sauna"
+          "caption": "Portable Sauna",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Packaging Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Wellness",
+        "Portable Sauna",
+        "Physical Product"
       ]
     },
     {
@@ -422,8 +1084,8 @@
       "summary": "Coffee Brand",
       "scope": "Coffee Product",
       "service": "Logo & Visual Identity, Packaging Direction",
-      "goal": "Goal: Build a grounded coffee brand with a distinct shelf presence.",
-      "description": "Brand identity and packaging direction for a coffee product, balancing a warm product story with a clear visual system.",
+      "goal": "The objective was to create a grounded coffee identity with a distinct shelf presence and a product-ready visual system.",
+      "description": "I developed brand identity and packaging direction for Raad Kahve, balancing a warm coffee story with clear visual hierarchy and retail-ready presentation.",
       "image": "assets/cms/samurai-mockup-1782411461339.png",
       "media": [
         {
@@ -431,22 +1093,46 @@
           "src": "assets/cms/old-school-a-ia-e-1-1782411461261.png",
           "poster": "",
           "alt": "Raad Kahve",
-          "caption": "Coffee Brand"
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/samurai-mockup-1782411461339.png",
           "poster": "",
           "alt": "Raad Kahve",
-          "caption": "Coffee Brand"
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         },
         {
           "type": "image",
           "src": "assets/cms/ambalaj-1782411664507.png",
           "poster": "",
           "alt": "Raad Kahve",
-          "caption": "Coffee Brand"
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Packaging Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Coffee",
+        "Packaging",
+        "FMCG"
       ]
     },
     {
@@ -460,18 +1146,199 @@
       "date": "2024",
       "summary": "Coffee Brand",
       "scope": "Coffee Product",
-      "service": "Logo & Visual Identity, Packaging Direction",
-      "goal": "Create a playful but polished coffee identity for a physical product.",
-      "description": "Coffee brand identity for a physical product, built around naming, visual language and product-ready brand elements.",
-      "image": "assets/cms/4-1782411717314.png",
+      "service": "Brand Identity, Visual Language, Packaging Direction",
+      "goal": "The objective was to create a playful but polished coffee identity that could scale across packaging and product communication.",
+      "description": "I shaped the Mambocino brand around naming, packaging and a shelf-ready visual system for specialty coffee products.",
+      "image": "assets/cms/mambocino-1.png",
       "media": [
         {
           "type": "image",
-          "src": "assets/cms/4-1782411717314.png",
+          "src": "assets/cms/mambocino-1.png",
           "poster": "",
           "alt": "Mambocino",
-          "caption": "Coffee Brand"
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-2.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-3.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-4.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-5.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-6.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-7.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-8.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/mambocino-9.png",
+          "poster": "",
+          "alt": "Mambocino",
+          "caption": "Coffee Brand",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Brand Identity",
+        "Visual Language",
+        "Packaging Direction"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Coffee",
+        "Packaging",
+        "FMCG"
+      ]
+    },
+    {
+      "title": "Samurai Bros",
+      "slug": "samurai-bros",
+      "category": "brand",
+      "categories": [
+        "brand"
+      ],
+      "meta": "Physical Product Brand",
+      "date": "2024",
+      "summary": "Cold Brew Coffee",
+      "scope": "Coffee Packaging",
+      "service": "Brand Identity, Packaging Direction, Product Visuals",
+      "goal": "The objective was to create a bold, shelf-ready cold brew identity with a strong black-and-white packaging system.",
+      "description": "I designed the Samurai Bros packaging system with bold contrast, clear product hierarchy and a bottle-first presentation that reads well both on shelf and in close-up product visuals.",
+      "image": "assets/cms/samurai-bros-5.png",
+      "media": [
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-bros-5.png",
+          "poster": "",
+          "alt": "Samurai Bros",
+          "caption": "Cold Brew Coffee",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-bros-4.png",
+          "poster": "",
+          "alt": "Samurai Bros",
+          "caption": "Cold Brew Coffee",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-bros-3.png",
+          "poster": "",
+          "alt": "Samurai Bros",
+          "caption": "Cold Brew Coffee",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-bros-2.png",
+          "poster": "",
+          "alt": "Samurai Bros",
+          "caption": "Cold Brew Coffee",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        },
+        {
+          "type": "image",
+          "src": "assets/cms/samurai-bros-1.png",
+          "poster": "",
+          "alt": "Samurai Bros",
+          "caption": "Cold Brew Coffee",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
+        }
+      ],
+      "services": [
+        "Brand Identity",
+        "Packaging Direction",
+        "Product Visuals"
+      ],
+      "techStack": [
+        "Figma",
+        "Adobe Illustrator",
+        "Adobe Photoshop"
+      ],
+      "industry": [
+        "Coffee",
+        "Packaging",
+        "FMCG"
       ]
     },
     {
@@ -486,42 +1353,35 @@
       "summary": "Sales Training Game",
       "scope": "Interactive Training Experience",
       "service": "Motion Design, Interaction Design",
-      "goal": "Goal: Make sales training more interactive, clear and memorable.",
-      "description": "Interactive sales training game concept with motion direction, UX rhythm and lightweight gameplay patterns for learning scenarios.",
-      "image": "assets/project-4-star-akim.webp",
+      "goal": "The objective was to make sales training more interactive, easier to retain and more engaging than a static learning flow.",
+      "description": "I designed an interactive sales training game concept with motion direction, UX rhythm and lightweight gameplay patterns for learning scenarios.",
+      "image": "assets/cms/sales-training-demo-1782490521032.mp4",
       "media": [
         {
-          "type": "image",
-          "src": "assets/project-4-star-akim.webp",
+          "type": "video",
+          "src": "assets/cms/sales-training-demo-1782490521032.mp4",
           "poster": "",
           "alt": "Sales Training Game",
-          "caption": "Sales Training Game"
+          "caption": "Sales Training Game",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
-      ]
-    },
-    {
-      "title": "Weltschmerz",
-      "slug": "weltschmerz",
-      "category": "artwork",
-      "categories": [
-        "artwork"
       ],
-      "meta": "Artwork Series",
-      "date": "Artwork",
-      "summary": "Editorial Artwork",
-      "scope": "Visual Artwork",
-      "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Create an expressive visual atmosphere with strong editorial character.",
-      "description": "Artwork series focused on mood, cultural references and visual storytelling.",
-      "image": "assets/project-3-weltschmerz-company.webp",
-      "media": [
-        {
-          "type": "image",
-          "src": "assets/project-3-weltschmerz-company.webp",
-          "poster": "",
-          "alt": "Weltschmerz",
-          "caption": "Editorial Artwork"
-        }
+      "services": [
+        "Motion Design",
+        "Interaction Design",
+        "Prototype Motion"
+      ],
+      "techStack": [
+        "Figma",
+        "After Effects",
+        "Motion"
+      ],
+      "industry": [
+        "Sales Training",
+        "EdTech",
+        "Interactive Learning"
       ]
     },
     {
@@ -536,8 +1396,8 @@
       "summary": "Political Artwork",
       "scope": "Visual Artwork",
       "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Build a sharp political visual with clear character focus.",
-      "description": "Political artwork exploring portrait, tension and symbolic visual treatment.",
+      "goal": "The objective was to build a sharp political visual with strong character focus and immediate editorial impact.",
+      "description": "I created a political artwork exploring portrait treatment, tension and symbolic composition around a recognizable public figure.",
       "image": "assets/project-6-brand-identity.webp",
       "media": [
         {
@@ -545,8 +1405,26 @@
           "src": "assets/project-6-brand-identity.webp",
           "poster": "",
           "alt": "Putin",
-          "caption": "Political Artwork"
+          "caption": "Political Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Political Artwork",
+        "Editorial",
+        "Portrait"
       ]
     },
     {
@@ -561,8 +1439,8 @@
       "summary": "Political Artwork",
       "scope": "Visual Artwork",
       "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Create a direct political artwork with a strong poster-like read.",
-      "description": "Political artwork built around composition, contrast and a clear editorial point of view.",
+      "goal": "The objective was to create a direct political artwork with a strong poster-like read and clear visual hierarchy.",
+      "description": "I built this political artwork around contrast, composition and an editorial point of view that reads quickly at first glance.",
       "image": "assets/project-6-brand-identity.webp",
       "media": [
         {
@@ -570,8 +1448,26 @@
           "src": "assets/project-6-brand-identity.webp",
           "poster": "",
           "alt": "Tayyip",
-          "caption": "Political Artwork"
+          "caption": "Political Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Political Artwork",
+        "Editorial",
+        "Poster Art"
       ]
     },
     {
@@ -586,8 +1482,8 @@
       "summary": "Political Artwork",
       "scope": "Visual Artwork",
       "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Frame two political figures inside one memorable visual narrative.",
-      "description": "Dual-character political artwork with emphasis on visual tension, hierarchy and symbolic composition.",
+      "goal": "The objective was to frame two political figures inside one memorable visual narrative without losing hierarchy.",
+      "description": "I created a dual-character political artwork with emphasis on visual tension, symbolic composition and a clear relationship between the figures.",
       "image": "assets/project-6-brand-identity.webp",
       "media": [
         {
@@ -595,8 +1491,26 @@
           "src": "assets/project-6-brand-identity.webp",
           "poster": "",
           "alt": "Putin & Trump",
-          "caption": "Political Artwork"
+          "caption": "Political Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Political Artwork",
+        "Editorial",
+        "Visual Narrative"
       ]
     },
     {
@@ -611,8 +1525,8 @@
       "summary": "Political Artwork",
       "scope": "Visual Artwork",
       "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Create a bold political portrait artwork with strong recognizability.",
-      "description": "Political portrait artwork designed with a poster-like composition and clear visual emphasis.",
+      "goal": "The objective was to create a bold political portrait with strong recognizability and a direct editorial tone.",
+      "description": "I designed this political portrait artwork with a poster-like composition, strong contrast and clear visual emphasis.",
       "image": "assets/project-6-brand-identity.webp",
       "media": [
         {
@@ -620,8 +1534,26 @@
           "src": "assets/project-6-brand-identity.webp",
           "poster": "",
           "alt": "Trump",
-          "caption": "Political Artwork"
+          "caption": "Political Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Political Artwork",
+        "Editorial",
+        "Portrait"
       ]
     },
     {
@@ -636,8 +1568,8 @@
       "summary": "Perfume Bottle Artwork",
       "scope": "Product Visual Artwork",
       "service": "Digital Artwork, Product Visual",
-      "goal": "Goal: Create a refined perfume bottle visual with premium product cues.",
-      "description": "Product-focused artwork for a perfume bottle, combining object presentation, lighting and visual mood.",
+      "goal": "The objective was to make the perfume bottle feel premium, tactile and visually desirable.",
+      "description": "I created a product-focused artwork for Odoris, combining bottle presentation, lighting direction and a refined visual mood.",
       "image": "assets/project-5-design-systems.webp",
       "media": [
         {
@@ -645,8 +1577,26 @@
           "src": "assets/project-5-design-systems.webp",
           "poster": "",
           "alt": "Odoris Şişe Parfüm",
-          "caption": "Perfume Bottle Artwork"
+          "caption": "Perfume Bottle Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Perfume",
+        "Product Visual",
+        "Luxury Goods"
       ]
     },
     {
@@ -661,8 +1611,8 @@
       "summary": "Music Artwork",
       "scope": "Visual Artwork",
       "service": "Digital Artwork, Art Direction",
-      "goal": "Goal: Create a music-led artwork with a bold atmospheric identity.",
-      "description": "Music artwork inspired by performance, mood and contemporary visual culture.",
+      "goal": "The objective was to create a music-led artwork with a bold atmosphere and a strong cultural read.",
+      "description": "I designed a Travis Scott-inspired artwork around performance energy, mood and contemporary visual culture.",
       "image": "assets/project-3-weltschmerz-company.webp",
       "media": [
         {
@@ -670,8 +1620,26 @@
           "src": "assets/project-3-weltschmerz-company.webp",
           "poster": "",
           "alt": "Travis Scott",
-          "caption": "Music Artwork"
+          "caption": "Music Artwork",
+          "width": "",
+          "height": "",
+          "aspectRatio": ""
         }
+      ],
+      "services": [
+        "Digital Artwork",
+        "Art Direction",
+        "Visual Storytelling"
+      ],
+      "techStack": [
+        "Photoshop",
+        "Illustrator",
+        "AI Image Workflow"
+      ],
+      "industry": [
+        "Music Artwork",
+        "Culture",
+        "Visual Art"
       ]
     }
   ],

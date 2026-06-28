@@ -22,15 +22,18 @@ const elements = {
   add: document.getElementById("cmsAddProject")
 };
 
-const editableFields = [
-  ["title", "Project Name", "text"],
-  ["slug", "Slug", "text"],
-  ["date", "Date", "text"],
-  ["summary", "Scope", "text"],
-  ["service", "Services", "text"],
-  ["meta", "Role / Meta", "text"],
-  ["goal", "Goal", "textarea"],
-  ["description", "Overview", "textarea"]
+const projectFields = [
+  { key: "title", label: "Project Name", type: "text" },
+  { key: "slug", label: "Slug", type: "text" },
+  { key: "summary", label: "Project Type", type: "text", hint: "Shown under project cards, e.g. AI Travel App." },
+  { key: "date", label: "Year / Date", type: "text" },
+  { key: "description", label: "Description", type: "textarea", rows: 5, wide: true, hint: "Shown under the project title on the detail page." }
+];
+
+const projectInfoFields = [
+  { key: "services", label: "Services", hint: "One service per line. Shown in the project detail info grid." },
+  { key: "techStack", label: "Tech Stack", hint: "One tool or platform per line." },
+  { key: "industry", label: "Industry", hint: "One industry tag per line." }
 ];
 
 function slugify(value = "") {
@@ -49,6 +52,19 @@ function getProjectCategories(project) {
 
 function getProjectMedia(project) {
   return project.media?.length ? project.media : [];
+}
+
+function normalizeTextList(value) {
+  if (Array.isArray(value)) return value.map((item) => String(item).trim()).filter(Boolean);
+  if (!value) return [];
+  return String(value)
+    .split(/\n|,/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function listToTextareaValue(value) {
+  return normalizeTextList(value).join("\n");
 }
 
 function setStatus(message, tone = "muted") {
@@ -80,6 +96,11 @@ function normalizeProject(project) {
   project.categories = getProjectCategories(project);
   project.category = project.category || project.categories[0] || "product";
   project.scope = project.scope || project.summary || "";
+  project.summary = project.summary || project.scope || "";
+  project.description = project.description || "";
+  project.services = normalizeTextList(project.services || project.service || project.meta);
+  project.techStack = normalizeTextList(project.techStack || project.stack);
+  project.industry = normalizeTextList(project.industry || project.scope || project.summary);
 
   if (!project.image && project.media[0]) {
     project.image = project.media[0].poster || project.media[0].src;
@@ -119,7 +140,7 @@ function renderProjectList() {
       <button class="cms-project-row${index === state.activeIndex ? " active" : ""}" type="button" data-project-index="${index}">
         <span>
           <strong class="text-ui">${escapeHtml(project.title)}</strong>
-          <small class="text-ui text-muted">${escapeHtml(project.summary || "No scope")}</small>
+          <small class="text-ui text-muted">${escapeHtml(project.summary || project.scope || "No project type")}</small>
         </span>
         <em class="text-ui text-muted">${escapeHtml(categories)}</em>
       </button>
@@ -127,16 +148,30 @@ function renderProjectList() {
   }).join("");
 }
 
-function fieldTemplate(project, [key, label, type]) {
+function fieldTemplate(project, field) {
+  const { key, label, type = "text", rows = 4, wide = false, hint = "" } = field;
   const value = project[key] || "";
   const control = type === "textarea"
-    ? `<textarea name="${escapeAttr(key)}" rows="4">${escapeHtml(value)}</textarea>`
+    ? `<textarea name="${escapeAttr(key)}" rows="${escapeAttr(rows)}">${escapeHtml(value)}</textarea>`
     : `<input name="${escapeAttr(key)}" type="${escapeAttr(type)}" value="${escapeAttr(value)}">`;
+
+  return `
+    <label class="cms-field${wide ? " cms-field-wide" : ""}">
+      <span class="text-ui text-muted">${escapeHtml(label)}</span>
+      ${control}
+      ${hint ? `<small class="text-ui text-muted">${escapeHtml(hint)}</small>` : ""}
+    </label>
+  `;
+}
+
+function listFieldTemplate(project, field) {
+  const { key, label, hint = "" } = field;
 
   return `
     <label class="cms-field">
       <span class="text-ui text-muted">${escapeHtml(label)}</span>
-      ${control}
+      <textarea data-list-field="${escapeAttr(key)}" rows="5">${escapeHtml(listToTextareaValue(project[key]))}</textarea>
+      ${hint ? `<small class="text-ui text-muted">${escapeHtml(hint)}</small>` : ""}
     </label>
   `;
 }
@@ -307,9 +342,40 @@ function renderEditor() {
       </div>
       <button class="btn btn-regular secondary" type="button" data-delete-project>Delete</button>
     </div>
-    ${editableFields.map((field) => fieldTemplate(project, field)).join("")}
-    ${renderPrimaryCategory(project)}
-    ${renderCategoryFields(project)}
+    <section class="cms-editor-section">
+      <div class="cms-section-head">
+        <div>
+          <p class="text-ui text-muted">Project Page</p>
+          <h3 class="text-body">Title, description and date</h3>
+        </div>
+      </div>
+      <div class="cms-field-grid">
+        ${projectFields.map((field) => fieldTemplate(project, field)).join("")}
+      </div>
+    </section>
+    <section class="cms-editor-section">
+      <div class="cms-section-head">
+        <div>
+          <p class="text-ui text-muted">Project Detail Info</p>
+          <h3 class="text-body">Services, stack, industry</h3>
+        </div>
+      </div>
+      <div class="cms-field-grid">
+        ${projectInfoFields.map((field) => listFieldTemplate(project, field)).join("")}
+      </div>
+    </section>
+    <section class="cms-editor-section">
+      <div class="cms-section-head">
+        <div>
+          <p class="text-ui text-muted">Portfolio Filters</p>
+          <h3 class="text-body">Category placement</h3>
+        </div>
+      </div>
+      <div class="cms-field-grid">
+        ${renderPrimaryCategory(project)}
+        ${renderCategoryFields(project)}
+      </div>
+    </section>
     ${renderCoverField(project)}
     ${renderMediaManager(project)}
   `;
@@ -346,6 +412,18 @@ function updateProjectFromInput(input) {
     return;
   }
 
+  if (input.dataset.listField) {
+    const field = input.dataset.listField;
+    project[field] = normalizeTextList(input.value);
+    if (field === "services") {
+      project.service = project.services.join(", ");
+      project.meta = project.services[0] || project.meta || "";
+    }
+    markDirty();
+    renderProjectList();
+    return;
+  }
+
   if (input.name === "categories") {
     const selected = [...elements.form.querySelectorAll('input[name="categories"]:checked')].map((item) => item.value);
     project.categories = selected.length ? selected : [project.category || "product"];
@@ -357,7 +435,12 @@ function updateProjectFromInput(input) {
     project.categories = Array.from(new Set([input.value, ...getProjectCategories(project)]));
   } else {
     project[input.name] = input.value;
-    if (input.name === "summary") project.scope = input.value;
+    if (input.name === "summary") {
+      project.scope = input.value;
+      project.media.forEach((item) => {
+        if (!item.caption) item.caption = input.value;
+      });
+    }
     if (input.name === "title" && !project.slug) {
       project.slug = slugify(input.value);
     }
@@ -375,14 +458,18 @@ function addProject() {
     slug: `new-project-${nextNumber}`,
     category: "product",
     categories: ["product"],
-    meta: "Role / Date",
+    meta: "Product Design",
     date: "2026",
-    summary: "Project Scope",
-    scope: "Project Scope",
-    service: "Service",
-    goal: "Goal: Define the outcome.",
-    description: "Project overview.",
-    image: "assets/project-1-hant-ai.webp"
+    summary: "Project Type",
+    scope: "Project Type",
+    service: "Product Design",
+    goal: "",
+    description: "Describe the work, the product context and what changed.",
+    image: "assets/project-1-hant-ai.webp",
+    media: [],
+    services: ["Product Design"],
+    techStack: ["Figma"],
+    industry: ["Digital Product"]
   });
 
   state.content.projects.push(project);

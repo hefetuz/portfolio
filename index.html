@@ -4,7 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halim Efe Tuzlu | Product Designer & CPO</title>
+  <!-- SEO_START -->
+  <base href="/">
   <meta name="description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta name="theme-color" content="#050505">
+  <link rel="canonical" href="https://hefetuz.github.io/portfolio/">
+  <link rel="manifest" href="site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Halim Efe Tuzlu">
+  <meta property="og:title" content="Halim Efe Tuzlu | Product Designer & CPO">
+  <meta property="og:description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta property="og:url" content="https://hefetuz.github.io/portfolio/">
+  <meta property="og:image" content="https://hefetuz.github.io/portfolio/assets/project-1-hant-ai.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Halim Efe Tuzlu | Product Designer & CPO">
+  <meta name="twitter:description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta name="twitter:image" content="https://hefetuz.github.io/portfolio/assets/project-1-hant-ai.webp">
+  <!-- SEO_END -->
   <link rel="icon" href="assets/efe-avatar.svg">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -90,9 +106,17 @@
   </div>
 
   <div id="visualLightbox" class="visual-lightbox" role="dialog" aria-modal="true" aria-label="Expanded project visual" hidden>
-    <button class="btn btn-small secondary visual-lightbox-close" type="button" data-visual-lightbox-close aria-label="Close expanded visual">Close</button>
-    <img id="visualLightboxImage" src="" alt="">
-    <video id="visualLightboxVideo" controls playsinline hidden></video>
+    <div class="visual-lightbox-stage" role="document">
+      <button class="visual-lightbox-close" type="button" data-visual-lightbox-close aria-label="Close expanded visual">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+      <div class="visual-lightbox-media">
+        <img id="visualLightboxImage" src="" alt="">
+        <video id="visualLightboxVideo" controls playsinline hidden></video>
+      </div>
+    </div>
   </div>
 
   <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">

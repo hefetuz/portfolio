@@ -1,8 +1,22 @@
 import { cardLayoutFlush, escapeAttr, escapeHtml } from "../utils/dom.js";
 import { getProjectCover, mediaElementTemplate } from "../utils/media.js";
-import { observeReveal } from "./reveal.js";
 
 const resizeAnimations = new WeakMap();
+const gridResizeObservers = new WeakMap();
+const BENTO_SLOTS = [
+  { columns: 7, rows: 34 },
+  { columns: 5, rows: 16 },
+  { columns: 5, rows: 18 },
+  { columns: 4, rows: 22 },
+  { columns: 8, rows: 22 },
+  { columns: 5, rows: 20 },
+  { columns: 7, rows: 20 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 32 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 16 },
+  { columns: 4, rows: 16 }
+];
 
 function projectCardTemplate(project, visibleIndex, sourceIndex) {
   const scope = project.scope || project.summary || project.description;
@@ -10,8 +24,13 @@ function projectCardTemplate(project, visibleIndex, sourceIndex) {
   const cover = getProjectCover(project);
 
   return `
-    <article class="project-card t-resize bento-${(visibleIndex % 8) + 1}" tabindex="0" role="button" data-project-index="${sourceIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
-      ${mediaElementTemplate(cover)}
+    <article class="project-card t-resize" tabindex="0" role="button" data-project-index="${sourceIndex}" data-bento-index="${visibleIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
+      ${mediaElementTemplate(cover, "", {
+        loading: "eager",
+        decoding: "async",
+        fetchPriority: visibleIndex < 6 ? "high" : "auto",
+        preload: visibleIndex < 4 ? "auto" : "metadata"
+      })}
       <div class="project-info">
         <div class="project-line">
           <h2 class="project-name text-card-title">${escapeHtml(project.title)}</h2>
@@ -23,6 +42,139 @@ function projectCardTemplate(project, visibleIndex, sourceIndex) {
       </div>
     </article>
   `;
+}
+
+function applyCardAspectRatio(card, width, height) {
+  if (!card || !width || !height) return;
+
+  const ratio = width / height;
+  if (!Number.isFinite(ratio) || ratio <= 0) return;
+
+  card.style.setProperty("--card-media-ratio", ratio.toFixed(4));
+  card.classList.toggle("is-portrait", ratio < 0.82);
+  card.classList.toggle("is-square", ratio >= 0.82 && ratio <= 1.18);
+  card.classList.toggle("is-landscape", ratio > 1.18);
+  layoutBentoCards(card.closest(".project-grid"));
+}
+
+function getBentoShape(index) {
+  return BENTO_SLOTS[index % BENTO_SLOTS.length];
+}
+
+function getGridColumnCount(grid) {
+  const columns = getComputedStyle(grid).gridTemplateColumns;
+  if (!columns || columns === "none") return 1;
+  return columns.split(" ").filter(Boolean).length || 1;
+}
+
+function layoutBentoCards(grid) {
+  if (!grid || !grid.classList.contains("view-bento")) return;
+
+  const columns = getGridColumnCount(grid);
+
+  grid.querySelectorAll(".project-card").forEach((card) => {
+    const index = Number.parseInt(card.dataset.bentoIndex, 10) || 0;
+    const shape = getBentoShape(index);
+    card.style.setProperty("--card-bento-col-span", String(columns <= 2 ? 1 : Math.min(shape.columns, columns)));
+    card.style.setProperty("--card-bento-row-span", String(shape.rows));
+  });
+}
+
+function bindCardAspectRatios(grid) {
+  gridResizeObservers.get(grid)?.disconnect();
+  if (typeof ResizeObserver !== "undefined") {
+    const observer = new ResizeObserver(() => layoutBentoCards(grid));
+    observer.observe(grid);
+    gridResizeObservers.set(grid, observer);
+  }
+
+  grid.querySelectorAll(".project-card").forEach((card) => {
+    const media = card.querySelector("img, video");
+    if (!media) return;
+
+    if (media.tagName === "IMG") {
+      const updateImageRatio = () => applyCardAspectRatio(card, media.naturalWidth, media.naturalHeight);
+      if (media.complete && media.naturalWidth) {
+        updateImageRatio();
+      } else {
+        media.addEventListener("load", updateImageRatio, { once: true });
+      }
+      return;
+    }
+
+    const updateVideoRatio = () => applyCardAspectRatio(card, media.videoWidth, media.videoHeight);
+    if (media.readyState >= 1 && media.videoWidth) {
+      updateVideoRatio();
+    } else {
+      media.addEventListener("loadedmetadata", updateVideoRatio, { once: true });
+    }
+  });
+
+  requestAnimationFrame(() => layoutBentoCards(grid));
+}
+
+function bindCardLoadState(grid) {
+  grid.querySelectorAll(".project-card").forEach((card) => {
+    const media = card.querySelector("img, video");
+    if (!media) return;
+    const loadStart = performance.now();
+
+    const markLoaded = () => {
+      const elapsed = performance.now() - loadStart;
+      const remaining = Math.max(0, 180 - elapsed);
+      window.setTimeout(() => {
+        card.classList.add("is-loaded");
+      }, remaining);
+    };
+
+    if (media.tagName === "IMG") {
+      if (media.complete && media.naturalWidth) {
+        markLoaded();
+      } else {
+        media.addEventListener("load", markLoaded, { once: true });
+      }
+      return;
+    }
+
+    if (media.readyState >= 2) {
+      markLoaded();
+    } else {
+      media.addEventListener("loadeddata", markLoaded, { once: true });
+    }
+  });
+}
+
+function warmProjectCovers(projects) {
+  projects.forEach(({ project }, visibleIndex) => {
+    const cover = getProjectCover(project);
+    if (!cover?.src) return;
+
+    const preloadSelector = `[data-project-cover-preload="${CSS.escape(cover.src)}"]`;
+    if (document.head.querySelector(preloadSelector)) return;
+
+    if (cover.type === "image") {
+      const preloadLink = document.createElement("link");
+      preloadLink.rel = "preload";
+      preloadLink.as = "image";
+      preloadLink.href = cover.src;
+      preloadLink.fetchPriority = visibleIndex < 6 ? "high" : "auto";
+      preloadLink.dataset.projectCoverPreload = cover.src;
+      document.head.append(preloadLink);
+
+      const image = new Image();
+      image.decoding = "async";
+      image.fetchPriority = visibleIndex < 6 ? "high" : "auto";
+      image.src = cover.src;
+      return;
+    }
+
+    const preloadLink = document.createElement("link");
+    preloadLink.rel = "preload";
+    preloadLink.as = "video";
+    preloadLink.href = cover.src;
+    preloadLink.dataset.projectCoverPreload = cover.src;
+    document.head.append(preloadLink);
+  });
 }
 
 export function getProjectsByCategory(projects, category) {
@@ -44,7 +196,13 @@ export function renderProjects({ projects, filter, view, target = document.getEl
   target.innerHTML = filtered.map(({ project, index }, visibleIndex) => (
     projectCardTemplate(project, visibleIndex, index)
   )).join("");
-  observeReveal(target.querySelectorAll(".project-card"));
+  warmProjectCovers(filtered);
+  target.querySelectorAll(".project-card").forEach((card, cardIndex) => {
+    card.classList.add("framer-reveal");
+    card.style.setProperty("--appear-delay", `${Math.min(60 + cardIndex * 36, 240)}ms`);
+  });
+  bindCardLoadState(target);
+  bindCardAspectRatios(target);
 }
 
 export function animateProjectViewChange({ view, target = document.getElementById("work") }) {
@@ -52,6 +210,7 @@ export function animateProjectViewChange({ view, target = document.getElementByI
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !cards.length) {
     target.className = `project-grid view-${view}`;
+    layoutBentoCards(target);
     return;
   }
 
@@ -59,6 +218,7 @@ export function animateProjectViewChange({ view, target = document.getElementByI
   cards.forEach((card) => resizeAnimations.get(card)?.cancel());
 
   target.className = `project-grid view-${view} is-flipping`;
+  layoutBentoCards(target);
   cardLayoutFlush(target);
 
   const nextRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));

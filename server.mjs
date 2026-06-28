@@ -169,9 +169,17 @@ createServer((request, response) => {
   }
 
   if (!existsSync(filePath)) {
-    response.writeHead(404);
-    response.end("Not found");
-    return;
+    const segments = url.pathname.split("/").filter(Boolean);
+    const hasFileExtension = Boolean(extname(url.pathname));
+    if (!hasFileExtension && segments.includes("work")) {
+      filePath = join(root, "index.html");
+    }
+
+    if (!existsSync(filePath)) {
+      response.writeHead(404);
+      response.end("Not found");
+      return;
+    }
   }
 
   response.writeHead(200, {
