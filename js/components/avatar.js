@@ -2,6 +2,7 @@ const FPS = 30;
 const MAX_FRAMES = 90;
 const FORWARD_SPEED = 1.5;
 const REVERSE_SPEED = 2.25;
+const END_EPSILON = 0.08;
 
 export function bindAvatar(source) {
   const profile = document.querySelector(".profile");
@@ -20,6 +21,7 @@ export function bindAvatar(source) {
   const frames = [];
   let captureId = 0;
   let reverseId = 0;
+  let forwardGuardId = 0;
   let reverseIndex = 0;
   let lastReverseStep = 0;
 
@@ -54,17 +56,24 @@ export function bindAvatar(source) {
     frame.width = canvas.width;
     frame.height = canvas.height;
     const frameContext = frame.getContext("2d");
-    if (!frameContext) return;
+    if (!frameContext) return null;
 
-    if (!drawCover(video, frameContext)) return;
+    if (!drawCover(video, frameContext)) return null;
     frames.push(frame);
     if (frames.length > MAX_FRAMES) frames.shift();
+    return frame;
   };
 
   const stopCapture = () => {
     if (!captureId) return;
     cancelAnimationFrame(captureId);
     captureId = 0;
+  };
+
+  const stopForwardGuard = () => {
+    if (!forwardGuardId) return;
+    cancelAnimationFrame(forwardGuardId);
+    forwardGuardId = 0;
   };
 
   const stopReverse = () => {
@@ -102,17 +111,43 @@ export function bindAvatar(source) {
     reverseId = requestAnimationFrame(reverseLoop);
   };
 
+  const forwardGuardLoop = () => {
+    if (video.paused || !Number.isFinite(video.duration)) {
+      forwardGuardId = 0;
+      return;
+    }
+
+    const stableEnd = Math.max(video.duration - END_EPSILON, 0);
+    if (video.currentTime >= stableEnd) {
+      const frame = captureFrame();
+      video.pause();
+      if (frame) {
+        context.drawImage(frame, 0, 0, canvas.width, canvas.height);
+      }
+      showCanvas();
+      stopCapture();
+      forwardGuardId = 0;
+      return;
+    }
+
+    forwardGuardId = requestAnimationFrame(forwardGuardLoop);
+  };
+
   const playForward = () => {
     stopReverse();
     stopCapture();
+    stopForwardGuard();
     showVideo();
 
-    if (video.ended || video.currentTime >= video.duration) video.currentTime = 0;
+    if (video.ended || (Number.isFinite(video.duration) && video.currentTime >= video.duration - END_EPSILON)) {
+      video.currentTime = 0;
+    }
     video.playbackRate = FORWARD_SPEED;
     frames.length = 0;
     captureFrame();
     video.play().then(() => {
       captureId = requestAnimationFrame(captureLoop);
+      forwardGuardId = requestAnimationFrame(forwardGuardLoop);
     }).catch(() => {
       showCanvas();
     });
@@ -121,6 +156,7 @@ export function bindAvatar(source) {
   const playBackward = () => {
     stopCapture();
     stopReverse();
+    stopForwardGuard();
     video.pause();
     captureFrame();
     showCanvas();
@@ -135,7 +171,12 @@ export function bindAvatar(source) {
 
   video.addEventListener("ended", () => {
     stopCapture();
-    captureFrame();
+    stopForwardGuard();
+    const frame = captureFrame();
+    if (frame) {
+      context.drawImage(frame, 0, 0, canvas.width, canvas.height);
+    }
+    showCanvas();
   });
 
   video.load();

@@ -4,7 +4,23 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Halim Efe Tuzlu | Product Designer & CPO</title>
+  <!-- SEO_START -->
+  <base href="/">
   <meta name="description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta name="theme-color" content="#050505">
+  <link rel="canonical" href="https://hefetuz.github.io/portfolio/">
+  <link rel="manifest" href="site.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Halim Efe Tuzlu">
+  <meta property="og:title" content="Halim Efe Tuzlu | Product Designer & CPO">
+  <meta property="og:description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta property="og:url" content="https://hefetuz.github.io/portfolio/">
+  <meta property="og:image" content="https://hefetuz.github.io/portfolio/assets/project-1-hant-ai.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Halim Efe Tuzlu | Product Designer & CPO">
+  <meta name="twitter:description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
+  <meta name="twitter:image" content="https://hefetuz.github.io/portfolio/assets/project-1-hant-ai.webp">
+  <!-- SEO_END -->
   <link rel="icon" href="assets/efe-avatar.svg">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -38,31 +54,35 @@
       <section class="services" id="services" aria-labelledby="services-title">
         <h2 class="text-heading" id="services-title">Services</h2>
         <div id="servicesList"></div>
-        <div class="actions">
-          <a class="btn primary" id="emailLink" href="mailto:hefetuzlu@gmail.com">Send Email</a>
-          <a class="btn secondary" id="socialLink" href="https://www.behance.net/efetuzlu">Behance</a>
-        </div>
       </section>
 
       <footer class="footer">
+        <div class="actions footer-actions">
+          <a class="btn btn-small primary" id="emailLink" href="mailto:hefetuzlu@gmail.com">
+            <span>Email</span>
+          </a>
+          <div class="social-tabs fill-glass" id="socialLinks" aria-label="Social links"></div>
+        </div>
         <div class="footer-meta text-ui text-mono text-muted">
           <time id="clock" datetime="">--</time>
           <div class="language-menu" data-language-menu>
             <button class="language-trigger text-ui text-mono" type="button" aria-haspopup="menu" aria-expanded="false">
-              TR
+              <span data-language-current>TR</span>
             </button>
             <div class="language-dropdown t-dropdown" data-origin="bottom-right" role="menu">
-              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR">TR</button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN">EN</button>
+              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR" aria-label="Turkish">
+                <span>TR</span>
+                <img class="language-flag" src="assets/flag-tr.webp" alt="" aria-hidden="true">
+              </button>
+              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN" aria-label="English">
+                <span>EN</span>
+                <img class="language-flag" src="assets/flag-gb.webp" alt="" aria-hidden="true">
+              </button>
             </div>
           </div>
         </div>
-        <nav aria-label="Footer links">
-          <a href="#top">Terms</a>
-          <a href="#work">Imprint</a>
-          <a href="admin.html">CMS</a>
-        </nav>
       </footer>
+      <section class="project-detail-panel" id="projectDetailPanel" aria-label="Project details" hidden></section>
     </aside>
 
     <main id="top" class="work-area">
@@ -76,18 +96,28 @@
         </div>
       </div>
       <section class="project-grid view-bento" id="work" aria-label="Selected work"></section>
+      <div class="detail-visual-toolbar" id="projectVisualToolbar" hidden>
+        <div class="segmented-control segmented-control-icon view-tabs detail-view-tabs fill-glass label-secondary" role="tablist" aria-label="Project visual view mode">
+          <span class="tab-indicator" aria-hidden="true"></span>
+        </div>
+      </div>
+      <section class="project-showcase" id="projectShowcase" aria-label="Project visuals" hidden></section>
     </main>
   </div>
 
-  <dialog id="projectDialog" class="dialog">
-    <button class="dialog-close" type="button" aria-label="Close">×</button>
-    <img id="dialogImage" src="assets/efe-avatar.svg" alt="">
-    <div>
-      <p class="text-body text-muted" id="dialogMeta"></p>
-      <h2 class="text-heading" id="dialogTitle"></h2>
-      <p class="text-body text-muted" id="dialogDescription"></p>
+  <div id="visualLightbox" class="visual-lightbox" role="dialog" aria-modal="true" aria-label="Expanded project visual" hidden>
+    <div class="visual-lightbox-stage" role="document">
+      <button class="visual-lightbox-close" type="button" data-visual-lightbox-close aria-label="Close expanded visual">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+      <div class="visual-lightbox-media">
+        <img id="visualLightboxImage" src="" alt="">
+        <video id="visualLightboxVideo" controls playsinline hidden></video>
+      </div>
     </div>
-  </dialog>
+  </div>
 
   <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
     <filter id="tab-glass-distortion" x="0%" y="0%" width="100%" height="100%" filterUnits="objectBoundingBox">

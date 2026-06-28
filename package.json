@@ -1,0 +1,11 @@
+{
+  "name": "halim-efe-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check server.mjs && node --check scripts/build.mjs && node --check js/app.js"
+  }
+}

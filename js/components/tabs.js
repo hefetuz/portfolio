@@ -2,7 +2,9 @@ import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
 const VIEW_TAB_SLOT = 28;
 const VIEW_SHRINK_DELAY_MS = 1200;
+const TOOLTIP_VIEWPORT_MARGIN = 24;
 const viewShrinkTimers = new WeakMap();
+let adaptiveTooltipsBound = false;
 
 function getViewActiveIndex(tabs) {
   return Math.max(0, [...tabs.querySelectorAll(".tab")].findIndex((tab) => tab.classList.contains("active")));
@@ -71,6 +73,41 @@ function handleViewTabsLeave(tabs) {
   closeViewTabs(tabs, { blurFocus: true });
 }
 
+function positionTooltip(tooltip) {
+  tooltip.style.setProperty("--tt-shift", "0px");
+
+  const rect = tooltip.getBoundingClientRect();
+  const viewportWidth = document.documentElement.clientWidth || window.innerWidth;
+  let shift = 0;
+
+  if (rect.left < TOOLTIP_VIEWPORT_MARGIN) {
+    shift = TOOLTIP_VIEWPORT_MARGIN - rect.left;
+  } else if (rect.right > viewportWidth - TOOLTIP_VIEWPORT_MARGIN) {
+    shift = viewportWidth - TOOLTIP_VIEWPORT_MARGIN - rect.right;
+  }
+
+  tooltip.style.setProperty("--tt-shift", `${Math.round(shift)}px`);
+}
+
+function queueTooltipPosition(target) {
+  const wrap = target.closest?.(".t-tt-wrap");
+  const tooltip = wrap?.querySelector(".t-tt");
+  if (!tooltip) return;
+
+  window.requestAnimationFrame(() => positionTooltip(tooltip));
+}
+
+export function bindAdaptiveTooltips() {
+  if (adaptiveTooltipsBound) return;
+  adaptiveTooltipsBound = true;
+
+  document.addEventListener("pointerover", (event) => queueTooltipPosition(event.target), true);
+  document.addEventListener("focusin", (event) => queueTooltipPosition(event.target), true);
+  window.addEventListener("resize", () => {
+    document.querySelectorAll(".t-tt-wrap:hover .t-tt, .t-tt-wrap:focus-within .t-tt").forEach(positionTooltip);
+  });
+}
+
 function categoryTabTemplate(category, isActive) {
   return `
     <button class="tab text-ui${isActive ? " active" : ""}" type="button" data-filter="${escapeAttr(category.id)}">
@@ -81,7 +118,7 @@ function categoryTabTemplate(category, isActive) {
 
 function viewTabTemplate(viewMode, isActive) {
   return `
-    <button class="tab text-ui icon-tab${isActive ? " active" : ""}" type="button" data-view="${escapeAttr(viewMode.id)}" aria-label="${escapeAttr(viewMode.label)}" title="${escapeAttr(viewMode.label)}">
+    <button class="tab text-ui icon-tab${isActive ? " active" : ""}" type="button" data-view="${escapeAttr(viewMode.id)}" data-tooltip="${escapeAttr(viewMode.label)}" aria-label="${escapeAttr(viewMode.label)}">
       <span class="view-icon view-icon-${escapeAttr(viewMode.icon || viewMode.id)}" aria-hidden="true"></span>
     </button>
   `;
@@ -184,11 +221,25 @@ export function bindTabs(selector, callback) {
     const button = event.target.closest(".tab");
     if (!button) return;
 
+    const isViewTabs = tabs.classList.contains("view-tabs");
+    const isCollapsedViewTabs = isViewTabs && tabs.dataset.open !== "true";
+    const wasActiveViewTab = isViewTabs && button.classList.contains("active");
+
+    if (isCollapsedViewTabs && wasActiveViewTab) {
+      handleViewTabsEnter(tabs);
+      return;
+    }
+
+    if (isViewTabs) {
+      clearViewShrinkTimer(tabs);
+      setViewTabsOpen(tabs, true);
+    }
+
     tabs.querySelectorAll(".tab").forEach((tab) => {
       tab.classList.toggle("active", tab === button);
     });
 
-    if (tabs.classList.contains("view-tabs")) {
+    if (isViewTabs) {
       const buttons = [...tabs.querySelectorAll(".tab")];
       const index = buttons.indexOf(button);
       const activeIndex = Math.max(0, index);

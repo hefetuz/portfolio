@@ -1,4 +1,5 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
+import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
 
@@ -6,16 +7,160 @@ const root = new URL(".", import.meta.url).pathname.slice(1);
 const port = Number(process.env.PORT || 4174);
 
 const types = {
+  ".avif": "image/avif",
+  ".gif": "image/gif",
   ".html": "text/html; charset=utf-8",
+  ".jpeg": "image/jpeg",
+  ".jpg": "image/jpeg",
+  ".mp4": "video/mp4",
+  ".mov": "video/quicktime",
+  ".png": "image/png",
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".svg": "image/svg+xml",
+  ".webm": "video/webm",
   ".webp": "image/webp"
 };
 
+const mediaDirectory = join(root, "assets", "cms");
+const maxUploadBytes = 50 * 1024 * 1024;
+const mediaExtensions = new Set([".avif", ".gif", ".jpeg", ".jpg", ".m4v", ".mov", ".mp4", ".ogg", ".ogv", ".png", ".svg", ".webm", ".webp"]);
+const videoExtensions = new Set([".m4v", ".mov", ".mp4", ".ogg", ".ogv", ".webm"]);
+
+function readRequestBody(request, maxBytes = maxUploadBytes) {
+  return new Promise((resolve, reject) => {
+    const chunks = [];
+    let size = 0;
+
+    request.on("data", (chunk) => {
+      size += chunk.length;
+      if (size > maxBytes) {
+        reject(new Error("Upload is too large"));
+        request.destroy();
+        return;
+      }
+      chunks.push(chunk);
+    });
+
+    request.on("end", () => resolve(Buffer.concat(chunks)));
+    request.on("error", reject);
+  });
+}
+
+function parseMultipartFile(buffer, contentType = "") {
+  const boundaryMatch = contentType.match(/boundary=(?:"([^"]+)"|([^;]+))/i);
+  const boundary = boundaryMatch?.[1] || boundaryMatch?.[2];
+  if (!boundary) throw new Error("Missing multipart boundary");
+
+  const raw = buffer.toString("binary");
+  const parts = raw.split(`--${boundary}`);
+
+  for (const part of parts) {
+    const headerEnd = part.indexOf("\r\n\r\n");
+    if (headerEnd < 0) continue;
+
+    const headerText = part.slice(0, headerEnd);
+    const nameMatch = headerText.match(/name="([^"]+)"/i);
+    const filenameMatch = headerText.match(/filename="([^"]*)"/i);
+    if (nameMatch?.[1] !== "file" || !filenameMatch?.[1]) continue;
+
+    const mimeMatch = headerText.match(/content-type:\s*([^\r\n]+)/i);
+    let body = part.slice(headerEnd + 4);
+    if (body.endsWith("\r\n")) body = body.slice(0, -2);
+
+    return {
+      filename: filenameMatch[1],
+      mime: mimeMatch?.[1]?.trim() || "application/octet-stream",
+      buffer: Buffer.from(body, "binary")
+    };
+  }
+
+  throw new Error("No file found");
+}
+
+function sanitizeFilename(filename = "") {
+  const extension = extname(filename).toLowerCase();
+  const base = filename
+    .slice(0, Math.max(0, filename.length - extension.length))
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/gi, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase() || "media";
+
+  return `${base}-${Date.now()}${extension}`;
+}
+
 createServer((request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
+
+  if (request.method === "POST" && url.pathname === "/api/media") {
+    readRequestBody(request)
+      .then(async (body) => {
+        const file = parseMultipartFile(body, request.headers["content-type"]);
+        const extension = extname(file.filename).toLowerCase();
+        if (!mediaExtensions.has(extension)) {
+          throw new Error("Unsupported media type");
+        }
+
+        await mkdir(mediaDirectory, { recursive: true });
+        const filename = sanitizeFilename(file.filename);
+        await writeFile(join(mediaDirectory, filename), file.buffer);
+
+        response.writeHead(200, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store"
+        });
+        response.end(JSON.stringify({
+          ok: true,
+          src: `assets/cms/${filename}`,
+          type: file.mime.startsWith("video/") || videoExtensions.has(extension) ? "video" : "image"
+        }));
+      })
+      .catch((error) => {
+        response.writeHead(400, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store"
+        });
+        response.end(JSON.stringify({ ok: false, error: error.message }));
+      });
+
+    return;
+  }
+
+  if (request.method === "POST" && url.pathname === "/api/content") {
+    let body = "";
+
+    request.setEncoding("utf8");
+    request.on("data", (chunk) => {
+      body += chunk;
+      if (body.length > 2_000_000) {
+        request.destroy();
+      }
+    });
+
+    request.on("end", async () => {
+      try {
+        const content = JSON.parse(body);
+        await writeFile(join(root, "cms", "content.json"), `${JSON.stringify(content, null, 2)}\n`, "utf8");
+        response.writeHead(200, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store"
+        });
+        response.end(JSON.stringify({ ok: true }));
+      } catch (error) {
+        response.writeHead(400, {
+          "Content-Type": "application/json; charset=utf-8",
+          "Cache-Control": "no-store"
+        });
+        response.end(JSON.stringify({ ok: false, error: error.message }));
+      }
+    });
+
+    return;
+  }
+
   const cleanPath = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "");
   let filePath = join(root, cleanPath);
 
@@ -24,9 +169,17 @@ createServer((request, response) => {
   }
 
   if (!existsSync(filePath)) {
-    response.writeHead(404);
-    response.end("Not found");
-    return;
+    const segments = url.pathname.split("/").filter(Boolean);
+    const hasFileExtension = Boolean(extname(url.pathname));
+    if (!hasFileExtension && segments.includes("work")) {
+      filePath = join(root, "index.html");
+    }
+
+    if (!existsSync(filePath)) {
+      response.writeHead(404);
+      response.end("Not found");
+      return;
+    }
   }
 
   response.writeHead(200, {

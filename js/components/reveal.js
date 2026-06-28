@@ -30,6 +30,4 @@ export function startAppearAnimations() {
     node.style.setProperty("--appear-delay", `${delay}ms`);
     node.classList.add("framer-reveal");
   });
-
-  observeReveal(document.querySelectorAll(".project-card"));
 }
