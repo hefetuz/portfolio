@@ -60,7 +60,9 @@ export function bindLanguageMenu({
   const triggerLabel = trigger.querySelector("[data-language-current]");
   const availableLanguages = languages.length ? languages : [
     { id: "EN", label: "EN", name: "English", flag: "assets/flag-gb.webp" },
-    { id: "TR", label: "TR", name: "Turkish", flag: "assets/flag-tr.webp" }
+    { id: "TR", label: "TR", name: "Turkish", flag: "assets/flag-tr.webp" },
+    { id: "DE", label: "DE", name: "Deutsch", flag: "assets/flag-de.png" },
+    { id: "ES", label: "ES", name: "Espa\u00f1ol", flag: "assets/flag-es.png" }
   ];
 
   const setTriggerLanguage = (language) => {
@@ -142,7 +144,13 @@ export function updateClock(language = document.documentElement.lang) {
   if (!clock) return;
 
   const now = new Date();
-  const locale = String(language).toLowerCase().startsWith("tr") ? "tr-TR" : "en-US";
+  const localeMap = {
+    DE: "de-DE",
+    EN: "en-US",
+    ES: "es-ES",
+    TR: "tr-TR"
+  };
+  const locale = localeMap[String(language || "").trim().toUpperCase()] || localeMap.EN;
   clock.textContent = new Intl.DateTimeFormat(locale, {
     timeZone: "Europe/Istanbul",
     hour: "2-digit",

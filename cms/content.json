@@ -51,14 +51,6 @@
         "Launch Videos",
         "Micro-Interactions"
       ]
-    },
-    {
-      "title": "Artwork",
-      "items": [
-        "Editorial",
-        "Product Visuals",
-        "Music & Culture"
-      ]
     }
   ],
   "projectCategories": [
@@ -81,10 +73,6 @@
     {
       "id": "brand",
       "label": "Branding"
-    },
-    {
-      "id": "artwork",
-      "label": "Artwork"
     }
   ],
   "projectViewModes": [
@@ -1161,7 +1149,7 @@
       ]
     },
     {
-      "title": "Sa?l?k Gelsin Product Design",
+      "title": "Sağlık Gelsin Product Design",
       "slug": "saglik-gelsin-product-design",
       "category": "product",
       "categories": [
@@ -1173,21 +1161,21 @@
       "scope": "Home Healthcare App",
       "service": "Product Design",
       "goal": "Make home healthcare requests feel clear, trustworthy and easy to complete.",
-      "description": "I designed the product direction for Sa?l?k Gelsin, a home healthcare app that helps people request nurses, physiotherapists and care services with clearer flows and stronger trust cues.",
+      "description": "I designed the product direction for Sağlık Gelsin, a home healthcare app that helps people request nurses, physiotherapists and care services with clearer flows and stronger trust cues.",
       "image": "assets/cms/bd01ea66-0697-4143-afef-f527ec020ec4-1782806326668.png",
       "media": [
         {
           "type": "image",
           "src": "assets/cms/bd01ea66-0697-4143-afef-f527ec020ec4-1782806326668.png",
           "poster": "",
-          "alt": "Sa?l?k Gelsin Product Design",
+          "alt": "Sağlık Gelsin Product Design",
           "caption": "Home Healthcare App"
         },
         {
           "type": "image",
           "src": "assets/cms/bfe66bff-4d79-4141-a9a8-dc44dd743e3e-1782806326699.png",
           "poster": "",
-          "alt": "Sa?l?k Gelsin Product Design",
+          "alt": "Sağlık Gelsin Product Design",
           "caption": "Home Healthcare App"
         }
       ],
@@ -1224,7 +1212,7 @@
   ],
   "footer": {
     "heading": "Contact",
-    "copyright": "?2026 Halim Efe Tuzlu"
+    "copyright": "©2026 Halim Efe Tuzlu"
   },
   "ui": {
     "shell": {
@@ -1271,18 +1259,30 @@
         "label": "TR",
         "name": "Turkish",
         "flag": "assets/flag-tr.webp"
+      },
+      {
+        "id": "DE",
+        "label": "DE",
+        "name": "Deutsch",
+        "flag": "assets/flag-de.png"
+      },
+      {
+        "id": "ES",
+        "label": "ES",
+        "name": "Español",
+        "flag": "assets/flag-es.png"
       }
     ],
     "translations": {
       "TR": {
         "site": {
-          "title": "Halim Efe Tuzlu | ?r?n Tasar?mc?s? & CPO",
-          "description": "?stanbul merkezli; AI ?r?nleri, tasar?m sistemleri, UI/UX, marka kimli?i ve ?r?n stratejisi oda??nda ?al??an ?r?n tasar?mc?s? ve CPO.",
-          "role": "?r?n Tasar?mc?s? & CPO",
-          "location": "Pendik, ?stanbul"
+          "title": "Halim Efe Tuzlu | Ürün Tasarımcısı & CPO",
+          "description": "İstanbul merkezli; AI ürünleri, tasarım sistemleri, UI/UX, marka kimliği ve ürün stratejisi odağında çalışan ürün tasarımcısı ve CPO.",
+          "role": "Ürün Tasarımcısı & CPO",
+          "location": "Pendik, İstanbul"
         },
         "hero": {
-          "headline": "Merhaba, ben Efe. ?stanbul'da AI ?r?nleri, tasar?m sistemleri ve ak?lda kalan dijital deneyimler tasarlayan bir ?r?n tasar?mc?s? ve CPO'yum."
+          "headline": "Merhaba, ben Efe. İstanbul'da AI ürünleri, tasarım sistemleri ve akılda kalan dijital deneyimler tasarlayan bir ürün tasarımcısı ve CPO'yum."
         },
         "ui": {
           "shell": {
@@ -1291,41 +1291,41 @@
           },
           "serviceForm": {
             "servicesTitle": "Hizmetler",
-            "contactTitle": "?leti?im Bilgileri",
-            "backToServices": "Hizmetlere geri d?n",
-            "selectService": "Se?",
-            "next": "?leri",
-            "name": "?sim",
-            "company": "?irket",
+            "contactTitle": "İletişim Bilgileri",
+            "backToServices": "Hizmetlere geri dön",
+            "selectService": "Seç",
+            "next": "İleri",
+            "name": "İsim",
+            "company": "Şirket",
             "email": "E-posta",
             "phone": "Telefon",
             "message": "Mesaj",
             "required": "zorunlu",
-            "sending": "G?nderiliyor...",
-            "sendRequest": "Talebi G?nder",
-            "requestSent": "Talep G?nderildi",
-            "requestSuccess": "Talebin ba?ar?yla g?nderildi."
+            "sending": "Gönderiliyor...",
+            "sendRequest": "Talebi Gönder",
+            "requestSent": "Talep Gönderildi",
+            "requestSuccess": "Talebin başarıyla gönderildi."
           },
           "projectDetail": {
-            "backToWork": "??lere geri d?n",
-            "expandVisual": "B?y?t",
+            "backToWork": "İşlere geri dön",
+            "expandVisual": "Büyüt",
             "services": "Hizmetler",
-            "techStack": "Ara?lar",
-            "industry": "Sekt?r",
-            "year": "Y?l"
+            "techStack": "Araçlar",
+            "industry": "Sektör",
+            "year": "Yıl"
           }
         },
         "services": [
           {
-            "title": "?r?n Tasar?m?",
+            "title": "Ürün Tasarımı",
             "items": [
               "Strateji",
-              "UX Ak??lar?",
-              "Tasar?m Sistemleri"
+              "UX Akışları",
+              "Tasarım Sistemleri"
             ]
           },
           {
-            "title": "Web Tasar?m?",
+            "title": "Web Tasarımı",
             "items": [
               "Responsive UI",
               "Front-End",
@@ -1333,38 +1333,30 @@
             ]
           },
           {
-            "title": "Marka Kimli?i",
+            "title": "Marka Kimliği",
             "items": [
               "Logo Sistemleri",
               "Ambalaj",
-              "G?rsel Dil"
+              "Görsel Dil"
             ]
           },
           {
             "title": "Motion Design",
             "items": [
               "Prototip Motion",
-              "Lansman Videolar?",
-              "Mikro Etkile?imler"
-            ]
-          },
-          {
-            "title": "Artwork",
-            "items": [
-              "Editoryal",
-              "?r?n G?rselleri",
-              "M?zik & K?lt?r"
+              "Lansman Videoları",
+              "Mikro Etkileşimler"
             ]
           }
         ],
         "projectCategories": [
           {
             "id": "all",
-            "label": "T?m?"
+            "label": "Tümü"
           },
           {
             "id": "product",
-            "label": "?r?n"
+            "label": "Ürün"
           },
           {
             "id": "web",
@@ -1377,150 +1369,146 @@
           {
             "id": "brand",
             "label": "Marka"
-          },
-          {
-            "id": "artwork",
-            "label": "Artwork"
           }
         ],
         "projects": {
           "hant-product-design": {
-            "title": "Hant ?r?n Tasar?m?",
-            "summary": "AI Seyahat Uygulamas?",
-            "scope": "AI Seyahat Uygulamas?",
-            "description": "Hant i?in ?r?n deneyimini; temel stratejiden bilgi mimarisine, seyahat planlama ak??lar?ndan karar destek anlar?na kadar tasarlad?m.",
+            "title": "Hant Ürün Tasarımı",
+            "summary": "AI Seyahat Uygulaması",
+            "scope": "AI Seyahat Uygulaması",
+            "description": "Hant için ürün deneyimini; temel stratejiden bilgi mimarisine, seyahat planlama akışlarından karar destek anlarına kadar tasarladım.",
             "services": [
-              "?r?n Tasar?m?",
+              "Ürün Tasarımı",
               "UX Stratejisi",
-              "Tasar?m Sistemleri"
+              "Tasarım Sistemleri"
             ],
             "industry": [
               "AI Seyahat",
-              "T?ketici Uygulamas?",
+              "Tüketici Uygulaması",
               "Seyahat Planlama"
             ]
           },
           "hant-web-design": {
-            "title": "Hant Web Tasar?m?",
-            "summary": "AI Seyahat Uygulamas?",
-            "scope": "AI Seyahat Uygulamas?",
-            "description": "Hant??n AI seyahat konseptini; net landing ak??lar?, ?r?n hikayesi ve aray?z odakl? ileti?imle responsive bir web deneyimine ta??d?m.",
+            "title": "Hant Web Tasarımı",
+            "summary": "AI Seyahat Uygulaması",
+            "scope": "AI Seyahat Uygulaması",
+            "description": "Hant'ın AI seyahat konseptini; net landing akışları, ürün hikayesi ve arayüz odaklı iletişimle responsive bir web deneyimine taşıdım.",
             "services": [
-              "Web Sitesi Tasar?m?",
+              "Web Sitesi Tasarımı",
               "Responsive UI",
-              "Front-End Y?nlendirme"
+              "Front-End Yönlendirme"
             ],
             "industry": [
               "AI Seyahat",
               "SaaS",
-              "?r?n Web Sitesi"
+              "Ürün Web Sitesi"
             ]
           },
           "hant-sales-deck": {
             "title": "Hant Motion Design",
-            "summary": "AI Seyahat Uygulamas?",
-            "scope": "AI Seyahat Uygulamas?",
-            "description": "Hant??n ?nemli ?r?n anlar? i?in prototip ge?i?leri, etkile?im ritmi ve hafif hikaye anlat?m? detaylar?n? kapsayan motion davran???n? tan?mlad?m.",
+            "summary": "AI Seyahat Uygulaması",
+            "scope": "AI Seyahat Uygulaması",
+            "description": "Hant'ın önemli ürün anları için prototip geçişleri, etkileşim ritmi ve hafif hikaye anlatımı detaylarını kapsayan motion davranışını tanımladım.",
             "services": [
               "Motion Design",
-              "Etkile?im Tasar?m?",
+              "Etkileşim Tasarımı",
               "Prototip Motion"
             ],
             "industry": [
               "AI Seyahat",
-              "?r?n Motion",
+              "Ürün Motion",
               "Mobil UX"
             ]
           },
           "en-kiymetlim-product-design": {
-            "title": "En K?ymetlim ?r?n Tasar?m?",
-            "summary": "Ebeveynlik Uygulamas?",
-            "scope": "Ebeveynlik Uygulamas?",
-            "description": "En K?ymetlim i?in ebeveyn sa?l???, ?ocuk bak?m deste?i ve g?nl?k bak?m ak??lar?na odaklanan ?r?n deneyimini tasarlad?m.",
+            "title": "En Kıymetlim Ürün Tasarımı",
+            "summary": "Ebeveynlik Uygulaması",
+            "scope": "Ebeveynlik Uygulaması",
+            "description": "En Kıymetlim için ebeveyn sağlığı, çocuk bakım desteği ve günlük bakım akışlarına odaklanan ürün deneyimini tasarladım.",
             "services": [
-              "?r?n Tasar?m?",
+              "Ürün Tasarımı",
               "UX Stratejisi",
-              "Tasar?m Sistemleri"
+              "Tasarım Sistemleri"
             ],
             "industry": [
               "Ebeveynlik",
               "Health Tech",
-              "?ocuk Bak?m?"
+              "Çocuk Bakımı"
             ]
           },
           "en-kiymetlim-brand-identity": {
-            "title": "En K?ymetlim Marka Kimli?i",
-            "summary": "Ebeveynlik Uygulamas?",
-            "scope": "Ebeveynlik Uygulamas?",
-            "description": "En K?ymetlim?in marka kimli?ini ebeveyn sa?l???, ?ocuk bak?m? ve aile deste?i i?in sakin bir g?rsel sistem etraf?nda ?ekillendirdim.",
+            "title": "En Kıymetlim Marka Kimliği",
+            "summary": "Ebeveynlik Uygulaması",
+            "scope": "Ebeveynlik Uygulaması",
+            "description": "En Kıymetlim'in marka kimliğini ebeveyn sağlığı, çocuk bakımı ve aile desteği için sakin bir görsel sistem etrafında şekillendirdim.",
             "services": [
-              "Marka Kimli?i",
-              "G?rsel Dil",
-              "Ambalaj Y?nlendirme"
+              "Marka Kimliği",
+              "Görsel Dil",
+              "Ambalaj Yönlendirme"
             ],
             "industry": [
               "Ebeveynlik",
               "Health Tech",
-              "Aile Bak?m?"
+              "Aile Bakımı"
             ]
           },
           "saglik-gelsin-brand-identity": {
-            "title": "Sa?l?k Gelsin Sales Deck",
-            "summary": "Evde Sa?l?k Uygulamas?",
-            "scope": "Evde Sa?l?k Uygulamas?",
-            "description": "Sa?l?k Gelsin i?in g?ven sinyalleri, hizmet netli?i ve ula??labilir ileti?im ?zerine kurulu g?rsel y?nlendirmeyi geli?tirdim.",
+            "title": "Sağlık Gelsin Sales Deck",
+            "summary": "Evde Sağlık Uygulaması",
+            "scope": "Evde Sağlık Uygulaması",
+            "description": "Sağlık Gelsin için güven sinyalleri, hizmet netliği ve ulaşılabilir iletişim üzerine kurulu görsel yönlendirmeyi geliştirdim.",
             "services": [
-              "Marka Kimli?i",
-              "G?rsel Dil",
-              "Sunum Y?nlendirme"
+              "Marka Kimliği",
+              "Görsel Dil",
+              "Sunum Yönlendirme"
             ],
             "industry": [
-              "Evde Sa?l?k",
-              "Sa?l?k ?leti?imi",
+              "Evde Sağlık",
+              "Sağlık İletişimi",
               "Marka Sistemi"
             ]
           },
           "saglik-gelsin-product-design": {
-            "title": "Sa?l?k Gelsin ?r?n Tasar?m?",
-            "summary": "Evde Sa?l?k Uygulamas?",
-            "scope": "Evde Sa?l?k Uygulamas?",
-            "description": "Sa?l?k Gelsin i?in hem?ire, fizyoterapist ve bak?m hizmeti talep etmeyi daha net, g?venilir ve kolay hale getiren ?r?n y?n?n? tasarlad?m.",
+            "title": "Sağlık Gelsin Ürün Tasarımı",
+            "summary": "Evde Sağlık Uygulaması",
+            "scope": "Evde Sağlık Uygulaması",
+            "description": "Sağlık Gelsin için hemşire, fizyoterapist ve bakım hizmeti talep etmeyi daha net, güvenilir ve kolay hale getiren ürün yönünü tasarladım.",
             "services": [
-              "?r?n Tasar?m?",
+              "Ürün Tasarımı",
               "UX Stratejisi",
-              "Tasar?m Sistemleri"
+              "Tasarım Sistemleri"
             ],
             "industry": [
-              "Evde Sa?l?k",
+              "Evde Sağlık",
               "Health Tech",
               "Hizmet Pazaryeri"
             ]
           },
           "saunakit": {
-            "title": "Saunakit Marka Kimli?i",
+            "title": "Saunakit Marka Kimliği",
             "summary": "Portatif Sauna",
             "scope": "Portatif Sauna",
-            "description": "Saunakit i?in net ?r?n konumland?rmas?, temiz bir g?rsel sistem ve fiziksel ?r?n ileti?iminde tutarl?l?k sa?layan marka ve ambalaj y?n?n? olu?turdum.",
+            "description": "Saunakit için net ürün konumlandırması, temiz bir görsel sistem ve fiziksel ürün iletişiminde tutarlılık sağlayan marka ve ambalaj yönünü oluşturdum.",
             "services": [
-              "Marka Kimli?i",
-              "G?rsel Dil",
-              "Ambalaj Y?nlendirme"
+              "Marka Kimliği",
+              "Görsel Dil",
+              "Ambalaj Yönlendirme"
             ],
             "industry": [
               "Wellness",
               "Portatif Sauna",
-              "Fiziksel ?r?n"
+              "Fiziksel Ürün"
             ]
           },
           "mambocino": {
-            "title": "Mambocino Marka Kimli?i",
-            "summary": "Kahve Markas?",
-            "scope": "Kahve Markas?",
-            "description": "Mambocino markas?n? isimlendirme, ambalaj ve raf haz?r? g?rsel sistem oda??nda ?ekillendirdim.",
+            "title": "Mambocino Marka Kimliği",
+            "summary": "Kahve Markası",
+            "scope": "Kahve Markası",
+            "description": "Mambocino markasını isimlendirme, ambalaj ve raf hazırı görsel sistem odağında şekillendirdim.",
             "services": [
-              "Marka Kimli?i",
-              "G?rsel Dil",
-              "Ambalaj Y?nlendirme"
+              "Marka Kimliği",
+              "Görsel Dil",
+              "Ambalaj Yönlendirme"
             ],
             "industry": [
               "Kahve",
@@ -1529,14 +1517,14 @@
             ]
           },
           "samurai-bros": {
-            "title": "Samurai Bros Ambalaj Tasar?m?",
+            "title": "Samurai Bros Ambalaj Tasarımı",
             "summary": "Cold Brew Kahve",
             "scope": "Cold Brew Kahve",
-            "description": "Samurai Bros i?in g??l? kontrast, net ?r?n hiyerar?isi ve ?i?e odakl? sunumla hem rafta hem yak?n plan ?r?n g?rsellerinde iyi okunan bir ambalaj sistemi tasarlad?m.",
+            "description": "Samurai Bros için güçlü kontrast, net ürün hiyerarşisi ve şişe odaklı sunumla hem rafta hem yakın plan ürün görsellerinde iyi okunan bir ambalaj sistemi tasarladım.",
             "services": [
-              "Marka Kimli?i",
-              "Ambalaj Y?nlendirme",
-              "?r?n G?rselleri"
+              "Marka Kimliği",
+              "Ambalaj Yönlendirme",
+              "Ürün Görselleri"
             ],
             "industry": [
               "Kahve",
@@ -1545,19 +1533,727 @@
             ]
           },
           "sales-training-game": {
-            "title": "Sat?? E?itim Oyunu",
+            "title": "Satış Eğitim Oyunu",
             "summary": "Sales Training Game",
             "scope": "Sales Training Game",
-            "description": "??renme senaryolar? i?in motion y?nlendirme, UX ritmi ve hafif oyunla?t?rma kal?plar?na sahip interaktif bir sat?? e?itimi oyunu konsepti tasarlad?m.",
+            "description": "Öğrenme senaryoları için motion yönlendirme, UX ritmi ve hafif oyunlaştırma kalıplarına sahip interaktif bir satış eğitimi oyunu konsepti tasarladım.",
             "services": [
               "Motion Design",
-              "Etkile?im Tasar?m?",
+              "Etkileşim Tasarımı",
               "Prototip Motion"
             ],
             "industry": [
-              "Sat?? E?itimi",
+              "Satış Eğitimi",
               "EdTech",
-              "?nteraktif ??renme"
+              "İnteraktif Öğrenme"
+            ]
+          }
+        }
+      },
+      "DE": {
+        "site": {
+          "title": "Halim Efe Tuzlu | Produktdesigner & CPO",
+          "description": "Produktdesigner und CPO in Istanbul mit Fokus auf KI-Produkte, Designsysteme, UI/UX, Markenidentität und Produktstrategie.",
+          "role": "Produktdesigner & CPO",
+          "location": "Pendik, Istanbul"
+        },
+        "hero": {
+          "headline": "Hi, ich bin Efe, ein Produktdesigner und CPO aus Istanbul. Ich entwickle KI-Produkte, Designsysteme und einprägsame digitale Erlebnisse."
+        },
+        "ui": {
+          "shell": {
+            "email": "Email",
+            "social": "Social"
+          },
+          "serviceForm": {
+            "servicesTitle": "Leistungen",
+            "contactTitle": "Kontaktdaten",
+            "backToServices": "Zurück zu den Leistungen",
+            "selectService": "Auswählen",
+            "next": "Weiter",
+            "name": "Name",
+            "company": "Unternehmen",
+            "email": "E-Mail",
+            "phone": "Telefon",
+            "message": "Nachricht",
+            "required": "erforderlich",
+            "sending": "Wird gesendet...",
+            "sendRequest": "Anfrage senden",
+            "requestSent": "Anfrage gesendet",
+            "requestSuccess": "Deine Anfrage wurde erfolgreich gesendet."
+          },
+          "projectDetail": {
+            "backToWork": "Zurück zur Übersicht",
+            "expandVisual": "Vergrößern",
+            "services": "Leistungen",
+            "techStack": "Tech Stack",
+            "industry": "Branche",
+            "year": "Jahr"
+          }
+        },
+        "services": [
+          {
+            "title": "Produktdesign",
+            "items": [
+              "Strategie",
+              "UX-Flows",
+              "Designsysteme"
+            ]
+          },
+          {
+            "title": "Webdesign",
+            "items": [
+              "Responsive UI",
+              "Front-End",
+              "Landingpages"
+            ]
+          },
+          {
+            "title": "Markenidentität",
+            "items": [
+              "Logosysteme",
+              "Packaging",
+              "Visuelle Sprache"
+            ]
+          },
+          {
+            "title": "Motion Design",
+            "items": [
+              "Prototype Motion",
+              "Launch-Videos",
+              "Mikrointeraktionen"
+            ]
+          }
+        ],
+        "projectCategories": [
+          {
+            "id": "all",
+            "label": "Alle"
+          },
+          {
+            "id": "product",
+            "label": "Produkt"
+          },
+          {
+            "id": "web",
+            "label": "Web"
+          },
+          {
+            "id": "motion",
+            "label": "Motion"
+          },
+          {
+            "id": "brand",
+            "label": "Marke"
+          }
+        ],
+        "projects": {
+          "hant-product-design": {
+            "title": "Hant Produktdesign",
+            "meta": "Produktdesign",
+            "summary": "KI-Reise-App",
+            "scope": "KI-Reise-App",
+            "service": "Produktdesign",
+            "goal": "Ziel war es, KI-gestützte Reiseplanung klar, persönlich und bereit für einen echten Produktlaunch wirken zu lassen.",
+            "description": "Ich gestaltete die Produkterfahrung für Hant, eine KI-Reiseplanungs-App, von der Kernstrategie und Informationsarchitektur bis zu Reiseplanungsflows und Entscheidungsunterstützung.",
+            "services": [
+              "Produktdesign",
+              "UX-Strategie",
+              "Designsysteme"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "KI-Reisen",
+              "Consumer App",
+              "Reiseplanung"
+            ]
+          },
+          "hant-web-design": {
+            "title": "Hant Webdesign",
+            "meta": "Webdesign",
+            "summary": "KI-Reise-App",
+            "scope": "KI-Reise-App",
+            "service": "Webdesign",
+            "description": "Ich überführte Hants KI-Reisekonzept in ein responsives Web-Erlebnis mit klaren Landing-Flows, Produktstorytelling und interface-geführter Kommunikation.",
+            "services": [
+              "Webdesign",
+              "Responsive UI",
+              "Front-End-Leitung"
+            ],
+            "techStack": [
+              "Figma",
+              "HTML/CSS",
+              "JavaScript"
+            ],
+            "industry": [
+              "KI-Reisen",
+              "SaaS",
+              "Produktwebsite"
+            ]
+          },
+          "hant-sales-deck": {
+            "title": "Hant Motion Design",
+            "meta": "Motion Design",
+            "summary": "KI-Reise-App",
+            "scope": "KI-Reise-App",
+            "service": "Motion Design",
+            "description": "Ich definierte das Motion-Verhalten für zentrale Produktmomente von Hant, inklusive Prototyp-Übergängen, Interaktionsrhythmus und leichtem Storytelling.",
+            "services": [
+              "Motion Design",
+              "Interaktionsdesign",
+              "Prototype Motion"
+            ],
+            "techStack": [
+              "Figma",
+              "After Effects",
+              "Motion"
+            ],
+            "industry": [
+              "KI-Reisen",
+              "Produkt-Motion",
+              "Mobile UX"
+            ]
+          },
+          "en-kiymetlim-product-design": {
+            "title": "En Kıymetlim Produktdesign",
+            "meta": "Produktdesign",
+            "summary": "Eltern-App",
+            "scope": "Eltern-Gesundheit & Kinderbetreuung",
+            "service": "Produktdesign",
+            "description": "Ich gestaltete die Produkterfahrung für En Kıymetlim mit Fokus auf Eltern-Gesundheit, Kinderbetreuung und praktische tägliche Care-Flows.",
+            "services": [
+              "Produktdesign",
+              "UX-Strategie",
+              "Designsysteme"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "Elternschaft",
+              "Health Tech",
+              "Kinderbetreuung"
+            ]
+          },
+          "en-kiymetlim-brand-identity": {
+            "title": "En Kıymetlim Markenidentität",
+            "meta": "Markenidentität",
+            "summary": "Eltern-App",
+            "scope": "Eltern-Gesundheit & Kinderbetreuung",
+            "service": "Logo & visuelle Identität",
+            "description": "Ich entwickelte die Markenidentität für En Kıymetlim rund um ein ruhiges visuelles System für Eltern-Gesundheit, Kinderbetreuung und Familienalltag.",
+            "services": [
+              "Markenidentität",
+              "Visuelle Sprache",
+              "Packaging-Leitung"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Elternschaft",
+              "Health Tech",
+              "Familienbetreuung"
+            ]
+          },
+          "saglik-gelsin-brand-identity": {
+            "title": "Sağlık Gelsin Sales Deck",
+            "meta": "Markenidentität",
+            "summary": "Häusliche Gesundheits-App",
+            "scope": "App für Pflege- und Physiotherapie-Buchungen",
+            "service": "Logo & visuelle Identität",
+            "description": "Ich entwickelte die visuelle Richtung für Sağlık Gelsin rund um Vertrauen, Serviceklarheit und zugängliche Kommunikation für häusliche Gesundheitsversorgung.",
+            "services": [
+              "Markenidentität",
+              "Visuelle Sprache",
+              "Packaging-Leitung"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Häusliche Gesundheitsversorgung",
+              "Healthcare-Kommunikation",
+              "Markensystem"
+            ]
+          },
+          "saglik-gelsin-product-design": {
+            "title": "Sağlık Gelsin Produktdesign",
+            "meta": "Produktdesign",
+            "summary": "Häusliche Gesundheits-App",
+            "scope": "Home-Healthcare-App",
+            "service": "Produktdesign",
+            "description": "Ich gestaltete die Produktrichtung für Sağlık Gelsin, eine App, mit der Menschen Pflegekräfte, Physiotherapeuten und Betreuungsleistungen klarer und vertrauensvoller anfragen können.",
+            "services": [
+              "Produktdesign",
+              "UX-Strategie",
+              "Designsysteme"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "Häusliche Gesundheitsversorgung",
+              "Health Tech",
+              "Service-Marktplatz"
+            ]
+          },
+          "saunakit": {
+            "title": "Saunakit Markenidentität",
+            "meta": "Markenidentität",
+            "summary": "Portable Sauna",
+            "scope": "Portables Sauna-Produkt",
+            "service": "Logo & visuelle Identität, Packaging-Leitung",
+            "description": "Ich entwickelte Marken- und Packaging-Richtung für Saunakit mit Fokus auf klare Produktpositionierung, ein sauberes visuelles System und konsistente Kommunikation für ein physisches Produkt.",
+            "services": [
+              "Markenidentität",
+              "Visuelle Sprache",
+              "Packaging-Leitung"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Wellness",
+              "Portable Sauna",
+              "Physisches Produkt"
+            ]
+          },
+          "mambocino": {
+            "title": "Mambocino Markenidentität",
+            "meta": "Markenidentität",
+            "summary": "Kaffeemarke",
+            "scope": "Kaffeeprodukt",
+            "service": "Markenidentität, visuelle Sprache, Packaging-Leitung",
+            "description": "Ich entwickelte die Marke Mambocino rund um Naming, Packaging und ein regalfertiges visuelles System für Specialty-Coffee-Produkte.",
+            "services": [
+              "Markenidentität",
+              "Visuelle Sprache",
+              "Packaging-Leitung"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Kaffee",
+              "Packaging",
+              "FMCG"
+            ]
+          },
+          "samurai-bros": {
+            "title": "Samurai Bros Packaging Design",
+            "meta": "Markenidentität",
+            "summary": "Cold Brew Kaffee",
+            "scope": "Kaffee-Packaging",
+            "service": "Markenidentität, Packaging-Leitung, Produktvisuals",
+            "description": "Ich entwarf das Packaging-System für Samurai Bros mit starkem Kontrast, klarer Produkthierarchie und einer flaschenzentrierten Präsentation, die im Regal und im Close-up funktioniert.",
+            "services": [
+              "Markenidentität",
+              "Packaging-Leitung",
+              "Produktvisuals"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Kaffee",
+              "Packaging",
+              "FMCG"
+            ]
+          },
+          "sales-training-game": {
+            "title": "Sales Training Game",
+            "meta": "Motion Design",
+            "summary": "Sales Training Game",
+            "scope": "Interaktive Training Experience",
+            "service": "Motion Design, Interaktionsdesign",
+            "description": "Ich gestaltete ein interaktives Sales-Training-Game-Konzept mit Motion Direction, UX-Rhythmus und leichten Gameplay-Mustern für Lernszenarien.",
+            "services": [
+              "Motion Design",
+              "Interaktionsdesign",
+              "Prototype Motion"
+            ],
+            "techStack": [
+              "Figma",
+              "After Effects",
+              "Motion"
+            ],
+            "industry": [
+              "Sales Training",
+              "EdTech",
+              "Interaktives Lernen"
+            ]
+          }
+        }
+      },
+      "ES": {
+        "site": {
+          "title": "Halim Efe Tuzlu | Diseñador de Producto & CPO",
+          "description": "Diseñador de producto y CPO en Estambul, enfocado en productos de IA, sistemas de diseño, UI/UX, identidad de marca y estrategia de producto.",
+          "role": "Diseñador de Producto & CPO",
+          "location": "Pendik, Estambul"
+        },
+        "hero": {
+          "headline": "Hola, soy Efe, diseñador de producto y CPO en Estambul. Creo productos de IA, sistemas de diseño y experiencias digitales memorables."
+        },
+        "ui": {
+          "shell": {
+            "email": "Email",
+            "social": "Social"
+          },
+          "serviceForm": {
+            "servicesTitle": "Servicios",
+            "contactTitle": "Datos de contacto",
+            "backToServices": "Volver a servicios",
+            "selectService": "Seleccionar",
+            "next": "Siguiente",
+            "name": "Nombre",
+            "company": "Empresa",
+            "email": "Correo",
+            "phone": "Teléfono",
+            "message": "Mensaje",
+            "required": "obligatorio",
+            "sending": "Enviando...",
+            "sendRequest": "Enviar solicitud",
+            "requestSent": "Solicitud enviada",
+            "requestSuccess": "Tu solicitud se envió correctamente."
+          },
+          "projectDetail": {
+            "backToWork": "Volver a trabajos",
+            "expandVisual": "Ampliar",
+            "services": "Servicios",
+            "techStack": "Stack técnico",
+            "industry": "Industria",
+            "year": "Año"
+          }
+        },
+        "services": [
+          {
+            "title": "Diseño de Producto",
+            "items": [
+              "Estrategia",
+              "Flujos UX",
+              "Sistemas de Diseño"
+            ]
+          },
+          {
+            "title": "Diseño Web",
+            "items": [
+              "UI responsive",
+              "Front-End",
+              "Landing pages"
+            ]
+          },
+          {
+            "title": "Identidad de Marca",
+            "items": [
+              "Sistemas de logo",
+              "Packaging",
+              "Lenguaje visual"
+            ]
+          },
+          {
+            "title": "Motion Design",
+            "items": [
+              "Motion de prototipo",
+              "Videos de lanzamiento",
+              "Microinteracciones"
+            ]
+          }
+        ],
+        "projectCategories": [
+          {
+            "id": "all",
+            "label": "Todo"
+          },
+          {
+            "id": "product",
+            "label": "Producto"
+          },
+          {
+            "id": "web",
+            "label": "Web"
+          },
+          {
+            "id": "motion",
+            "label": "Motion"
+          },
+          {
+            "id": "brand",
+            "label": "Marca"
+          }
+        ],
+        "projects": {
+          "hant-product-design": {
+            "title": "Hant Diseño de Producto",
+            "meta": "Diseño de Producto",
+            "summary": "App de Viajes con IA",
+            "scope": "App de Viajes con IA",
+            "service": "Diseño de Producto",
+            "goal": "El objetivo fue hacer que la planificación de viajes asistida por IA se sintiera clara, personal y lista para un lanzamiento real.",
+            "description": "Diseñé la experiencia de producto para Hant, una app de planificación de viajes con IA, desde la estrategia central y la arquitectura de información hasta los flujos de itinerario y soporte de decisión.",
+            "services": [
+              "Diseño de Producto",
+              "Estrategia UX",
+              "Sistemas de Diseño"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "Viajes con IA",
+              "App de consumo",
+              "Planificación de viajes"
+            ]
+          },
+          "hant-web-design": {
+            "title": "Hant Diseño Web",
+            "meta": "Diseño Web",
+            "summary": "App de Viajes con IA",
+            "scope": "App de Viajes con IA",
+            "service": "Diseño Web",
+            "description": "Convertí el concepto de viajes con IA de Hant en una experiencia web responsive con landing flows claros, storytelling de producto y comunicación guiada por la interfaz.",
+            "services": [
+              "Diseño Web",
+              "UI responsive",
+              "Dirección Front-End"
+            ],
+            "techStack": [
+              "Figma",
+              "HTML/CSS",
+              "JavaScript"
+            ],
+            "industry": [
+              "Viajes con IA",
+              "SaaS",
+              "Sitio de producto"
+            ]
+          },
+          "hant-sales-deck": {
+            "title": "Hant Motion Design",
+            "meta": "Motion Design",
+            "summary": "App de Viajes con IA",
+            "scope": "App de Viajes con IA",
+            "service": "Motion Design",
+            "description": "Definí el comportamiento motion de Hant en momentos clave del producto, incluyendo transiciones de prototipo, ritmo de interacción y detalles ligeros de storytelling.",
+            "services": [
+              "Motion Design",
+              "Diseño de Interacción",
+              "Prototype Motion"
+            ],
+            "techStack": [
+              "Figma",
+              "After Effects",
+              "Motion"
+            ],
+            "industry": [
+              "Viajes con IA",
+              "Product Motion",
+              "Mobile UX"
+            ]
+          },
+          "en-kiymetlim-product-design": {
+            "title": "En Kıymetlim Diseño de Producto",
+            "meta": "Diseño de Producto",
+            "summary": "App de parentalidad",
+            "scope": "Salud parental y cuidado infantil",
+            "service": "Diseño de Producto",
+            "description": "Diseñé la experiencia de producto para En Kıymetlim, una app de parentalidad centrada en salud de padres, apoyo al cuidado infantil y flujos prácticos para el día a día.",
+            "services": [
+              "Diseño de Producto",
+              "Estrategia UX",
+              "Sistemas de Diseño"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "Parentalidad",
+              "Health Tech",
+              "Cuidado infantil"
+            ]
+          },
+          "en-kiymetlim-brand-identity": {
+            "title": "En Kıymetlim Identidad de Marca",
+            "meta": "Identidad de Marca",
+            "summary": "App de parentalidad",
+            "scope": "Salud parental y cuidado infantil",
+            "service": "Logo e identidad visual",
+            "description": "Construí la identidad de marca de En Kıymetlim alrededor de un sistema visual tranquilo para salud parental, cuidado infantil y apoyo familiar cotidiano.",
+            "services": [
+              "Identidad de Marca",
+              "Lenguaje Visual",
+              "Dirección de Packaging"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Parentalidad",
+              "Health Tech",
+              "Cuidado familiar"
+            ]
+          },
+          "saglik-gelsin-brand-identity": {
+            "title": "Sağlık Gelsin Sales Deck",
+            "meta": "Identidad de Marca",
+            "summary": "App de salud a domicilio",
+            "scope": "App para solicitar enfermería y fisioterapia",
+            "service": "Logo e identidad visual",
+            "description": "Desarrollé la dirección visual de Sağlık Gelsin alrededor de señales de confianza, claridad de servicio y comunicación accesible para salud a domicilio.",
+            "services": [
+              "Identidad de Marca",
+              "Lenguaje Visual",
+              "Dirección de Packaging"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Salud a domicilio",
+              "Comunicación healthcare",
+              "Sistema de marca"
+            ]
+          },
+          "saglik-gelsin-product-design": {
+            "title": "Sağlık Gelsin Diseño de Producto",
+            "meta": "Diseño de Producto",
+            "summary": "App de salud a domicilio",
+            "scope": "App de salud a domicilio",
+            "service": "Diseño de Producto",
+            "description": "Diseñé la dirección de producto de Sağlık Gelsin, una app para solicitar enfermeros, fisioterapeutas y servicios de cuidado con flujos más claros y señales de confianza más fuertes.",
+            "services": [
+              "Diseño de Producto",
+              "Estrategia UX",
+              "Sistemas de Diseño"
+            ],
+            "techStack": [
+              "Figma",
+              "FigJam",
+              "Prototype Motion"
+            ],
+            "industry": [
+              "Salud a domicilio",
+              "Health Tech",
+              "Marketplace de servicios"
+            ]
+          },
+          "saunakit": {
+            "title": "Saunakit Identidad de Marca",
+            "meta": "Identidad de Marca",
+            "summary": "Sauna portátil",
+            "scope": "Producto de sauna portátil",
+            "service": "Logo e identidad visual, dirección de packaging",
+            "description": "Creé la dirección de marca y packaging para Saunakit con foco en posicionamiento claro, un sistema visual limpio y comunicación consistente para un producto físico.",
+            "services": [
+              "Identidad de Marca",
+              "Lenguaje Visual",
+              "Dirección de Packaging"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Wellness",
+              "Sauna portátil",
+              "Producto físico"
+            ]
+          },
+          "mambocino": {
+            "title": "Mambocino Identidad de Marca",
+            "meta": "Identidad de Marca",
+            "summary": "Marca de café",
+            "scope": "Producto de café",
+            "service": "Identidad de marca, lenguaje visual, dirección de packaging",
+            "description": "Construí la marca Mambocino alrededor de naming, packaging y un sistema visual listo para retail para productos de café de especialidad.",
+            "services": [
+              "Identidad de Marca",
+              "Lenguaje Visual",
+              "Dirección de Packaging"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Café",
+              "Packaging",
+              "FMCG"
+            ]
+          },
+          "samurai-bros": {
+            "title": "Samurai Bros Diseño de Packaging",
+            "meta": "Identidad de Marca",
+            "summary": "Café Cold Brew",
+            "scope": "Packaging de café",
+            "service": "Identidad de marca, dirección de packaging, visuales de producto",
+            "description": "Diseñé el sistema de packaging de Samurai Bros con contraste fuerte, jerarquía clara de producto y una presentación centrada en botella que funciona tanto en anaquel como en visuales de producto.",
+            "services": [
+              "Identidad de Marca",
+              "Dirección de Packaging",
+              "Visuales de Producto"
+            ],
+            "techStack": [
+              "Figma",
+              "Adobe Illustrator",
+              "Adobe Photoshop"
+            ],
+            "industry": [
+              "Café",
+              "Packaging",
+              "FMCG"
+            ]
+          },
+          "sales-training-game": {
+            "title": "Sales Training Game",
+            "meta": "Motion Design",
+            "summary": "Juego de entrenamiento de ventas",
+            "scope": "Experiencia interactiva de entrenamiento",
+            "service": "Motion Design, diseño de interacción",
+            "description": "Diseñé un concepto interactivo de juego para entrenamiento de ventas con dirección motion, ritmo UX y patrones ligeros de gameplay para escenarios de aprendizaje.",
+            "services": [
+              "Motion Design",
+              "Diseño de Interacción",
+              "Prototype Motion"
+            ],
+            "techStack": [
+              "Figma",
+              "After Effects",
+              "Motion"
+            ],
+            "industry": [
+              "Entrenamiento de ventas",
+              "EdTech",
+              "Aprendizaje interactivo"
             ]
           }
         }

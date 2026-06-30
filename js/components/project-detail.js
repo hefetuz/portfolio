@@ -7,6 +7,8 @@ const visualAnimations = new WeakMap();
 const visualResizeObservers = new WeakMap();
 const LIGHTBOX_EXIT_MS = 320;
 let lightboxCloseTimer = 0;
+let lockedScrollY = 0;
+let isLightboxScrollLocked = false;
 const BENTO_VISUAL_SLOTS = [
   { columns: 7, rows: 34 },
   { columns: 5, rows: 16 },
@@ -290,6 +292,7 @@ function openVisualLightbox({ source, type = "image", alt = "", poster = "" }) {
   if (!lightbox || !image || !video || !source) return;
 
   window.clearTimeout(lightboxCloseTimer);
+  lockLightboxScroll();
   const mediaType = type || getMediaType(source);
   image.hidden = mediaType === "video";
   video.hidden = mediaType !== "video";
@@ -343,7 +346,29 @@ function closeVisualLightbox() {
     lightbox.hidden = true;
     lightbox.classList.remove("is-closing");
     clearLightboxMedia();
+    unlockLightboxScroll();
   }, LIGHTBOX_EXIT_MS);
+}
+
+function lockLightboxScroll() {
+  if (isLightboxScrollLocked) return;
+
+  lockedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  document.documentElement.classList.add("is-lightbox-open");
+  document.body.style.setProperty("--locked-scroll-y", `-${lockedScrollY}px`);
+  document.body.classList.add("is-scroll-locked");
+  isLightboxScrollLocked = true;
+}
+
+function unlockLightboxScroll() {
+  if (!isLightboxScrollLocked) return;
+
+  document.documentElement.classList.remove("is-lightbox-open");
+  document.body.classList.remove("is-scroll-locked");
+  document.body.style.removeProperty("--locked-scroll-y");
+  window.scrollTo({ top: lockedScrollY, behavior: "auto" });
+  lockedScrollY = 0;
+  isLightboxScrollLocked = false;
 }
 
 export function getProjectSlug(project, index = 0) {

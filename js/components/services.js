@@ -15,8 +15,7 @@ const serviceKeys = [
   ["product", "product"],
   ["web", "web"],
   ["brand", "brand"],
-  ["motion", "motion"],
-  ["artwork", "artwork"]
+  ["motion", "motion"]
 ];
 
 function getServiceKey(title = "") {
@@ -128,6 +127,20 @@ function updateServiceSelection(target) {
   next.hidden = selectedServices.length === 0;
   next.setAttribute("aria-hidden", String(selectedServices.length === 0));
   next.setAttribute("aria-disabled", String(selectedServices.length === 0));
+}
+
+function resetServicePicker(target) {
+  target._serviceAbort?.abort();
+  window.clearTimeout(target._serviceSuccessPreviewTimeout);
+  delete target._serviceAbort;
+  delete target._serviceSuccessPreviewTimeout;
+  clearServiceStepTimers(target);
+  delete target.dataset.serviceStep;
+  delete target.dataset.serviceDirection;
+  target.classList.remove("is-transitioning");
+  target.style.removeProperty("height");
+  target.style.removeProperty("overflow-x");
+  target.style.removeProperty("overflow-y");
 }
 
 function getHeadingCopy(target) {
@@ -343,28 +356,33 @@ function setServiceStep(target, step) {
 function bindServiceSelection(target, config) {
   const { email, web3FormsAccessKey, labels } = config;
   const section = target.closest(".services");
+  const controller = new AbortController();
+  const listenerOptions = { signal: controller.signal };
   let successPreviewTimeout;
+  target._serviceAbort = controller;
   target._serviceLabels = labels;
 
   const showSuccessPreview = (duration = 1800) => {
     window.clearTimeout(successPreviewTimeout);
+    window.clearTimeout(target._serviceSuccessPreviewTimeout);
     setServiceStep(target, 3);
     successPreviewTimeout = window.setTimeout(() => {
       setServiceStep(target, 1);
     }, duration);
+    target._serviceSuccessPreviewTimeout = successPreviewTimeout;
   };
 
   section?.addEventListener("click", (event) => {
     if (!event.target.closest("[data-service-back]")) return;
     event.preventDefault();
     setServiceStep(target, 1);
-  });
+  }, listenerOptions);
 
   target.addEventListener("change", (event) => {
     if (!event.target.matches("[data-service-select]")) return;
     updateServiceSelection(target);
     event.target.blur();
-  });
+  }, listenerOptions);
 
   target.addEventListener("click", (event) => {
     const service = event.target.closest("[data-service-card]");
@@ -374,7 +392,7 @@ function bindServiceSelection(target, config) {
     if (!input) return;
     input.checked = !input.checked;
     input.dispatchEvent(new Event("change", { bubbles: true }));
-  });
+  }, listenerOptions);
 
   target.addEventListener("keydown", (event) => {
     if (event.key !== " " && event.key !== "Enter") return;
@@ -387,7 +405,7 @@ function bindServiceSelection(target, config) {
     if (!input) return;
     input.checked = !input.checked;
     input.dispatchEvent(new Event("change", { bubbles: true }));
-  });
+  }, listenerOptions);
 
   target.addEventListener("click", (event) => {
     if (event.target.closest("[data-service-next]")) {
@@ -403,7 +421,7 @@ function bindServiceSelection(target, config) {
       event.preventDefault();
       setServiceStep(target, 1);
     }
-  });
+  }, listenerOptions);
 
   target.addEventListener("submit", async (event) => {
     const form = event.target.closest("[data-service-form]");
@@ -450,7 +468,7 @@ function bindServiceSelection(target, config) {
       submit.disabled = false;
       submit.textContent = submitLabel;
     }
-  });
+  }, listenerOptions);
 
   setServiceStep(target, 1);
   updateServiceSelection(target);
@@ -482,6 +500,7 @@ export function renderServices(services, target = document.getElementById("servi
   const serviceConfig = getServiceConfig(config);
   const labels = serviceConfig.labels;
 
+  resetServicePicker(target);
   target.className = "service-picker";
   target.innerHTML = `
     <div class="service-step service-step-services" data-service-step="1">

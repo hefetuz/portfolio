@@ -1,8 +1,15 @@
 const LANGUAGE_STORAGE_KEY = "portfolio-language";
+const SUPPORTED_LANGUAGES = new Set(["EN", "TR", "DE", "ES"]);
+const FALLBACK_LANGUAGES = [
+  { id: "EN", label: "EN", name: "English", flag: "assets/flag-gb.webp" },
+  { id: "TR", label: "TR", name: "Turkish", flag: "assets/flag-tr.webp" },
+  { id: "DE", label: "DE", name: "Deutsch", flag: "assets/flag-de.png" },
+  { id: "ES", label: "ES", name: "Espa\u00f1ol", flag: "assets/flag-es.png" }
+];
 
 export function normalizeLanguage(language = "") {
   const value = String(language || "").trim().toUpperCase();
-  return value === "TR" ? "TR" : "EN";
+  return SUPPORTED_LANGUAGES.has(value) ? value : "EN";
 }
 
 export function getInitialLanguage(content) {
@@ -20,10 +27,7 @@ export function persistLanguage(language) {
 export function getAvailableLanguages(content) {
   return content?.locales?.available?.length
     ? content.locales.available
-    : [
-      { id: "EN", label: "EN", name: "English", flag: "assets/flag-gb.webp" },
-      { id: "TR", label: "TR", name: "Turkish", flag: "assets/flag-tr.webp" }
-    ];
+    : FALLBACK_LANGUAGES;
 }
 
 export function localizeContent(content, language) {

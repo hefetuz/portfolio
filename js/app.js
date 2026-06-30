@@ -27,6 +27,26 @@ const state = {
   detailView: "single",
   activeProjectIndex: -1
 };
+const HTML_LANGUAGE_MAP = {
+  DE: "de",
+  EN: "en",
+  ES: "es",
+  TR: "tr"
+};
+const MOBILE_VIEW_QUERY = "(max-width: 760px)";
+const mobileViewMedia = window.matchMedia(MOBILE_VIEW_QUERY);
+
+function isMobileView() {
+  return mobileViewMedia.matches;
+}
+
+function getEffectiveProjectView(view = state.view) {
+  return isMobileView() ? "single" : view;
+}
+
+function getEffectiveDetailView(view = state.detailView) {
+  return isMobileView() ? "single" : view;
+}
 
 if ("scrollRestoration" in window.history) {
   window.history.scrollRestoration = "manual";
@@ -36,14 +56,14 @@ function renderCurrentProjects() {
   renderProjects({
     projects: state.content.projects,
     filter: state.filter,
-    view: state.view
+    view: getEffectiveProjectView()
   });
 }
 
 function setViewMode(view) {
   if (state.view === view) return;
   state.view = view;
-  animateProjectViewChange({ view: state.view });
+  animateProjectViewChange({ view: getEffectiveProjectView() });
 }
 
 function renderActiveProjectDetail() {
@@ -54,7 +74,7 @@ function renderActiveProjectDetail() {
     project,
     projects: state.content.projects,
     index: state.activeProjectIndex,
-    view: state.detailView,
+    view: getEffectiveDetailView(),
     labels: state.content.ui?.projectDetail || {}
   });
 }
@@ -62,7 +82,7 @@ function renderActiveProjectDetail() {
 function setDetailViewMode(view) {
   if (state.detailView === view) return;
   state.detailView = view;
-  animateProjectVisualViewChange({ view: state.detailView });
+  animateProjectVisualViewChange({ view: getEffectiveDetailView() });
 }
 
 function setProjectDetail(index) {
@@ -79,7 +99,7 @@ function setProjectDetail(index) {
 }
 
 function setDocumentMeta(content) {
-  document.documentElement.lang = content.language?.toLowerCase?.() === "tr" ? "tr" : "en";
+  document.documentElement.lang = HTML_LANGUAGE_MAP[content.language] || "en";
   document.title = state.activeProjectIndex >= 0
     ? `${content.projects[state.activeProjectIndex]?.title || content.site.brandName} | ${content.site.brandName}`
     : content.site.title;
@@ -164,6 +184,19 @@ function handleRoute() {
   clearProjectView();
 }
 
+function handleResponsiveViewChange() {
+  if (!state.content) return;
+
+  if (state.activeProjectIndex >= 0) {
+    renderActiveProjectDetail();
+    requestAnimationFrame(updateAllTabIndicators);
+    return;
+  }
+
+  renderCurrentProjects();
+  requestAnimationFrame(updateAllTabIndicators);
+}
+
 function bindInteractions() {
   bindAdaptiveTooltips();
 
@@ -202,6 +235,11 @@ function bindInteractions() {
   window.addEventListener("popstate", handleRoute);
   window.addEventListener("resize", updateAllTabIndicators);
   window.addEventListener("load", updateAllTabIndicators);
+  if (typeof mobileViewMedia.addEventListener === "function") {
+    mobileViewMedia.addEventListener("change", handleResponsiveViewChange);
+  } else {
+    mobileViewMedia.addListener(handleResponsiveViewChange);
+  }
 }
 
 function revealWorkToolbar() {
