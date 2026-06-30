@@ -65,7 +65,43 @@ function projectInfoColumnTemplate(label, values) {
   `;
 }
 
-function visualTemplate(media, index, project) {
+function projectNavigationTemplate(projects = [], activeIndex = 0, labels = {}) {
+  if (!Array.isArray(projects) || projects.length < 2) return "";
+
+  const previousIndex = (activeIndex - 1 + projects.length) % projects.length;
+  const nextIndex = (activeIndex + 1) % projects.length;
+  const previousProject = projects[previousIndex];
+  const nextProject = projects[nextIndex];
+
+  return `
+    <nav class="project-detail-nav" aria-label="Project navigation">
+      <a class="project-nav-link project-nav-prev" href="${escapeAttr(`${getRouteBasePath()}${DETAIL_PATH_SEGMENT}/${encodeURIComponent(getProjectSlug(previousProject, previousIndex))}/`)}" data-project-nav="${previousIndex}">
+        <span class="project-nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M19 12H5"></path>
+            <path d="M11 6l-6 6 6 6"></path>
+          </svg>
+        </span>
+        <span class="project-nav-copy">
+          <strong class="text-ui">${escapeHtml(previousProject.title)}</strong>
+        </span>
+      </a>
+      <a class="project-nav-link project-nav-next" href="${escapeAttr(`${getRouteBasePath()}${DETAIL_PATH_SEGMENT}/${encodeURIComponent(getProjectSlug(nextProject, nextIndex))}/`)}" data-project-nav="${nextIndex}">
+        <span class="project-nav-copy">
+          <strong class="text-ui">${escapeHtml(nextProject.title)}</strong>
+        </span>
+        <span class="project-nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12h14"></path>
+            <path d="M13 6l6 6-6 6"></path>
+          </svg>
+        </span>
+      </a>
+    </nav>
+  `;
+}
+
+function visualTemplate(media, index, project, labels = {}) {
   const item = normalizeMediaItem(media, project.title);
   const source = item.src;
   const alt = item.alt || project.title;
@@ -75,12 +111,12 @@ function visualTemplate(media, index, project) {
 
   return `
     <figure class="project-visual" data-bento-index="${index}" style="${style.join(";")}">
-      <button class="project-visual-zoom" type="button" data-visual-zoom="${escapeAttr(source)}" data-visual-type="${escapeAttr(item.type)}" data-visual-alt="${escapeAttr(alt)}"${item.poster ? ` data-visual-poster="${escapeAttr(item.poster)}"` : ""} aria-label="Expand ${escapeAttr(alt)}">
+      <button class="project-visual-zoom" type="button" data-visual-zoom="${escapeAttr(source)}" data-visual-type="${escapeAttr(item.type)}" data-visual-alt="${escapeAttr(alt)}"${item.poster ? ` data-visual-poster="${escapeAttr(item.poster)}"` : ""} aria-label="${escapeAttr(`${labels.expandVisual || "Expand"} ${alt}`)}">
         ${mediaElementTemplate(item, "", {
-          loading: "eager",
+          loading: index < 3 ? "eager" : "lazy",
           decoding: "async",
-          fetchPriority: index < 4 ? "high" : "auto",
-          preload: index < 3 ? "auto" : "metadata"
+          fetchPriority: index < 2 ? "high" : "auto",
+          preload: index < 2 ? "auto" : "metadata"
         })}
       </button>
     </figure>
@@ -202,6 +238,7 @@ function bindVisualLoadState(showcase) {
 
 function warmProjectMedia(media = []) {
   media.forEach((item, index) => {
+    if (index >= 4) return;
     const normalized = normalizeMediaItem(item);
     if (!normalized.src) return;
 
@@ -359,6 +396,7 @@ export function renderProjectDetail({
   projects,
   index,
   view = "single",
+  labels = {},
   panel = document.getElementById("projectDetailPanel"),
   showcase = document.getElementById("projectShowcase")
 }) {
@@ -376,27 +414,28 @@ export function renderProjectDetail({
 
   panel.innerHTML = `
     <div class="project-detail-header">
-      <a class="btn btn-small secondary project-back" href="${escapeAttr(getHomePath())}" data-project-back aria-label="Back to work">
+      <a class="btn btn-small secondary project-back" href="${escapeAttr(getHomePath())}" data-project-back aria-label="${escapeAttr(labels.backToWork || "Back to work")}">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M15 6l-6 6 6 6"></path>
         </svg>
       </a>
       <div class="project-detail-copy">
         <h1>${escapeHtml(project.title)}</h1>
+        <p class="project-detail-description text-body text-muted">${escapeHtml(project.description)}</p>
       </div>
     </div>
-    <p class="project-detail-description text-body text-muted">${escapeHtml(project.description)}</p>
     <div class="project-detail-divider" aria-hidden="true"></div>
     <div class="project-detail-info">
-      ${projectInfoColumnTemplate("Services", services)}
-      ${projectInfoColumnTemplate("Tech Stack", techStack)}
-      ${projectInfoColumnTemplate("Industry", industry)}
-      ${projectInfoColumnTemplate("Year", year)}
+      ${projectInfoColumnTemplate(labels.services || "Services", services)}
+      ${projectInfoColumnTemplate(labels.techStack || "Tech Stack", techStack)}
+      ${projectInfoColumnTemplate(labels.industry || "Industry", industry)}
+      ${projectInfoColumnTemplate(labels.year || "Year", year)}
     </div>
+    ${projectNavigationTemplate(projects, index, labels)}
   `;
 
   showcase.innerHTML = `
-    ${media.map((item, mediaIndex) => visualTemplate(item, mediaIndex, project)).join("")}
+    ${media.map((item, mediaIndex) => visualTemplate(item, mediaIndex, project, labels)).join("")}
   `;
 
   showcase.querySelectorAll(".project-visual").forEach((visual, visualIndex) => {
@@ -487,12 +526,22 @@ export function clearProjectDetail({
   }
 }
 
-export function bindProjectDetail({ onBack }) {
+export function bindProjectDetail({ onBack, onNavigate }) {
   document.addEventListener("click", (event) => {
     const trigger = event.target.closest("[data-project-back]");
     if (trigger) {
       event.preventDefault();
       onBack?.();
+      return;
+    }
+
+    const navTrigger = event.target.closest("[data-project-nav]");
+    if (navTrigger) {
+      event.preventDefault();
+      const index = Number(navTrigger.dataset.projectNav);
+      if (Number.isFinite(index)) {
+        onNavigate?.(index);
+      }
       return;
     }
 

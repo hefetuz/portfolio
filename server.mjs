@@ -1,9 +1,10 @@
 import { createReadStream, existsSync, statSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import { createServer } from "node:http";
-import { extname, join, normalize } from "node:path";
+import { dirname, extname, join, resolve, sep } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const root = new URL(".", import.meta.url).pathname.slice(1);
+const root = dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PORT || 4174);
 
 const types = {
@@ -27,6 +28,11 @@ const mediaDirectory = join(root, "assets", "cms");
 const maxUploadBytes = 50 * 1024 * 1024;
 const mediaExtensions = new Set([".avif", ".gif", ".jpeg", ".jpg", ".m4v", ".mov", ".mp4", ".ogg", ".ogv", ".png", ".svg", ".webm", ".webp"]);
 const videoExtensions = new Set([".m4v", ".mov", ".mp4", ".ogg", ".ogv", ".webm"]);
+const securityHeaders = {
+  "X-Content-Type-Options": "nosniff",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+};
 
 function readRequestBody(request, maxBytes = maxUploadBytes) {
   return new Promise((resolve, reject) => {
@@ -94,6 +100,15 @@ function sanitizeFilename(filename = "") {
 
 createServer((request, response) => {
   const url = new URL(request.url, `http://${request.headers.host}`);
+  const respond = (status, headers = {}, body = "") => {
+    response.writeHead(status, { ...securityHeaders, ...headers });
+    response.end(body);
+  };
+
+  if (!["GET", "HEAD", "POST"].includes(request.method)) {
+    respond(405, { "Allow": "GET, HEAD, POST" }, "Method not allowed");
+    return;
+  }
 
   if (request.method === "POST" && url.pathname === "/api/media") {
     readRequestBody(request)
@@ -109,6 +124,7 @@ createServer((request, response) => {
         await writeFile(join(mediaDirectory, filename), file.buffer);
 
         response.writeHead(200, {
+          ...securityHeaders,
           "Content-Type": "application/json; charset=utf-8",
           "Cache-Control": "no-store"
         });
@@ -120,6 +136,7 @@ createServer((request, response) => {
       })
       .catch((error) => {
         response.writeHead(400, {
+          ...securityHeaders,
           "Content-Type": "application/json; charset=utf-8",
           "Cache-Control": "no-store"
         });
@@ -145,12 +162,14 @@ createServer((request, response) => {
         const content = JSON.parse(body);
         await writeFile(join(root, "cms", "content.json"), `${JSON.stringify(content, null, 2)}\n`, "utf8");
         response.writeHead(200, {
+          ...securityHeaders,
           "Content-Type": "application/json; charset=utf-8",
           "Cache-Control": "no-store"
         });
         response.end(JSON.stringify({ ok: true }));
       } catch (error) {
         response.writeHead(400, {
+          ...securityHeaders,
           "Content-Type": "application/json; charset=utf-8",
           "Cache-Control": "no-store"
         });
@@ -161,11 +180,23 @@ createServer((request, response) => {
     return;
   }
 
-  const cleanPath = normalize(decodeURIComponent(url.pathname)).replace(/^(\.\.[/\\])+/, "");
-  let filePath = join(root, cleanPath);
+  let requestedPath = "";
+  try {
+    requestedPath = decodeURIComponent(url.pathname).replace(/^[/\\]+/, "");
+  } catch {
+    respond(400, {}, "Bad request");
+    return;
+  }
+
+  let filePath = resolve(root, requestedPath);
+  const rootPrefix = `${root}${sep}`;
+  if (filePath !== root && !filePath.startsWith(rootPrefix)) {
+    respond(403, {}, "Forbidden");
+    return;
+  }
 
   if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
-    filePath = join(filePath, "index.html");
+    filePath = resolve(filePath, "index.html");
   }
 
   if (!existsSync(filePath)) {
@@ -176,16 +207,20 @@ createServer((request, response) => {
     }
 
     if (!existsSync(filePath)) {
-      response.writeHead(404);
-      response.end("Not found");
+      respond(404, {}, "Not found");
       return;
     }
   }
 
   response.writeHead(200, {
+    ...securityHeaders,
     "Content-Type": types[extname(filePath)] || "application/octet-stream",
     "Cache-Control": "no-store"
   });
+  if (request.method === "HEAD") {
+    response.end();
+    return;
+  }
   createReadStream(filePath).pipe(response);
 }).listen(port, "127.0.0.1", () => {
   console.log(`Local preview: http://127.0.0.1:${port}/`);

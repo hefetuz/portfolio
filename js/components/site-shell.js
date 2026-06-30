@@ -1,7 +1,11 @@
 import { escapeAttr, escapeHtml } from "../utils/dom.js";
 
 export function wireLinks(content) {
-  document.getElementById("emailLink").href = `mailto:${content.site.email}`;
+  const emailLink = document.getElementById("emailLink");
+  if (emailLink) {
+    emailLink.href = `mailto:${content.site.email}`;
+    emailLink.querySelector("span").textContent = content.ui?.shell?.email || "Email";
+  }
   renderSocialLinks(content);
 }
 
@@ -18,9 +22,9 @@ function renderSocialLinks(content) {
 
   socialLinks.style.setProperty("--social-tab-count", links.length);
   socialLinks.innerHTML = `
-    <span class="social-label text-ui" aria-hidden="true">Social</span>
+    <span class="social-label text-ui" aria-hidden="true">${escapeHtml(content.ui?.shell?.social || "Social")}</span>
     ${links.map(([label, icon, url]) => `
-    <a class="social-tab t-tt-wrap" href="${escapeAttr(url)}" target="_blank" rel="noreferrer" aria-label="${escapeAttr(label)}" aria-describedby="tt-social-${escapeAttr(icon)}">
+    <a class="social-tab t-tt-wrap" href="${escapeAttr(url)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeAttr(label)}" aria-describedby="tt-social-${escapeAttr(icon)}">
       <span class="social-icon social-icon-${escapeAttr(icon)}" aria-hidden="true">
         ${socialIcon(icon)}
       </span>
@@ -40,22 +44,38 @@ function socialIcon(icon) {
   return icons[icon] ?? icons.x;
 }
 
-export function bindLanguageMenu() {
+export function bindLanguageMenu({
+  languages = [],
+  currentLanguage = "EN",
+  onChange
+} = {}) {
   const menu = document.querySelector("[data-language-menu]");
   if (!menu) return;
 
   const trigger = menu.querySelector(".language-trigger");
   const dropdown = menu.querySelector(".language-dropdown");
-  const items = [...menu.querySelectorAll("[data-language]")];
-  if (!trigger || !dropdown || !items.length) return;
+  if (!trigger || !dropdown) return;
 
   let closeTimer = 0;
   const triggerLabel = trigger.querySelector("[data-language-current]");
+  const availableLanguages = languages.length ? languages : [
+    { id: "EN", label: "EN", name: "English", flag: "assets/flag-gb.webp" },
+    { id: "TR", label: "TR", name: "Turkish", flag: "assets/flag-tr.webp" }
+  ];
 
   const setTriggerLanguage = (language) => {
     if (triggerLabel) {
       triggerLabel.textContent = language;
     }
+  };
+
+  const renderOptions = (selectedLanguage) => {
+    dropdown.innerHTML = availableLanguages.map((language) => `
+      <button type="button" role="menuitemradio" aria-checked="${String(language.id === selectedLanguage)}" data-language="${escapeAttr(language.id)}" aria-label="${escapeAttr(language.name || language.label || language.id)}">
+        <span>${escapeHtml(language.label || language.id)}</span>
+        ${language.flag ? `<img class="language-flag" src="${escapeAttr(language.flag)}" alt="" aria-hidden="true">` : ""}
+      </button>
+    `).join("");
   };
 
   const openMenu = () => {
@@ -88,15 +108,19 @@ export function bindLanguageMenu() {
     openMenu();
   });
 
-  items.forEach((item) => {
-    item.addEventListener("click", () => {
-      const language = item.dataset.language;
-      setTriggerLanguage(language);
-      items.forEach((option) => {
-        option.setAttribute("aria-checked", String(option === item));
-      });
-      closeMenu();
+  renderOptions(currentLanguage);
+  setTriggerLanguage(currentLanguage);
+
+  dropdown.addEventListener("click", (event) => {
+    const item = event.target.closest("[data-language]");
+    if (!item) return;
+    const language = item.dataset.language;
+    setTriggerLanguage(language);
+    dropdown.querySelectorAll("[data-language]").forEach((option) => {
+      option.setAttribute("aria-checked", String(option === item));
     });
+    closeMenu();
+    onChange?.(language);
   });
 
   document.addEventListener("pointerdown", (event) => {
@@ -113,12 +137,13 @@ export function bindLanguageMenu() {
   });
 }
 
-export function updateClock() {
+export function updateClock(language = document.documentElement.lang) {
   const clock = document.getElementById("clock");
   if (!clock) return;
 
   const now = new Date();
-  clock.textContent = new Intl.DateTimeFormat("tr-TR", {
+  const locale = String(language).toLowerCase().startsWith("tr") ? "tr-TR" : "en-US";
+  clock.textContent = new Intl.DateTimeFormat(locale, {
     timeZone: "Europe/Istanbul",
     hour: "2-digit",
     minute: "2-digit",

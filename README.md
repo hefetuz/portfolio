@@ -20,13 +20,19 @@ CMS media uploads are stored locally in `assets/cms/`.
 npm run build
 ```
 
-The static deployment output is generated in `dist/`. The build creates:
+The static deployment output is generated in `dist/`. `npm run build` validates CMS content before writing deployment files. The build creates:
 
 - SEO-ready root page metadata
 - Static project routes under `work/<project-slug>/`
 - `sitemap.xml`
 - `robots.txt`
 - `site.webmanifest`
+
+The local CMS panel is not included in production builds by default. To include it for a private preview build:
+
+```bash
+INCLUDE_CMS=true npm run build
+```
 
 Set `SITE_URL` or `BASE_PATH` when deploying somewhere other than GitHub Pages:
 

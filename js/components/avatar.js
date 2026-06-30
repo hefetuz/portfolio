@@ -1,15 +1,34 @@
-const FPS = 30;
+const FPS = 36;
 const MAX_FRAMES = 90;
-const FORWARD_SPEED = 1.5;
-const REVERSE_SPEED = 2.25;
+const FORWARD_SPEED = 1;
+const REVERSE_SPEED = 1.35;
 const END_EPSILON = 0.08;
 
 export function bindAvatar(source) {
   const profile = document.querySelector(".profile");
+  const image = document.getElementById("avatarImage");
   const video = document.getElementById("avatarVideo");
   const canvas = document.getElementById("avatarCanvas");
   if (!profile || !(video instanceof HTMLVideoElement) || !(canvas instanceof HTMLCanvasElement)) return;
 
+  const isSpriteSource = /\.json(?:[?#].*)?$/i.test(source || "");
+  if (isSpriteSource) {
+    image?.classList.add("is-hidden");
+    video.classList.add("is-hidden");
+    bindSpriteAvatar({ profile, canvas, source });
+    return;
+  }
+
+  const isImageSource = /\.(gif|png|jpe?g|webp|avif|svg)(?:[?#].*)?$/i.test(source || "");
+  if (isImageSource && image instanceof HTMLImageElement) {
+    image.src = source;
+    image.classList.remove("is-hidden");
+    video.classList.add("is-hidden");
+    canvas.classList.add("is-hidden");
+    return;
+  }
+
+  image?.classList.add("is-hidden");
   const context = canvas.getContext("2d");
   if (!context) return;
 
@@ -183,4 +202,119 @@ export function bindAvatar(source) {
   showCanvas();
   profile.addEventListener("pointerenter", playForward);
   profile.addEventListener("pointerleave", playBackward);
+}
+
+function bindSpriteAvatar({ profile, canvas, source }) {
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  const avatarTarget = profile;
+  canvas.classList.remove("is-hidden");
+  let sprite = null;
+  let metadata = null;
+  let frameIndex = 0;
+  let animationId = 0;
+
+  const drawFrame = (index) => {
+    if (!sprite || !metadata) return;
+
+    const frameWidth = metadata.frameWidth;
+    const frameHeight = metadata.frameHeight;
+    const scale = Math.max(canvas.width / frameWidth, canvas.height / frameHeight);
+    const width = frameWidth * scale;
+    const height = frameHeight * scale;
+    const x = (canvas.width - width) / 2;
+    const y = (canvas.height - height) / 2;
+    const safeIndex = Math.max(metadata.startFrame, Math.min(metadata.endFrame, Math.round(index)));
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(
+      sprite,
+      safeIndex * frameWidth,
+      0,
+      frameWidth,
+      frameHeight,
+      x,
+      y,
+      width,
+      height
+    );
+  };
+
+  const stopAnimation = () => {
+    if (!animationId) return;
+    cancelAnimationFrame(animationId);
+    animationId = 0;
+  };
+
+  const playTo = (target, speed) => {
+    stopAnimation();
+
+    const framesPerSecond = Math.max(24, Math.min(48, Number(metadata.frameRate) || FPS)) * speed;
+    frameIndex = Math.max(metadata.startFrame, Math.min(metadata.endFrame, frameIndex));
+    const startFrame = frameIndex;
+    const distance = target - startFrame;
+    const duration = Math.max(120, Math.abs(distance) / framesPerSecond * 1000);
+    const startTime = performance.now();
+    drawFrame(frameIndex);
+
+    const step = (time) => {
+      const elapsed = Math.max(16, time - startTime);
+      const progress = Math.min(elapsed / duration, 1);
+      frameIndex = startFrame + distance * progress;
+
+      if (progress >= 1) {
+        frameIndex = target;
+        drawFrame(frameIndex);
+        animationId = 0;
+        return;
+      }
+
+      drawFrame(frameIndex);
+      animationId = requestAnimationFrame(step);
+    };
+
+    step(performance.now());
+  };
+
+  fetch(source)
+    .then((response) => response.json())
+    .then((data) => {
+      metadata = {
+        image: data.image,
+        frameWidth: Number(data.frameWidth) || 1,
+        frameHeight: Number(data.frameHeight) || 1,
+        frames: Number(data.frames) || 1,
+        startFrame: Math.max(1, Number(data.startFrame) || 1),
+        endFrame: Math.min(
+          Number(data.frames) - 1 || 1,
+          Number(data.endFrame) || Math.max(1, (Number(data.frames) || 1) - 2)
+        ),
+        frameRate: Number(data.frameRate) || FPS
+      };
+      sprite = new Image();
+      sprite.decoding = "async";
+      sprite.onload = () => {
+        frameIndex = metadata.startFrame;
+        drawFrame(frameIndex);
+      };
+      sprite.src = metadata.image;
+    })
+    .catch(() => {
+      canvas.classList.add("is-hidden");
+    });
+
+  avatarTarget.addEventListener("pointerenter", () => {
+    if (!metadata) return;
+    profile.classList.add("is-avatar-active");
+    playTo(metadata.endFrame, FORWARD_SPEED);
+  });
+
+  avatarTarget.addEventListener("pointerleave", () => {
+    if (!metadata) return;
+    profile.classList.remove("is-avatar-active");
+    frameIndex = Math.min(frameIndex, metadata.endFrame);
+    drawFrame(frameIndex);
+    playTo(metadata.startFrame, REVERSE_SPEED);
+  });
 }

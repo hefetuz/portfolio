@@ -30,12 +30,33 @@ function getSelectedServices(target) {
 
 function getServiceConfig(config) {
   if (typeof config === "string") {
-    return { email: config, web3FormsAccessKey: "" };
+    return { email: config, web3FormsAccessKey: "", labels: defaultServiceLabels() };
   }
 
   return {
     email: config?.email || "",
-    web3FormsAccessKey: config?.web3FormsAccessKey || ""
+    web3FormsAccessKey: config?.web3FormsAccessKey || "",
+    labels: { ...defaultServiceLabels(), ...(config?.labels || {}) }
+  };
+}
+
+function defaultServiceLabels() {
+  return {
+    servicesTitle: "Services",
+    contactTitle: "Contact Details",
+    backToServices: "Back to services",
+    selectService: "Select",
+    next: "Next",
+    name: "Name",
+    company: "Company",
+    email: "Email",
+    phone: "Phone",
+    message: "Message",
+    required: "required",
+    sending: "Sending...",
+    sendRequest: "Send Request",
+    requestSent: "Request Sent",
+    requestSuccess: "Your request was sent successfully."
   };
 }
 
@@ -129,15 +150,16 @@ function getHeadingCopy(target) {
 function updateServiceHeading(target, step) {
   const nodes = getHeadingCopy(target);
   if (!nodes) return;
+  const labels = target._serviceLabels || defaultServiceLabels();
 
   if (String(step) === "2") {
     nodes.heading.innerHTML = `
-      <button class="service-heading-back" type="button" data-service-back aria-label="Back to services">
+      <button class="service-heading-back" type="button" data-service-back aria-label="${escapeAttr(labels.backToServices)}">
         <svg viewBox="0 0 16 16" aria-hidden="true">
           <path d="M10 3.5 5.5 8l4.5 4.5"></path>
         </svg>
       </button>
-      <span>Contact Details</span>
+      <span>${escapeHtml(labels.contactTitle)}</span>
     `;
     nodes.copy.textContent = "";
     nodes.copy.hidden = true;
@@ -151,7 +173,7 @@ function updateServiceHeading(target, step) {
     return;
   }
 
-  nodes.heading.textContent = "Services";
+  nodes.heading.textContent = labels.servicesTitle;
   nodes.copy.textContent = "";
   nodes.copy.hidden = true;
 }
@@ -319,9 +341,10 @@ function setServiceStep(target, step) {
 }
 
 function bindServiceSelection(target, config) {
-  const { email, web3FormsAccessKey } = config;
+  const { email, web3FormsAccessKey, labels } = config;
   const section = target.closest(".services");
   let successPreviewTimeout;
+  target._serviceLabels = labels;
 
   const showSuccessPreview = (duration = 1800) => {
     window.clearTimeout(successPreviewTimeout);
@@ -394,6 +417,7 @@ function bindServiceSelection(target, config) {
     }
 
     const formData = new FormData(form);
+    if (String(formData.get("botcheck") || "").trim()) return;
     const submit = form.querySelector(".service-submit");
     const submitLabel = submit.textContent;
     const fallbackToMail = () => {
@@ -406,7 +430,7 @@ function bindServiceSelection(target, config) {
     }
 
     submit.disabled = true;
-    submit.textContent = "Sending...";
+    submit.textContent = labels.sending;
 
     try {
       await submitWeb3Forms({
@@ -432,7 +456,7 @@ function bindServiceSelection(target, config) {
   updateServiceSelection(target);
 }
 
-function serviceTemplate(service) {
+function serviceTemplate(service, labels = defaultServiceLabels()) {
   const items = service.items || [];
   const key = getServiceKey(service.title);
 
@@ -442,7 +466,7 @@ function serviceTemplate(service) {
       <div class="service-line text-note text-muted" aria-label="${escapeHtml(service.title)} capabilities">
         ${items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
       </div>
-      <label class="service-check" aria-label="Select ${escapeAttr(service.title)}">
+      <label class="service-check" aria-label="${escapeAttr(`${labels.selectService} ${service.title}`)}">
         <input type="checkbox" value="${escapeAttr(service.title)}" data-service-select>
         <span class="service-check-box" aria-hidden="true">
           <svg viewBox="0 0 12 10">
@@ -456,38 +480,39 @@ function serviceTemplate(service) {
 
 export function renderServices(services, target = document.getElementById("servicesList"), config = {}) {
   const serviceConfig = getServiceConfig(config);
+  const labels = serviceConfig.labels;
 
   target.className = "service-picker";
   target.innerHTML = `
     <div class="service-step service-step-services" data-service-step="1">
       <div class="service-matrix">
-        ${services.map(serviceTemplate).join("")}
+        ${services.map((service) => serviceTemplate(service, labels)).join("")}
       </div>
-      <button class="btn btn-regular primary service-next" type="button" data-service-next hidden>Next</button>
+      <button class="btn btn-regular primary service-next" type="button" data-service-next hidden>${escapeHtml(labels.next)}</button>
     </div>
     <form class="service-step service-form" data-service-step="2" data-service-form hidden>
-      <input class="sr-only" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off">
+      <input class="sr-only" type="text" name="botcheck" tabindex="-1" autocomplete="off">
       <label class="service-field">
-        <span class="text-note text-muted">Name <b aria-label="required">*</b></span>
+        <span class="text-note text-muted">${escapeHtml(labels.name)} <b aria-label="${escapeAttr(labels.required)}">*</b></span>
         <input name="name" type="text" autocomplete="name" required>
       </label>
       <label class="service-field">
-        <span class="text-note text-muted">Company</span>
+        <span class="text-note text-muted">${escapeHtml(labels.company)}</span>
         <input name="company" type="text" autocomplete="organization">
       </label>
       <label class="service-field">
-        <span class="text-note text-muted">Email <b aria-label="required">*</b></span>
+        <span class="text-note text-muted">${escapeHtml(labels.email)} <b aria-label="${escapeAttr(labels.required)}">*</b></span>
         <input name="email" type="email" autocomplete="email" required>
       </label>
       <label class="service-field">
-        <span class="text-note text-muted">Phone</span>
+        <span class="text-note text-muted">${escapeHtml(labels.phone)}</span>
         <input name="phone" type="tel" autocomplete="tel">
       </label>
       <label class="service-field service-field-message">
-        <span class="text-note text-muted">Message <b aria-label="required">*</b></span>
+        <span class="text-note text-muted">${escapeHtml(labels.message)} <b aria-label="${escapeAttr(labels.required)}">*</b></span>
         <textarea name="message" rows="4" required></textarea>
       </label>
-      <button class="btn btn-regular primary service-submit" type="submit">Send Request</button>
+      <button class="btn btn-regular primary service-submit" type="submit">${escapeHtml(labels.sendRequest)}</button>
     </form>
     <div class="service-step service-success" data-service-step="3" hidden>
       <span class="t-success-check" data-success-check data-state="out" aria-hidden="true">
@@ -496,8 +521,8 @@ export function renderServices(services, target = document.getElementById("servi
         </svg>
       </span>
       <div>
-        <h3 class="text-ui">Request Sent</h3>
-        <p class="text-note text-muted">Your request was sent successfully.</p>
+        <h3 class="text-ui">${escapeHtml(labels.requestSent)}</h3>
+        <p class="text-note text-muted">${escapeHtml(labels.requestSuccess)}</p>
       </div>
     </div>
   `;

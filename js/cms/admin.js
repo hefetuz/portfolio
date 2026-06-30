@@ -4,7 +4,7 @@ import { getMediaType, normalizeMediaItem } from "../utils/media.js";
 const CONTENT_URL = "cms/content.json";
 const SAVE_URL = "/api/content";
 const MEDIA_URL = "/api/media";
-const MEDIA_ACCEPT = "image/*,video/*";
+const MEDIA_ACCEPT = "image/*,.gif,video/*";
 
 const state = {
   content: null,
@@ -257,7 +257,7 @@ function mediaItemTemplate(media, index) {
         <label class="cms-field">
           <span class="text-ui text-muted">Type</span>
           <select data-media-field="type">
-            <option value="image"${item.type === "image" ? " selected" : ""}>Image</option>
+            <option value="image"${item.type === "image" ? " selected" : ""}>Image / GIF</option>
             <option value="video"${item.type === "video" ? " selected" : ""}>Video</option>
           </select>
         </label>
@@ -396,8 +396,8 @@ function updateMediaField(input) {
   const field = input.dataset.mediaField;
   project.media[index][field] = input.value;
 
-  if (field === "src" && !project.media[index].type) {
-    project.media[index].type = getMediaType(input.value);
+  if (field === "src") {
+    project.media[index].type = getMediaType(input.value, project.media[index].type || "image");
   }
 
   markDirty();

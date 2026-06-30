@@ -16,9 +16,12 @@ import { bindLanguageMenu, updateClock, wireLinks } from "./components/site-shel
 import { bindAdaptiveTooltips, bindTabs, renderCategoryTabs, renderViewTabs, updateAllTabIndicators } from "./components/tabs.js";
 import { setTextBindings, splitIntroWords, syncButtonLabels } from "./components/text-bindings.js";
 import { escapeHtml } from "./utils/dom.js";
+import { getAvailableLanguages, getInitialLanguage, localizeContent, persistLanguage } from "./utils/i18n.js";
 
 const state = {
+  rawContent: null,
   content: null,
+  language: "EN",
   filter: "product",
   view: "bento",
   detailView: "single",
@@ -51,7 +54,8 @@ function renderActiveProjectDetail() {
     project,
     projects: state.content.projects,
     index: state.activeProjectIndex,
-    view: state.detailView
+    view: state.detailView,
+    labels: state.content.ui?.projectDetail || {}
   });
 }
 
@@ -72,6 +76,18 @@ function setProjectDetail(index) {
   document.title = `${project.title} | ${state.content.site.brandName}`;
   requestAnimationFrame(updateAllTabIndicators);
   window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function setDocumentMeta(content) {
+  document.documentElement.lang = content.language?.toLowerCase?.() === "tr" ? "tr" : "en";
+  document.title = state.activeProjectIndex >= 0
+    ? `${content.projects[state.activeProjectIndex]?.title || content.site.brandName} | ${content.site.brandName}`
+    : content.site.title;
+
+  const description = document.querySelector("meta[name='description']");
+  if (description) {
+    description.content = content.site.description;
+  }
 }
 
 function clearProjectRoute() {
@@ -99,6 +115,41 @@ function clearProjectView() {
 
   window.scrollTo({ top: 0, behavior: "auto" });
   requestAnimationFrame(updateAllTabIndicators);
+}
+
+function renderLocalizedSite({ initial = false } = {}) {
+  if (!state.rawContent) return;
+
+  const previousFilter = state.filter;
+  state.content = localizeContent(state.rawContent, state.language);
+  setDocumentMeta(state.content);
+
+  const hasFilter = state.content.projectCategories?.some((category) => category.id === previousFilter);
+  state.filter = initial || !hasFilter ? (state.content.projectCategories?.[0]?.id ?? state.filter) : previousFilter;
+  state.view = initial ? (state.content.projectViewModes?.[0]?.id ?? state.view) : state.view;
+  state.detailView = initial ? state.view : state.detailView;
+
+  setTextBindings(state.content);
+  splitIntroWords(state.content);
+  renderCategoryTabs(state.content.projectCategories, state.filter);
+  renderViewTabs(state.content.projectViewModes, state.view);
+  renderViewTabs(state.content.projectViewModes, state.detailView, document.querySelector(".detail-view-tabs"));
+  renderServices(state.content.services, undefined, {
+    email: state.content.site.email,
+    web3FormsAccessKey: state.content.site.web3FormsAccessKey,
+    labels: state.content.ui?.serviceForm || {}
+  });
+  renderCurrentProjects();
+  wireLinks(state.content);
+  syncButtonLabels();
+  updateClock(state.language);
+
+  if (initial) {
+    bindAvatar(state.content.site.avatarMotion || state.content.site.avatar);
+  }
+
+  handleRoute();
+  updateAllTabIndicators();
 }
 
 function handleRoute() {
@@ -139,9 +190,14 @@ function bindInteractions() {
   });
 
   bindProjectDetail({
-    onBack: clearProjectRoute
+    onBack: clearProjectRoute,
+    onNavigate: (index) => {
+      const project = state.content.projects[index];
+      if (!project) return;
+      setProjectRoute(project, index);
+      handleRoute();
+    }
   });
-  bindLanguageMenu();
   window.addEventListener("hashchange", handleRoute);
   window.addEventListener("popstate", handleRoute);
   window.addEventListener("resize", updateAllTabIndicators);
@@ -159,33 +215,24 @@ function revealWorkToolbar() {
 }
 
 function hydrateSite(content) {
-  state.content = content;
-  state.filter = content.projectCategories?.[0]?.id ?? state.filter;
-  state.view = content.projectViewModes?.[0]?.id ?? state.view;
-  state.detailView = state.view;
-  document.title = content.site.title;
-  document.querySelector("meta[name='description']").content = content.site.description;
+  state.rawContent = content;
+  state.language = getInitialLanguage(content);
+  renderLocalizedSite({ initial: true });
 
-  setTextBindings(content);
-  splitIntroWords(content);
-  renderCategoryTabs(content.projectCategories, state.filter);
-  renderViewTabs(content.projectViewModes, state.view);
-  renderViewTabs(content.projectViewModes, state.detailView, document.querySelector(".detail-view-tabs"));
-  renderServices(content.services, undefined, {
-    email: content.site.email,
-    web3FormsAccessKey: content.site.web3FormsAccessKey
+  bindLanguageMenu({
+    languages: getAvailableLanguages(content),
+    currentLanguage: state.language,
+    onChange: (language) => {
+      state.language = language;
+      persistLanguage(language);
+      renderLocalizedSite();
+    }
   });
-  renderCurrentProjects();
-  wireLinks(content);
-  bindAvatar(content.site.avatar);
-  syncButtonLabels();
 
   updateAllTabIndicators();
   (document.fonts?.ready ?? Promise.resolve()).then(revealWorkToolbar);
   startAppearAnimations();
-  handleRoute();
-  updateClock();
-  window.setInterval(updateClock, 1000);
+  window.setInterval(() => updateClock(state.language), 1000);
 }
 
 bindInteractions();
@@ -193,5 +240,5 @@ bindInteractions();
 loadContent()
   .then(hydrateSite)
   .catch((error) => {
-    document.body.insertAdjacentHTML("afterbegin", `<p style="padding:24px;color:#ff8d8d">${escapeHtml(error.message)}</p>`);
+    document.body.insertAdjacentHTML("afterbegin", `<p style="padding:24px;color:oklch(0.767 0.138 20.782)">${escapeHtml(error.message)}</p>`);
   });

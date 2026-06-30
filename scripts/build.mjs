@@ -12,6 +12,7 @@ const sourceIndex = await readFile(sourceIndexPath, "utf8");
 
 const siteUrl = normalizeSiteUrl(process.env.SITE_URL || content.site.siteUrl || "https://hefetuz.github.io/portfolio");
 const basePath = normalizeBasePath(process.env.BASE_PATH || new URL(siteUrl).pathname);
+const includeCms = process.env.INCLUDE_CMS === "true";
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
@@ -21,9 +22,12 @@ await Promise.all([
   cp(join(root, "cms"), join(dist, "cms"), { recursive: true }),
   cp(join(root, "js"), join(dist, "js"), { recursive: true }),
   cp(join(root, "styles.css"), join(dist, "styles.css")),
-  cp(join(root, "cms.html"), join(dist, "cms.html")),
   cp(join(root, ".nojekyll"), join(dist, ".nojekyll"))
 ]);
+
+if (includeCms) {
+  await cp(join(root, "cms.html"), join(dist, "cms.html"));
+}
 
 const homeUrl = siteUrl;
 const homeImage = absoluteUrl(content.projects?.[0]?.image || content.site.avatar || "assets/efe-avatar.svg");
@@ -78,7 +82,10 @@ function renderPage({ title, description, canonicalUrl, imageUrl, structuredData
   const seoBlock = [
     `  <base href="${escapeAttr(basePath)}">`,
     `  <meta name="description" content="${escapeAttr(description)}">`,
-    `  <meta name="theme-color" content="#050505">`,
+    `  <meta name="theme-color" content="#0b0b0b">`,
+    `  <meta http-equiv="Content-Security-Policy" content="${escapeAttr(contentSecurityPolicy())}">`,
+    `  <meta name="referrer" content="strict-origin-when-cross-origin">`,
+    `  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()">`,
     `  <link rel="canonical" href="${escapeAttr(canonicalUrl)}">`,
     `  <link rel="manifest" href="site.webmanifest">`,
     `  <meta property="og:type" content="website">`,
@@ -97,6 +104,22 @@ function renderPage({ title, description, canonicalUrl, imageUrl, structuredData
   return sourceIndex
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`)
     .replace(/\s*<!-- SEO_START -->[\s\S]*?<!-- SEO_END -->/, `\n${seoBlock}`);
+}
+
+function contentSecurityPolicy() {
+  return [
+    "default-src 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    "img-src 'self' data: https:",
+    "media-src 'self' blob:",
+    "font-src 'self' data:",
+    "style-src 'self' 'unsafe-inline'",
+    "script-src 'self' 'unsafe-inline'",
+    "connect-src 'self' https://api.web3forms.com",
+    "form-action https://api.web3forms.com",
+    "upgrade-insecure-requests"
+  ].join("; ");
 }
 
 function renderSitemap() {
@@ -130,8 +153,8 @@ function renderManifest() {
     start_url: basePath,
     scope: basePath,
     display: "standalone",
-    background_color: "#050505",
-    theme_color: "#050505",
+    background_color: "#0b0b0b",
+    theme_color: "#0b0b0b",
     icons: [
       {
         src: "assets/efe-avatar.svg",

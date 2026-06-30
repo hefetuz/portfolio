@@ -7,7 +7,7 @@
   <!-- SEO_START -->
   <base href="/">
   <meta name="description" content="Istanbul-based Product Designer and CPO focused on AI products, design systems, UI/UX, brand identity, and product strategy.">
-  <meta name="theme-color" content="#050505">
+  <meta name="theme-color" content="#0b0b0b">
   <link rel="canonical" href="https://hefetuz.github.io/portfolio/">
   <link rel="manifest" href="site.webmanifest">
   <meta property="og:type" content="website">
@@ -29,6 +29,7 @@
     <aside class="rail" aria-label="Profile and services">
       <a class="profile" href="#top" aria-label="Home">
         <span class="avatar-media" aria-hidden="true">
+          <img id="avatarImage" class="avatar-image is-hidden" src="" alt="">
           <video id="avatarVideo" class="avatar-video" muted playsinline preload="auto"></video>
           <canvas id="avatarCanvas" class="avatar-canvas" width="88" height="88"></canvas>
         </span>
@@ -38,7 +39,7 @@
             <small class="text-ui text-muted" data-text="site.role">Product Designer & CPO</small>
           </span>
           <span class="profile-quote">
-            <span class="text-hand">“Craft is knowing how to start, art is knowing when to stop”</span>
+            <span class="text-hand">&ldquo;Craft is knowing how to start, art is knowing when to stop&rdquo;</span>
             <em>
               -Ben Affleck
               <img class="affleck-gif" src="assets/ben-affleck-regret.gif" alt="Ben Affleck smoking">
@@ -67,14 +68,14 @@
           <time id="clock" datetime="">--</time>
           <div class="language-menu" data-language-menu>
             <button class="language-trigger text-ui text-mono" type="button" aria-haspopup="menu" aria-expanded="false">
-              <span data-language-current>TR</span>
+              <span data-language-current>EN</span>
             </button>
             <div class="language-dropdown t-dropdown" data-origin="bottom-right" role="menu">
-              <button type="button" role="menuitemradio" aria-checked="true" data-language="TR" aria-label="Turkish">
+              <button type="button" role="menuitemradio" aria-checked="false" data-language="TR" aria-label="Turkish">
                 <span>TR</span>
                 <img class="language-flag" src="assets/flag-tr.webp" alt="" aria-hidden="true">
               </button>
-              <button type="button" role="menuitemradio" aria-checked="false" data-language="EN" aria-label="English">
+              <button type="button" role="menuitemradio" aria-checked="true" data-language="EN" aria-label="English">
                 <span>EN</span>
                 <img class="language-flag" src="assets/flag-gb.webp" alt="" aria-hidden="true">
               </button>
@@ -106,16 +107,14 @@
   </div>
 
   <div id="visualLightbox" class="visual-lightbox" role="dialog" aria-modal="true" aria-label="Expanded project visual" hidden>
-    <div class="visual-lightbox-stage" role="document">
+    <div class="visual-lightbox-media" role="document">
       <button class="visual-lightbox-close" type="button" data-visual-lightbox-close aria-label="Close expanded visual">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 6l12 12M18 6L6 18"></path>
         </svg>
       </button>
-      <div class="visual-lightbox-media">
-        <img id="visualLightboxImage" src="" alt="">
-        <video id="visualLightboxVideo" controls playsinline hidden></video>
-      </div>
+      <img id="visualLightboxImage" src="" alt="">
+      <video id="visualLightboxVideo" controls playsinline hidden></video>
     </div>
   </div>
 

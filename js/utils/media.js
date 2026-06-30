@@ -28,8 +28,9 @@ export function normalizeMediaItem(item, fallbackAlt = "") {
 
   const source = item?.src || item?.image || "";
   const poster = item?.poster || "";
+  const inferredType = getMediaType(source || poster, "");
   return {
-    type: item?.type || getMediaType(source || poster),
+    type: inferredType || item?.type || "image",
     src: source,
     poster,
     alt: item?.alt || fallbackAlt,
@@ -80,12 +81,14 @@ export function mediaElementTemplate(media, className = "", options = {}) {
   const decoding = options.decoding ? ` decoding="${escapeAttr(options.decoding)}"` : "";
   const fetchPriority = options.fetchPriority ? ` fetchpriority="${escapeAttr(options.fetchPriority)}"` : "";
   const preload = options.preload ? ` preload="${escapeAttr(options.preload)}"` : ` preload="metadata"`;
+  const width = item.width ? ` width="${escapeAttr(item.width)}"` : "";
+  const height = item.height ? ` height="${escapeAttr(item.height)}"` : "";
 
   if (item.type === "video") {
     return `
-      <video${classes} src="${escapeAttr(item.src)}"${item.poster ? ` poster="${escapeAttr(item.poster)}"` : ""} muted playsinline${preload}></video>
+      <video${classes} src="${escapeAttr(item.src)}"${item.poster ? ` poster="${escapeAttr(item.poster)}"` : ""}${width}${height} muted playsinline${preload}></video>
     `;
   }
 
-  return `<img${classes} src="${escapeAttr(item.src)}" alt="${escapeAttr(item.alt)}"${loading}${decoding}${fetchPriority}>`;
+  return `<img${classes} src="${escapeAttr(item.src)}" alt="${escapeAttr(item.alt)}"${width}${height}${loading}${decoding}${fetchPriority}>`;
 }

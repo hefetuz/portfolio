@@ -26,10 +26,10 @@ function projectCardTemplate(project, visibleIndex, sourceIndex) {
   return `
     <article class="project-card t-resize" tabindex="0" role="button" data-project-index="${sourceIndex}" data-bento-index="${visibleIndex}" style="--appear-delay:${80 + visibleIndex * 90}ms">
       ${mediaElementTemplate(cover, "", {
-        loading: "eager",
+        loading: visibleIndex < 4 ? "eager" : "lazy",
         decoding: "async",
-        fetchPriority: visibleIndex < 6 ? "high" : "auto",
-        preload: visibleIndex < 4 ? "auto" : "metadata"
+        fetchPriority: visibleIndex < 2 ? "high" : "auto",
+        preload: visibleIndex < 2 ? "auto" : "metadata"
       })}
       <div class="project-info">
         <div class="project-line">
@@ -146,6 +146,7 @@ function bindCardLoadState(grid) {
 
 function warmProjectCovers(projects) {
   projects.forEach(({ project }, visibleIndex) => {
+    if (visibleIndex >= 4) return;
     const cover = getProjectCover(project);
     if (!cover?.src) return;
 
